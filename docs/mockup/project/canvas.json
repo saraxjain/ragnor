@@ -1,0 +1,19 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Act.dc.html": {"h": 844, "title": "3. Flag detail", "w": 390, "x": 940, "y": 0},
+    "Main.dc.html": {"h": 844, "title": "1. Daily check-in", "w": 390, "x": 0, "y": 0},
+    "Predict.dc.html": {"h": 844, "title": "2. Today's readiness", "w": 390, "x": 470, "y": 0},
+    "Trainer.dc.html": {"h": 800, "title": "Trainer view", "w": 1280, "x": 0, "y": 964}
+  },
+  "createdOnFiles": {"at": "2026-11-14T19:52:00Z", "v": 1},
+  "designSystems": [],
+  "launch": {"view": "canvas"},
+  "notes": {
+    "n1": {"kind": "title1", "maxW": 1330, "text": "Ragnor: rough app draft (log, predict, act, trainer view)", "w": 240, "x": 0, "y": -140}
+  },
+  "order": ["Main.dc.html", "Predict.dc.html", "Act.dc.html", "Trainer.dc.html"],
+  "pages": [],
+  "title": "Ragnor app mockup (rough draft)"
+}

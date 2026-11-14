@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Trainer view</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;font-family:Lato,system-ui,sans-serif;color:#fff;background:#000}
+table{border-collapse:collapse;width:100%}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid #2C2C2E;font-size:14px;color:#fff}
+th{font-size:12px;color:#BBBBBB;text-transform:uppercase;letter-spacing:.04em}
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@700&display=swap');
+</style>
+</helmet>
+<div style="width:1280px;height:800px;box-sizing:border-box;padding:36px 44px;background:#000;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div>
+<div style="font-family:Merriweather,serif;font-weight:700;font-size:28px">&nbsp;Today's roster</div>
+<div style="font-size:14px;color:#BBBBBB">Tue, 14 Nov. Ranked by risk. Nothing is sent until you approve it.</div>
+</div>
+<div style="display:flex;gap:10px">
+<button style="min-height:44px;padding:0 16px;border:1px solid #fff;border-radius:12px;background:#000;color:#fff;font:inherit;font-weight:700">Weekly report</button>
+<button style="min-height:44px;padding:0 16px;border:0;border-radius:12px;background:#A855F7;color:#fff;font:inherit;font-weight:700">Approve briefing</button>
+</div>
+</div>
+<div style="display:flex;gap:12px">
+<div style="flex:1;background:#2A0A12;border-radius:14px;padding:14px"><div style="font-size:12px;font-weight:700;color:#FFD6DE">HIGH</div><div style="font-size:26px;font-weight:700">1</div></div>
+<div style="flex:1;background:#2B2410;border-radius:14px;padding:14px"><div style="font-size:12px;font-weight:700;color:#FFD26B">MODERATE</div><div style="font-size:26px;font-weight:700">2</div></div>
+<div style="flex:1;background:#0E2A18;border-radius:14px;padding:14px"><div style="font-size:12px;font-weight:700;color:#9BF0B8">LOW</div><div style="font-size:26px;font-weight:700">9</div></div>
+<div style="flex:1;background:#1C1C1C;border-radius:14px;padding:14px"><div style="font-size:12px;font-weight:700;color:#BBBBBB">NO CHECK-IN</div><div style="font-size:26px;font-weight:700">1</div></div>
+</div>
+<div style="flex:1;overflow:auto">
+<table>
+<thead><tr><th>Athlete</th><th>Risk</th><th>Body area</th><th>Reason (rule version)</th><th>Post-hit status</th><th>Action</th></tr></thead>
+<tbody>
+<tr style="background:#2A0A12"><td><b>J.M.</b></td><td><span style="background:#FF2D55;color:#fff;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700">High</span></td><td>Head</td><td>Post-hit symptoms rising on day 2 (red flag, v1.0)</td><td>Day 2 of 7</td><td><button style="min-height:40px;border:0;border-radius:10px;background:#FF2D55;color:#fff;font:inherit;font-weight:700;padding:0 12px">Escalated to clinician</button></td></tr>
+<tr><td><b>A.R.</b></td><td><span style="background:#F5B301;color:#111;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700">Moderate</span></td><td>Lower back</td><td>Sleep under 6 hrs for 3 nights, load up 30% (v1.2)</td><td>No</td><td><button style="min-height:40px;border:1px solid #fff;border-radius:10px;background:#000;color:#fff;font:inherit;font-weight:700;padding:0 12px">Review briefing</button></td></tr>
+<tr><td><b>D.P.</b></td><td><span style="background:#F5B301;color:#111;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700">Moderate</span></td><td>Calf</td><td>Soreness 2 of 3 for 3 days (v1.1)</td><td>No</td><td><button style="min-height:40px;border:1px solid #fff;border-radius:10px;background:#000;color:#fff;font:inherit;font-weight:700;padding:0 12px">Review briefing</button></td></tr>
+<tr><td><b>S.L.</b></td><td><span style="background:#22C55E;color:#06210F;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700">Low</span></td><td>Knee</td><td>No rule fired</td><td>No</td><td><button style="min-height:40px;border:1px solid #fff;border-radius:10px;background:#000;color:#fff;font:inherit;font-weight:700;padding:0 12px">Open</button></td></tr>
+<tr><td><b>M.C.</b></td><td><span style="background:#1C1C1C;color:#fff;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700">No check-in</span></td><td>n/a</td><td>Missed check-in 2 days in a row (v1.0)</td><td>No</td><td><button style="min-height:40px;border:1px solid #fff;border-radius:10px;background:#000;color:#fff;font:inherit;font-weight:700;padding:0 12px">Send reminder</button></td></tr>
+</tbody>
+</table>
+</div>
+<div style="font-size:12px;color:#BBBBBB">Audit log on every flag: rule version, inputs used, action taken. Escalations always go to a human; no message goes to a parent or clinician without approval.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
