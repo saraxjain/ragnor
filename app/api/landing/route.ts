@@ -1,5 +1,5 @@
 import { ok, fail, errorMessage } from "@/lib/http.ts";
-import { generateStructured, loadPrompt, live } from "@/lib/gemini.ts";
+import { generateStructured, loadPrompt, live, friendlyGeminiError } from "@/lib/gemini.ts";
 import { getAthlete, setLanding } from "@/lib/store.ts";
 import { sanitizeDeep, type LandingResult } from "@/shared/lib/index.ts";
 import landingSchema from "@/shared/schemas/landing.schema.json";
@@ -30,10 +30,14 @@ export async function POST(req: Request) {
       if (video.size > MAX_BYTES) return fail("That video is over 18 MB. Trim it to the 5-10 seconds around the landing.", 413);
       if (!video.type.startsWith("video/")) return fail("Please upload a video file (mp4, mov or webm).", 415);
       const data = Buffer.from(await video.arrayBuffer()).toString("base64");
-      result = await generateStructured<LandingResult>({
-        parts: [{ inlineData: { mimeType: video.type, data } }, { text: loadPrompt("landingcheck") }],
-        schema: landingSchema,
-      });
+      try {
+        result = await generateStructured<LandingResult>({
+          parts: [{ inlineData: { mimeType: video.type, data } }, { text: loadPrompt("landingcheck") }],
+          schema: landingSchema,
+        });
+      } catch (e) {
+        return fail(`${friendlyGeminiError(e)} You can show the sample result in the meantime.`, 503);
+      }
       mode = "gemini";
     } else {
       result = demoResult();

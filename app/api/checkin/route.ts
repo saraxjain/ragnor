@@ -1,5 +1,5 @@
 import { ok, fail, errorMessage } from "@/lib/http.ts";
-import { generateStructured, loadPrompt, live } from "@/lib/gemini.ts";
+import { generateStructured, loadPrompt, live, friendlyGeminiError } from "@/lib/gemini.ts";
 import { addCheckin, createHit, getAthlete, TODAY } from "@/lib/store.ts";
 import { sanitizeDeep, RED_FLAG_MESSAGE, type CheckIn } from "@/shared/lib/index.ts";
 import checkinSchema from "@/shared/schemas/checkin.schema.json";
@@ -78,18 +78,29 @@ export async function POST(req: Request) {
     } else if (audio instanceof File && audio.size > 0) {
       if (!live.gemini()) return fail("Voice check-ins need Gemini (GEMINI_API_KEY). You can type your check-in instead.", 503);
       const data = Buffer.from(await audio.arrayBuffer()).toString("base64");
-      ex = await generateStructured<Extracted>({
-        parts: [{ inlineData: { mimeType: audio.type || "audio/webm", data } }, { text: loadPrompt("checkin") + "\n\nThe audio is a finished recording; do not ask questions, just extract." }],
-        schema: checkinSchema,
-      });
+      try {
+        ex = await generateStructured<Extracted>({
+          parts: [{ inlineData: { mimeType: audio.type || "audio/webm", data } }, { text: loadPrompt("checkin") + "\n\nThe audio is a finished recording; do not ask questions, just extract." }],
+          schema: checkinSchema,
+        });
+      } catch (e) {
+        return fail(`${friendlyGeminiError(e)} Meanwhile, the Tap check-in works without Gemini.`, 503);
+      }
       mode = "gemini_audio";
     } else if (text) {
       if (live.gemini()) {
-        ex = await generateStructured<Extracted>({
-          parts: [{ text: `${loadPrompt("checkin")}\n\nThe athlete typed this check-in (extract only, do not ask questions):\n"""${text}"""` }],
-          schema: checkinSchema,
-        });
-        mode = "gemini_text";
+        try {
+          ex = await generateStructured<Extracted>({
+            parts: [{ text: `${loadPrompt("checkin")}\n\nThe athlete typed this check-in (extract only, do not ask questions):\n"""${text}"""` }],
+            schema: checkinSchema,
+          });
+          mode = "gemini_text";
+        } catch (e) {
+          // Gemini busy or down: read the typed check-in with the offline parser instead of failing.
+          console.warn("[checkin] Gemini failed, using offline parser:", friendlyGeminiError(e));
+          ex = roughParse(text);
+          mode = "offline";
+        }
       } else {
         ex = roughParse(text);
         mode = "offline";

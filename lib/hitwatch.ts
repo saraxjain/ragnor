@@ -5,7 +5,7 @@ import toolsFile from "../shared/agent/tools.json";
 import { sanitize, RED_FLAG_MESSAGE, type HitWatchDecision, type Urgency } from "../shared/lib/index.ts";
 import { compareHitWatch, draftAlert, getAthlete, logHitWatch, audit, type HitCall } from "./store.ts";
 import { config, live } from "./config.ts";
-import { gemini, functionDeclarations, loadAgentPrompt } from "./gemini.ts";
+import { gemini, functionDeclarations, loadAgentPrompt, withGeminiRetry } from "./gemini.ts";
 
 export type ToolName = "log_symptoms" | "compare_to_baseline" | "draft_alert" | "schedule_followup";
 
@@ -138,11 +138,13 @@ async function runWithAi(athleteId: string, day: number, transcript: NonNullable
   let finalText = "";
 
   for (let step = 0; step < 8; step++) {
-    const res = await gemini().models.generateContent({
-      model: config.geminiModel,
-      contents,
-      config: { systemInstruction: system, tools, temperature: 0.1 },
-    });
+    const res = await withGeminiRetry((model) =>
+      gemini().models.generateContent({
+        model,
+        contents,
+        config: { systemInstruction: system, tools, temperature: 0.1 },
+      }),
+    );
     const fcs = res.functionCalls ?? [];
     const modelContent = res.candidates?.[0]?.content;
     if (modelContent) contents.push(modelContent);
