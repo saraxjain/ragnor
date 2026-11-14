@@ -1,6 +1,7 @@
 import { ok } from "@/lib/http.ts";
 import { listAlerts, listAthletes, seasonReport, TODAY } from "@/lib/store.ts";
 import { integrationStatus } from "@/lib/config.ts";
+import { scoreAthlete } from "@/lib/risk.ts";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,7 @@ export async function GET() {
     flags: a.risk_today.flags,
     low_confidence: a.risk_today.low_confidence,
     landing_band: a.landing?.score.band ?? null,
+    model: (() => { const m = scoreAthlete(a); return { risk_7d: m.risk_7d, tier: m.tier, top_drivers: m.top_drivers }; })(),
     hitwatch: a.hitwatch
       ? {
           hit_id: a.hitwatch.hit_id,

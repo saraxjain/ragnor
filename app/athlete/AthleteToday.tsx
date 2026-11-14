@@ -77,7 +77,7 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
             </section>
 
             {a.hitwatch?.status === "active" && (
-              <Link href={`/athlete/hitwatch?id=${id}`} className="card" style={{ background: "var(--high-container)", color: "#410e0b", boxShadow: "none", textDecoration: "none" }}>
+              <Link href={`/athlete/hitwatch?id=${id}`} className="card" style={{ background: "var(--high-container)", color: "var(--ink)", boxShadow: "none", textDecoration: "none" }}>
                 <div className="row spread">
                   <div className="row">
                     <span className="icon-bubble" style={{ background: "var(--high)", color: "#fff", width: 40, height: 40 }}><IconPhone size={20} /></span>
@@ -126,7 +126,7 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
               </Link>
               {a.landing?.fixplan && (
                 <Link href={`/athlete/landing?id=${id}#fixplan`} className="action-tile">
-                  <span className="icon-bubble" style={{ background: "#e8def8", color: "#5b3f9a" }}><IconSpark /></span>
+                  <span className="icon-bubble" style={{ background: "var(--primary-container)", color: "var(--on-primary-container)" }}><IconSpark /></span>
                   <div style={{ flex: 1 }}><strong>Your FixPlan</strong><div className="small muted">{a.landing.fixplan.focus}</div></div>
                   <IconChevron />
                 </Link>

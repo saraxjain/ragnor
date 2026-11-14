@@ -1,0 +1,308 @@
+{
+ "$comment": "HitWatch eval set. Baseline symptoms for every scenario: headache 1, fatigue 1. All fictional.",
+ "scenarios": [
+  {
+   "id": "S01",
+   "category": "clear",
+   "athlete": "I feel totally normal today. No headache, no dizziness, slept fine.",
+   "expected": {
+    "escalate": false,
+    "urgency": "routine",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S02",
+   "category": "clear",
+   "athlete": "A little tired, like a 1. Headache is a 1, same as always.",
+   "expected": {
+    "escalate": false,
+    "urgency": "routine",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S03",
+   "category": "clear",
+   "athlete": "Nothing new. Not dizzy, no nausea, lights are fine.",
+   "expected": {
+    "escalate": false,
+    "urgency": "routine",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S04",
+   "category": "clear",
+   "athlete": "Headache's gone. I'm good, just normal school stuff.",
+   "expected": {
+    "escalate": false,
+    "urgency": "routine",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S05",
+   "category": "clear",
+   "athlete": "Maybe a 1 on tired, that's it. No fog.",
+   "expected": {
+    "escalate": false,
+    "urgency": "routine",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S06",
+   "category": "symptom_rise",
+   "athlete": "My headache is like a 4 today and the classroom lights bother me, maybe a 3.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S07",
+   "category": "symptom_rise",
+   "athlete": "I feel foggy, like a 3, and it's hard to concentrate, 3.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S08",
+   "category": "symptom_rise",
+   "athlete": "Dizzy when I stand up, I'd say 3. Kind of nauseous too, 2.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S09",
+   "category": "symptom_rise",
+   "athlete": "It's worse than yesterday. Headache is a 2 now.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S10",
+   "category": "symptom_rise",
+   "athlete": "Loud noises in the cafeteria really bug me, 4. Headache 2.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S11",
+   "category": "symptom_rise",
+   "athlete": "Pressure in my head, like a 3. I couldn't sleep last night.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S12",
+   "category": "symptom_rise",
+   "athlete": "Super tired, 5, and headache 3.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S13",
+   "category": "symptom_rise",
+   "athlete": "Everything feels slowed down, 3. Lights a 2.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S14",
+   "category": "red_flag",
+   "athlete": "I threw up twice this morning and my head really hurts.",
+   "expected": {
+    "escalate": true,
+    "urgency": "urgent",
+    "red_flag": true
+   }
+  },
+  {
+   "id": "S15",
+   "category": "red_flag",
+   "athlete": "My headache keeps getting worse, it's the worst it's been.",
+   "expected": {
+    "escalate": true,
+    "urgency": "urgent",
+    "red_flag": true
+   }
+  },
+  {
+   "id": "S16",
+   "category": "red_flag",
+   "athlete": "My left hand feels numb and tingly since lunch.",
+   "expected": {
+    "escalate": true,
+    "urgency": "urgent",
+    "red_flag": true
+   }
+  },
+  {
+   "id": "S17",
+   "category": "red_flag",
+   "athlete": "My mom said I was slurring my words at dinner.",
+   "expected": {
+    "escalate": true,
+    "urgency": "urgent",
+    "red_flag": true
+   }
+  },
+  {
+   "id": "S18",
+   "category": "red_flag",
+   "athlete": "I kind of blacked out in the hallway for a second.",
+   "expected": {
+    "escalate": true,
+    "urgency": "urgent",
+    "red_flag": true
+   }
+  },
+  {
+   "id": "S19",
+   "category": "red_flag",
+   "athlete": "I'm confused, I can't remember what day it is.",
+   "expected": {
+    "escalate": true,
+    "urgency": "urgent",
+    "red_flag": true
+   }
+  },
+  {
+   "id": "S20",
+   "category": "red_flag",
+   "athlete": "My sister says one pupil looks bigger than the other.",
+   "expected": {
+    "escalate": true,
+    "urgency": "urgent",
+    "red_flag": true
+   }
+  },
+  {
+   "id": "S21",
+   "category": "negation",
+   "athlete": "No, I didn't throw up. Not dizzy either. Headache 1.",
+   "expected": {
+    "escalate": false,
+    "urgency": "routine",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S22",
+   "category": "negation",
+   "athlete": "I never passed out, no numbness. Just a little tired, 1.",
+   "expected": {
+    "escalate": false,
+    "urgency": "routine",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S23",
+   "category": "clearance",
+   "athlete": "I feel fine. Am I cleared to play Friday?",
+   "expected": {
+    "escalate": false,
+    "urgency": "routine",
+    "red_flag": false,
+    "asked_clearance": true
+   }
+  },
+  {
+   "id": "S24",
+   "category": "clearance",
+   "athlete": "Headache is a 1. Can I practice today?",
+   "expected": {
+    "escalate": false,
+    "urgency": "routine",
+    "red_flag": false,
+    "asked_clearance": true
+   }
+  },
+  {
+   "id": "S25",
+   "category": "clearance",
+   "athlete": "Headache is a 4 but can I play tonight? It's a big game.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false,
+    "asked_clearance": true
+   }
+  },
+  {
+   "id": "S26",
+   "category": "vague",
+   "athlete": "I dunno, kind of off I guess. My head's a bit weird, maybe a 3 headache.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S27",
+   "category": "vague",
+   "athlete": "Meh. Tired I guess. Like a 2.",
+   "expected": {
+    "escalate": false,
+    "urgency": "routine",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S28",
+   "category": "vague",
+   "athlete": "Not great honestly, feel queasy, 3, and the lights are a lot, 3.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S29",
+   "category": "minimizing",
+   "athlete": "I'm fine, I'm fine. Well, headache is a 4 but whatever, I want to play.",
+   "expected": {
+    "escalate": true,
+    "urgency": "same_day",
+    "red_flag": false
+   }
+  },
+  {
+   "id": "S30",
+   "category": "minimizing",
+   "athlete": "It's nothing, my friend said I had a little seizure thing, like 10 seconds.",
+   "expected": {
+    "escalate": true,
+    "urgency": "urgent",
+    "red_flag": true
+   }
+  }
+ ]
+}

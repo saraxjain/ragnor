@@ -6,6 +6,7 @@ import { HitWatchCall } from "@/components/HitWatchCall.tsx";
 import { IconAlert, IconCheck, IconPhone, IconBolt, IconRefresh, IconSpark, IconChevron, IconUsers, IconShield } from "@/components/icons.tsx";
 import type { Alert } from "@/lib/store.ts";
 import type { Flag } from "@/shared/lib/index.ts";
+import { RiskBadge } from "@/components/RiskPanel.tsx";
 
 interface RosterRow {
   id: string;
@@ -17,6 +18,7 @@ interface RosterRow {
   flags: Flag[];
   low_confidence: boolean;
   landing_band: Band | null;
+  model: { risk_7d: number; tier: "elevated" | "watch" | "typical"; top_drivers: { label: string }[] };
   hitwatch: null | { hit_id: string; day: number; calls: number; status: string; escalate: boolean; urgency: string | null; hit_date: string; description: string; next_call?: string };
 }
 
@@ -169,6 +171,7 @@ export function CoachDashboard() {
                             {a.flags.length > 1 ? ` · +${a.flags.length - 1} more` : ""}
                           </div>
                         </div>
+                        <RiskBadge m={a.model} />
                         <BandChip band={a.band} />
                         <IconChevron size={18} />
                       </Link>

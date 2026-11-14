@@ -2,46 +2,47 @@
    Tokens follow M3 roles; risk colors use M3 error / tertiary / success tones and are never color-only (always a label). */
 
 :root {
-  --bg: #f6f8fc;
-  --surface: #ffffff;
-  --surface-1: #f8fafd;
-  --surface-2: #eef2f9;
-  --surface-3: #e3e9f3;
-  --outline: #c4c7c5;
-  --outline-soft: #e1e3e1;
-  --ink: #1f1f1f;
-  --ink-2: #444746;
-  --ink-3: #5f6368;
+  color-scheme: dark;
+  --bg: #000000;
+  --surface: #121316;
+  --surface-1: #17191c;
+  --surface-2: #1f2125;
+  --surface-3: #2a2d32;
+  --outline: #3c3f45;
+  --outline-soft: #26282d;
+  --ink: #f3f3f5;
+  --ink-2: #c9cbcf;
+  --ink-3: #9aa0a6;
 
-  --primary: #7e3af2; /* Ragnor purple (deck) */
-  --primary-hover: #6527d4;
+  --primary: #9b6bff; /* Ragnor purple (deck) */
+  --primary-hover: #b08cff;
   --on-primary: #ffffff;
-  --primary-container: #efe4ff;
-  --on-primary-container: #2d0a6b;
+  --primary-container: #2b1a52;
+  --on-primary-container: #e7dcff;
 
   --teal: #22d35e; /* Ragnor green (deck), for rings and fills */
-  --teal-ink: #137a37;
-  --teal-container: #dcfce5;
+  --teal-ink: #4ade80;
+  --teal-container: #0e2c19;
 
-  --high: #e11d48; /* Ragnor pink (deck) */
-  --high-container: #ffe4ea;
-  --mod: #8a4f00;
+  --high: #ff4d6d; /* Ragnor pink (deck) */
+  --high-container: #3b0d18;
+  --mod: #f5b451;
   --mod-fill: #e8a33d;
-  --mod-container: #ffe3bf;
-  --low: #137a37;
+  --mod-container: #3a2a0f;
+  --low: #4ade80;
   --low-fill: #22d35e;
-  --low-container: #dcfce5;
+  --low-container: #0e2c19;
 
-  --hrv: #7e3af2;
-  --rhr: #e11d48;
-  --sleep: #3f6fd8;
+  --hrv: #9b6bff;
+  --rhr: #ff4d6d;
+  --sleep: #6b93ff;
 
   --radius-s: 10px;
   --radius-m: 16px;
   --radius-l: 24px;
   --radius-xl: 32px;
-  --shadow-1: 0 1px 2px rgba(60, 64, 67, 0.12), 0 1px 3px 1px rgba(60, 64, 67, 0.08);
-  --shadow-2: 0 1px 3px rgba(60, 64, 67, 0.15), 0 4px 8px 3px rgba(60, 64, 67, 0.08);
+  --shadow-1: 0 0 0 1px rgba(255,255,255,0.06);
+  --shadow-2: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.6);
 
   --font: Lato, "Google Sans Text", Roboto, "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-display: Merriweather, Georgia, "Times New Roman", serif;
@@ -182,10 +183,10 @@ p { margin: 0; }
 
 /* ---------- banners & feedback ---------- */
 .banner { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: var(--radius-m); font-size: 14px; }
-.banner-error { background: var(--high-container); color: #410e0b; }
-.banner-warn { background: var(--mod-container); color: #3a2300; }
+.banner-error { background: var(--high-container); color: #ffd4dc; }
+.banner-warn { background: var(--mod-container); color: #ffe2b0; }
 .banner-info { background: var(--primary-container); color: var(--on-primary-container); }
-.banner-success { background: var(--low-container); color: #072711; }
+.banner-success { background: var(--low-container); color: #c9f7d8; }
 .banner-emergency { background: var(--high); color: #fff; font-weight: 500; }
 .skeleton { background: linear-gradient(90deg, var(--surface-2) 0%, var(--surface-3) 50%, var(--surface-2) 100%); background-size: 200% 100%; animation: shimmer 1.3s infinite; border-radius: 12px; }
 @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
@@ -276,7 +277,7 @@ p { margin: 0; }
 /* ---------- report / print ---------- */
 @media print {
   .appbar, .bottom-nav, .no-print { display: none !important; }
-  body { background: #fff; }
+  body { background: #fff; color: #111; }
   .card { box-shadow: none; border: 1px solid #ddd; }
 }
 
@@ -315,3 +316,18 @@ input[type="range"].green { accent-color: var(--teal); }
 .body-region { cursor: pointer; transition: fill .15s; }
 .body-region:hover { filter: brightness(0.94); }
 .body-region:focus-visible { outline: none; stroke: var(--primary); stroke-width: 2.5; }
+
+/* ---- tabs (case file, platform) ---- */
+.tabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--outline, #e5e7eb); padding-bottom: 0; }
+.tab { background: none; border: 0; padding: 10px 16px; font: inherit; font-weight: 600; color: var(--ink-3); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; text-decoration: none; }
+.tab:hover { color: var(--text, #111); }
+.tab.active, .tab[aria-current="page"] { color: var(--primary, #7e3af2); border-bottom-color: var(--primary, #7e3af2); }
+.pipeline { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; color: #6b7280; }
+.kpi { font-size: 32px; font-weight: 800; line-height: 1.1; }
+.code { background: #0f172a; color: #e2e8f0; border-radius: 12px; padding: 14px; font-family: ui-monospace, monospace; font-size: 12.5px; overflow-x: auto; white-space: pre; }
+
+/* ---- dark theme touches ---- */
+.brand { color: #ff3b3b; }
+input, select, textarea { background: var(--surface-1); color: var(--ink); border-color: var(--outline); }
+.fixplan-card { background: var(--primary-container) !important; }
+.icon-soft { background: var(--primary-container) !important; color: var(--on-primary-container) !important; }

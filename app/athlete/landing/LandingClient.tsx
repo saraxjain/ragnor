@@ -200,16 +200,16 @@ export function LandingClient({ id }: { id: string }) {
         )}
 
         {plan && (
-          <section id="fixplan" className="card stack" aria-labelledby="fp" style={{ background: "#f4effa", boxShadow: "none" }}>
+          <section id="fixplan" className="card stack" aria-labelledby="fp" style={{ background: "var(--surface-1)", boxShadow: "none" }}>
             <div className="row spread">
               <h3 id="fp">Your FixPlan · 10 minutes</h3>
-              <span className="pill" style={{ background: "#e8def8", color: "#5b3f9a" }}>Re-film in {plan.retest_in_days} days</span>
+              <span className="pill" style={{ background: "var(--primary-container)", color: "var(--on-primary-container)" }}>Re-film in {plan.retest_in_days} days</span>
             </div>
             <p className="small">{plan.focus}</p>
             <ol className="stack" style={{ listStyle: "none", padding: 0, margin: 0, "--gap": "8px" } as React.CSSProperties}>
               {plan.warmup.map((w, n) => (
                 <li key={w.name} className="row" style={{ alignItems: "flex-start", background: "var(--surface)", borderRadius: 14, padding: 12 }}>
-                  <span className="icon-bubble" style={{ background: "#e8def8", color: "#5b3f9a", fontWeight: 700, fontSize: 13 }}>{n + 1}</span>
+                  <span className="icon-bubble" style={{ background: "var(--primary-container)", color: "var(--on-primary-container)", fontWeight: 700, fontSize: 13 }}>{n + 1}</span>
                   <span style={{ flex: 1 }}>
                     <span className="strong small">{w.name}</span>
                     <span className="small muted" style={{ display: "block" }}>{w.sets} × {w.reps_or_time}</span>

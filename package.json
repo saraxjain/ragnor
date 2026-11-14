@@ -10,7 +10,9 @@
     "test": "node --test shared/lib/rules.test.ts",
     "seed": "node shared/scripts/make-seed.ts",
     "adk:smoke": "node shared/scripts/adk-smoke.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "train": "node shared/scripts/train-model.ts",
+    "eval": "node shared/scripts/eval-offline.ts"
   },
   "dependencies": {
     "@elevenlabs/react": "^1.22.1",
