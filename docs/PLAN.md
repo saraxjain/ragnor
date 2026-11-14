@@ -10,12 +10,12 @@ https://claude.ai/artifact/6ac9Qu7ZpjQgvFdjt2vkC6
 - Judging: science-fair style at our table (live demo, slides and/or video). Expect technical questions.
 - Eligibility: students only, above the legal age of majority; all teammates added to the Devpost project.
 - Theme: "Build, Secure, Scale: Developers and Builders in the Agentic Era."
-- Tracks: Best Integration of Gemini or Google API · Best Startup Potential · Best Social Impact · Best UI.
+- Tracks: Best Integration of Gemini or Google API · Best Startup Potential · Best Social Impact · Best UI. **Only ONE track per project; we submit to Best Startup Potential** (criteria: named user, differentiation, plan to reach users, evidence of demand, rough business model).
 - Credits: g.dev/credits/devfest-santa-cruz (personal Google account; not compatible with AI Studio billing, so use Antigravity).
 
 ## Priority
 
-All four tracks, with **Best Startup Potential** first: season report for athletic directors, landing page with pricing and pilot sign-up, a proof-of-demand slide built from published data, and a Devpost business section.
+**Best Startup Potential** (our single track): season report for athletic directors, landing page with pricing and pilot sign-up, a proof-of-demand slide built from published data, and a Devpost business section.
 
 ## Timeline
 
