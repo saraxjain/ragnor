@@ -57,7 +57,8 @@ Each piece exists somewhere on its own: apps that screen a jump once, wellness c
 
 ## How we built it
 
-- **Gemini API:** native video understanding with structured JSON output for LandingCheck; function calling for the HitWatch agent (`log_symptoms`, `compare_to_baseline`, `draft_alert`, `schedule_followup`); [Live API for voice check-ins]; [grounding with Google Search for coach briefings].
+- **Google Agent Development Kit (ADK):** the HitWatch agent is an ADK `LlmAgent` on Gemini with four tools (`log_symptoms`, `compare_to_baseline`, `draft_alert`, `schedule_followup`), run by ADK's runner, with a human approval gate on every alert.
+- **Gemini API:** native video understanding with structured JSON output for LandingCheck; [Live API for voice check-ins]; [grounding with Google Search for coach briefings].
 - **Google Health API:** Pixel Watch / Fitbit HRV, resting heart rate and sleep for personal baselines.
 - **Firebase / Firestore:** athletes, check-ins, flags and the alert approval queue.
 - **ElevenLabs:** the voice for HitWatch's outbound calls, with Gemini as the agent's brain.
@@ -86,7 +87,7 @@ Each piece exists somewhere on its own: apps that screen a jump once, wellness c
 
 ## Built with
 
-gemini-api, google-health-api, firebase, firestore, elevenlabs, next.js, typescript, [add the rest]
+gemini-api, google-adk, google-health-api, firebase, firestore, elevenlabs, next.js, typescript, [add the rest]
 
 ## Sources
 

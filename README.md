@@ -40,7 +40,7 @@ Save, then restart the app (`Ctrl + C`, `npm run dev`). The status pills on `/co
 
 | Feature | What it does | Powered by |
 | --- | --- | --- |
-| **HitWatch** (hero) | After a hit or mouthguard impact, calls the athlete daily for 7 days, compares symptoms and wearable data (HRV, sleep) to their baseline, and queues an alert for a human to approve | ElevenLabs voice agent + Gemini function calling + Google Health API |
+| **HitWatch** (hero) | After a hit or mouthguard impact, calls the athlete daily for 7 days, compares symptoms and wearable data (HRV, sleep) to their baseline, and queues an alert for a human to approve | ElevenLabs voice + **Google Agent Development Kit (ADK)** agent on Gemini + Google Health API |
 | **LandingCheck** | Scores a phone video of a drop-jump landing against LESS-style errors (e.g., knees collapsing inward), with timestamps | Gemini video understanding + structured output |
 | **FixPlan** | A warm-up built for the errors found, plus a weekly before/after landing comparison | Gemini |
 | **Wearable layer** | Pulls resting HR, HRV and sleep from Pixel Watch / Fitbit; simulated mouthguard impact webhook | Google Health API |
@@ -56,7 +56,8 @@ Save, then restart the app (`Ctrl + C`, `npm run dev`). The status pills on `/co
 ## Stack
 
 - Next.js 16 + TypeScript (one app: landing page, athlete app, coach dashboard, AD report, API routes), Material 3 / Fitbit-style UI, Firebase / Firestore mirror
-- Gemini API (video, Live API, function calling, grounding)
+- Gemini API (video, audio, structured output, function calling)
+- Google Agent Development Kit (`@google/adk`) for the HitWatch agent
 - ElevenLabs conversational agent (outbound calls, Gemini as the LLM)
 - Google Health API (Fitbit / Pixel Watch data)
 

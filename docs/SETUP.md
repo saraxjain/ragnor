@@ -31,7 +31,13 @@ Node 22.18+ is required.
 1. Get a key at Google AI Studio, or use event credits (organizers say to use Antigravity rather than AI Studio billing).
 2. Set `GEMINI_API_KEY`. Optionally set `GEMINI_MODEL` (needs video input + function calling).
 
-That turns on: real video scoring in LandingCheck, voice check-ins (audio → structured JSON), Gemini-written FixPlans and briefings, and **Gemini function calling** for the HitWatch agent (`/api/hitwatch/simulate` processes the call transcript by calling `log_symptoms → compare_to_baseline → draft_alert → schedule_followup`).
+That turns on: real video scoring in LandingCheck, voice check-ins (audio → structured JSON), Gemini-written FixPlans and briefings, and the HitWatch agent.
+
+**HitWatch agent engine: Google's Agent Development Kit (ADK).** `lib/hitwatchAdk.ts` builds an ADK `LlmAgent` (Gemini) with four `FunctionTool`s (`log_symptoms`, `compare_to_baseline`, `draft_alert`, `schedule_followup`) and runs it with ADK's `InMemoryRunner`. The tools call the same rules engine and guardrails as everything else.
+- Fallback chain, so the demo never breaks: **ADK → plain Gemini function calling → offline rules.**
+- Force the plain function-calling loop with `HITWATCH_ENGINE=genai` in `.env.local`.
+- `npm run adk:smoke` runs the real ADK loop with a stand-in model (no key needed) to check the wiring.
+- The call screen labels which engine ran ("Google ADK agent + Gemini").
 
 Videos are sent inline (keep them under 18 MB / ~10 seconds).
 

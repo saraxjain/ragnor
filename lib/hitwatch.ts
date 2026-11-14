@@ -82,19 +82,40 @@ export function demoTranscript(firstName: string, description: string) {
 // ---------- Gemini agent over a transcript ----------
 
 export interface AgentRun {
-  mode: "gemini" | "rules_only";
+  mode: "adk" | "gemini" | "rules_only";
   tool_calls: { name: string; args: Record<string, unknown>; result: unknown }[];
   final_text: string;
   decision: HitWatchDecision | null;
 }
 
-/** Gemini reads the call transcript and calls the HitWatch tools (log -> compare -> draft) by function calling. */
+/** Never let the demo break: if every AI engine fails (network, quota), finish on the offline rules path. */
 export async function runAgentOnTranscript(athleteId: string, day: number, transcript: NonNullable<HitCall["transcript"]>): Promise<AgentRun> {
+  try {
+    return await runWithAi(athleteId, day, transcript);
+  } catch (e) {
+    console.error("[hitwatch] AI engines failed, using offline rules", e);
+    return rulesOnlyRun(athleteId, day, transcript);
+  }
+}
+
+/** Gemini reads the call transcript and calls the HitWatch tools (log -> compare -> draft) by function calling. */
+async function runWithAi(athleteId: string, day: number, transcript: NonNullable<HitCall["transcript"]>): Promise<AgentRun> {
   const a = getAthlete(athleteId);
   if (!a?.hitwatch) throw new Error("no active HitWatch case");
   const hit = a.hitwatch;
 
   if (!live.gemini()) return rulesOnlyRun(athleteId, day, transcript);
+
+  // Default engine: Google's Agent Development Kit. Set HITWATCH_ENGINE=genai to use the plain function-calling loop.
+  if ((process.env.HITWATCH_ENGINE || "adk") === "adk") {
+    try {
+      const { runAdkAgentOnTranscript } = await import("./hitwatchAdk.ts");
+      const r = await runAdkAgentOnTranscript(athleteId, day, transcript);
+      return finishRun(athleteId, day, r.mode, r.tool_calls, r.final_text);
+    } catch (e) {
+      console.error("[hitwatch] ADK agent failed, falling back to Gemini function calling", e);
+    }
+  }
 
   const vars: Record<string, string> = {
     athlete_first_name: a.name.split(" ")[0],
@@ -144,17 +165,23 @@ export async function runAgentOnTranscript(athleteId: string, day: number, trans
     contents.push({ role: "user", parts: responses });
   }
 
-  // Safety net: the rules must always run even if the model skipped a step.
+  return finishRun(athleteId, day, "gemini", calls, sanitize(finalText).text);
+}
+
+/** Safety net shared by every engine: the rules always run and an escalation always produces a draft, even if the model skipped a step. */
+function finishRun(athleteId: string, day: number, mode: AgentRun["mode"], calls: AgentRun["tool_calls"], finalText: string): AgentRun {
+  const a = getAthlete(athleteId)!;
+  const hit = a.hitwatch!;
   if (!calls.some((c) => c.name === "compare_to_baseline") && calls.some((c) => c.name === "log_symptoms")) {
     const result = runTool("compare_to_baseline", { athlete_id: a.id, day });
     calls.push({ name: "compare_to_baseline", args: { athlete_id: a.id, day }, result });
   }
   const decision = getAthlete(athleteId)?.hitwatch?.today_decision ?? null;
   if (decision?.escalate && !calls.some((c) => c.name === "draft_alert")) {
-    const args = { athlete_id: a.id, hit_id: hit.hit_id, urgency: decision.urgency, summary: `${vars.athlete_first_name}: ${decision.reasons[0] ?? "change after a hit"}. Please review today.`, recipients_suggested: ["coach", "parent"] };
+    const args = { athlete_id: a.id, hit_id: hit.hit_id, urgency: decision.urgency, summary: `${a.name.split(" ")[0]}: ${decision.reasons[0] ?? "change after a hit"}. Please review today.`, recipients_suggested: ["coach", "parent"] };
     calls.push({ name: "draft_alert", args, result: runTool("draft_alert", args) });
   }
-  return { mode: "gemini", tool_calls: calls, final_text: sanitize(finalText).text, decision };
+  return { mode, tool_calls: calls, final_text: finalText, decision };
 }
 
 /** No Gemini key: parse the demo transcript deterministically so the demo still works end to end. */
