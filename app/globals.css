@@ -260,7 +260,7 @@ p { margin: 0; }
 .price { font-family: var(--font-display); font-size: 40px; font-weight: 900; letter-spacing: -0.02em; }
 .check-list { list-style: none; padding: 0; margin: 12px 0 0; display: flex; flex-direction: column; gap: 8px; }
 .check-list li { display: flex; gap: 10px; font-size: 14px; color: var(--ink-2); }
-.check-list li::before { content: "✓"; color: var(--teal-ink); font-weight: 700; }
+.check-list li::before { content: "•"; color: var(--teal-ink); font-weight: 700; }
 .google-strip { display: flex; flex-wrap: wrap; gap: 10px; }
 .footer { border-top: 1px solid var(--outline-soft); padding: 32px 0 48px; color: var(--ink-3); font-size: 13px; }
 

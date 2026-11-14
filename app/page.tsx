@@ -9,7 +9,6 @@ export default function Home() {
       <section className="hero">
         <div className="container hero-grid">
           <div>
-            <span className="pill teal">For high schools without a full-time athletic trainer</span>
             <h1 className="mt-16">
               Wearables collect the data.
               <br />
@@ -220,9 +219,8 @@ function HeroMock() {
             </div>
           </div>
           <div className="stack mt-16" style={{ gap: 8 }}>
-            <div className="bubble agent" style={{ fontSize: 12 }}>How'd you sleep last night?</div>
-            <div className="bubble athlete" style={{ fontSize: 12 }}>About five and a half hours.</div>
-            <div className="bubble agent" style={{ fontSize: 12 }}>Thanks. Anything sore or tight today?</div>
+            <div className="bubble athlete" style={{ fontSize: 12 }}>Slept 5.5 hours. Left hamstring tight, 2 of 3.</div>
+            <div className="bubble agent" style={{ fontSize: 12 }}>Sleep and HRV are below her normal. Flagged for the trainer to review. Nothing is sent without approval.</div>
           </div>
         </div>
       </div>
