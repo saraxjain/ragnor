@@ -5,7 +5,7 @@
 
 type Levels = Record<string, number>;
 
-const FILL = ["#2a2d32", "#ffd9a8", "#ffa94d", "#e11d48"];
+const FILL = ["#c9d0db", "#ffd9a8", "#ffa94d", "#e11d48"];
 const LABEL = ["none", "mild", "moderate", "severe"];
 
 interface Region {
@@ -39,7 +39,7 @@ const BACK: Region[] = [
 
 function Silhouette() {
   return (
-    <g fill="#f3f5f9" stroke="#d5dbe5" strokeWidth="1.2">
+    <g fill="#e9edf3" stroke="#b9c1cd" strokeWidth="1.2">
       <circle cx="60" cy="22" r="15" />
       <rect x="53" y="36" width="14" height="12" rx="4" />
       <rect x="38" y="48" width="44" height="76" rx="14" />
@@ -62,7 +62,7 @@ function Figure({ title, regions, value, onTap }: { title: string; regions: Regi
           const common = {
             className: onTap ? "body-region" : undefined,
             fill: FILL[lvl],
-            stroke: lvl ? "#b45309" : "#4a4e55",
+            stroke: lvl ? "#b45309" : "#8a93a1",
             strokeWidth: lvl ? 1.4 : 1,
             role: onTap ? "button" : "img",
             tabIndex: onTap ? 0 : undefined,

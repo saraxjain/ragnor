@@ -137,7 +137,7 @@ export function TrendChart({
       {points.map((p, i) =>
         i % Math.ceil(points.length / 7) === 0 || i === points.length - 1 ? (
           <text key={`l${i}`} x={x(i)} y={height - 6} textAnchor="middle" fontSize="10.5" fill="var(--ink-3)">
-            {new Date(`${p.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+            {new Date(`${p.date}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
           </text>
         ) : null,
       )}

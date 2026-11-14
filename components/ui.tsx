@@ -57,9 +57,9 @@ export function InfoBanner({ children, tone = "info" }: { children: React.ReactN
 
 export function ModePill({ live, label }: { live: boolean; label?: string }) {
   return (
-    <span className={`pill ${live ? "live" : "demo"}`} title={live ? "Connected to the live service" : "Running on demo data or the offline fallback"}>
+    <span className={`pill ${live ? "live" : "demo"}`} title={live ? "Connected to the live service" : "Using built-in sample data"}>
       <span className="dot" />
-      {label ?? (live ? "Live" : "Demo mode")}
+      {label ?? (live ? "Live" : "Sample data")}
     </span>
   );
 }
@@ -125,9 +125,9 @@ export function timeAgo(iso: string) {
   if (d < 1) return "just now";
   if (d < 60) return `${Math.round(d)} min ago`;
   if (d < 60 * 24) return `${Math.round(d / 60)} h ago`;
-  return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
 export function fmtDate(d: string) {
-  return new Date(`${d}T12:00:00`).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+  return new Date(`${d}T12:00:00`).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
 }

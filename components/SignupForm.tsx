@@ -1,11 +1,20 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { postJson } from "./ui.tsx";
 import { IconCheck } from "./icons.tsx";
+import { PLAN_EVENT } from "./Pricing.tsx";
 
 export function SignupForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
   const [error, setError] = useState<string | null>(null);
+  const [plan, setPlan] = useState<{ id: string; name: string }>({ id: "high_school", name: "High schools" });
+
+  // The pricing cards above announce which plan was chosen.
+  useEffect(() => {
+    const on = (e: Event) => setPlan((e as CustomEvent<{ id: string; name: string }>).detail);
+    window.addEventListener(PLAN_EVENT, on);
+    return () => window.removeEventListener(PLAN_EVENT, on);
+  }, []);
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -34,6 +43,8 @@ export function SignupForm() {
 
   return (
     <form className="stack" onSubmit={submit} noValidate aria-describedby={error ? "signup-error" : undefined}>
+      <input type="hidden" name="plan" value={plan.id} />
+      <div className="row small" style={{ gap: 8 }} aria-live="polite"><span className="muted">Plan:</span><span className="pill teal">{plan.name}</span><a href="#pricing" className="small">Change</a></div>
       <div className="grid grid-2">
         <div className="field">
           <label htmlFor="su-name">Your name</label>

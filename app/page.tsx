@@ -137,7 +137,6 @@ export default function Home() {
               <span className="eyebrow">Spring 2027 pilot</span>
               <h2 id="pilot" className="mt-8">Bring Ragnor to your school</h2>
               <p className="muted mt-16">We're starting with girls' soccer, basketball, volleyball and gymnastics programs, where ACL risk is several times higher and concussions still go unreported.</p>
-              <div className="banner banner-warn mt-16"><IconAlert size={18} /> <span>Demo build: all athletes and data on this site are fictional.</span></div>
             </div>
             <SignupForm />
           </div>
@@ -146,7 +145,7 @@ export default function Home() {
 
       <footer className="footer mt-40">
         <div className="container row wrap spread">
-          <div className="row"><LogoMark size={22} /> <span>Ragnor · Built at GDG UC Santa Cruz DevFest 2026</span></div>
+          <div className="row"><LogoMark size={22} /> <span>Ragnor · Built at GDG UC Santa Cruz DevFest 2026 · Athletes and data shown are fictional samples.</span></div>
           <div className="row wrap" style={{ gap: 16 }}>
             <a href="https://www.athleticbusiness.com/high-school/one-third-of-high-schools-operating-without-athletic-trainer.html" target="_blank" rel="noreferrer">ATLAS study</a>
             <a href="https://concussions.smart-teams.org/?p=1820" target="_blank" rel="noreferrer">Concussion underreporting</a>

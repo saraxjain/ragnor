@@ -67,7 +67,7 @@ export function ReportClient() {
                 <li>No alert reached a parent or clinician without a staff member approving it.</li>
                 <li>Ragnor never made a diagnosis or a return-to-play decision; those stayed with licensed clinicians.</li>
               </ul>
-              <p className="tiny muted mt-16">{r.note} Demo school and data are fictional.</p>
+              <p className="tiny muted mt-16">{r.note} School and data shown are fictional samples.</p>
             </section>
           </>
         )}

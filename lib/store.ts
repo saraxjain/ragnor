@@ -68,6 +68,7 @@ export interface Signup {
   school: string;
   role: string;
   athletes?: number;
+  plan?: string;
 }
 
 interface State {
@@ -163,6 +164,59 @@ export function addCheckin(id: string, c: CheckIn) {
   mirror(`athletes/${id}/checkins`, c.date, c);
   audit("athlete", "checkin_logged", `Sleep ${c.sleep_h ?? "?"} h, load ${c.load_min ?? "?"} min, ${c.soreness.length} sore areas`, id);
   return recomputeRisk(id);
+}
+
+export const PROFILE_SPORTS = ["Girls Soccer", "Boys Soccer", "Girls Basketball", "Boys Basketball", "Girls Volleyball", "Football", "Gymnastics", "Track & Field", "Lacrosse", "Wrestling", "Other"] as const;
+export const PROFILE_DEVICES = ["none", "Fitbit Charge", "Fitbit Inspire", "Fitbit Sense", "Pixel Watch"] as const;
+export const USER_ID_RE = /^ath_u_[a-z0-9]{5,12}$/;
+
+export interface NewAthlete {
+  name: string;
+  sport: string;
+  grade: number;
+  device: string;
+}
+
+/** Cleans and checks a self-created profile. Returns an error message, or the cleaned profile. */
+export function parseNewAthlete(b: unknown): { error: string } | { value: NewAthlete } {
+  const o = (b && typeof b === "object" ? b : {}) as Record<string, unknown>;
+  const name = String(o.name ?? "").replace(/\s+/g, " ").trim();
+  if (name.length < 2 || name.length > 40) return { error: "Enter your name (2 to 40 characters)." };
+  if (!/^[\p{L}][\p{L} .'-]*$/u.test(name)) return { error: "Use only letters, spaces, apostrophes, periods and hyphens in your name." };
+  const sport = PROFILE_SPORTS.find((x) => x === o.sport);
+  if (!sport) return { error: "Choose a sport from the list." };
+  const grade = Number(o.grade);
+  if (!Number.isInteger(grade) || grade < 9 || grade > 12) return { error: "Choose a grade from 9 to 12." };
+  const device = PROFILE_DEVICES.find((x) => x === o.device) ?? "none";
+  return { value: { name, sport, grade, device } };
+}
+
+/**
+ * Adds a self-created athlete with no history: no watch data, no check-ins, no landing screen.
+ * `id` lets a browser restore its own profile after the demo server restarts (the store is in memory).
+ */
+export function createAthlete(p: NewAthlete, id?: string): Athlete {
+  const s = state();
+  const existing = id ? s.athletes.get(id) : undefined;
+  if (existing) return existing;
+  let newId = id && USER_ID_RE.test(id) ? id : uid("ath_u");
+  while (s.athletes.has(newId)) newId = uid("ath_u");
+  const a: Athlete = {
+    id: newId,
+    name: p.name,
+    sport: p.sport,
+    grade: p.grade,
+    device: p.device,
+    wearable: { baseline: { hrv_ms: null, rhr_bpm: null, sleep_h: null, days_used: 0 }, baseline_days: [], recent: [], source: "seed" },
+    checkins: [],
+    landing: null,
+    risk_today: { athlete_id: newId, date: TODAY, band: "low", flags: [] } as unknown as RiskResult, // replaced by recomputeRisk below
+  };
+  s.athletes.set(newId, a);
+  recomputeRisk(newId);
+  mirror("athletes", newId, { id: newId, name: a.name, sport: a.sport, grade: a.grade, device: a.device });
+  audit("athlete", "profile_created", `${a.sport}, grade ${a.grade}, ${a.device === "none" ? "no watch" : a.device}`, newId);
+  return a;
 }
 
 export function setLanding(id: string, result: LandingResult) {

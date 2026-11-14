@@ -44,9 +44,9 @@
   --shadow-1: 0 0 0 1px rgba(0,0,0,0.06);
   --shadow-2: 0 0 0 1px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08);
 
-  --font: Lato, "Google Sans Text", Roboto, "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-display: Merriweather, Georgia, "Times New Roman", serif;
-  --font-ui: Lato, Roboto, "Segoe UI", system-ui, sans-serif;
+  --font: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: Archivo, Inter, "Segoe UI", system-ui, sans-serif;
+  --font-ui: Inter, "Segoe UI", system-ui, sans-serif;
   --mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
@@ -57,8 +57,8 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font);
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
 img, svg, video { max-width: 100%; display: block; }
@@ -350,3 +350,79 @@ input, select, textarea { background: var(--surface-1); color: var(--ink); borde
 .plan.featured { outline-color: var(--primary); background: var(--primary-container); }
 .plan:hover, .plan:focus-within { outline-color: var(--primary); background: var(--primary-container); }
 .plans:has(.plan:hover, .plan:focus-within) .plan.featured:not(:hover):not(:focus-within) { outline-color: transparent; background: var(--surface); }
+/* ---------- athlete pages on a laptop (the same pages stay single-column on a phone) ---------- */
+.bottom-nav-inner { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); grid-auto-flow: column; }
+@media (min-width: 1000px) {
+  .phone-shell { width: min(560px, 100% - 48px); }
+  /* Wide pages: two balanced columns of cards; headers, banners and buttons run full width. */
+  .phone-shell.wide { width: min(1100px, 100% - 48px); display: block; columns: 2; column-gap: 24px; }
+  .phone-shell.wide > * { break-inside: avoid; margin-bottom: 20px; }
+  .phone-shell.wide > :first-child,
+  .phone-shell.wide > .banner,
+  .phone-shell.wide > .seg,
+  .phone-shell.wide > .btn,
+  .phone-shell.wide > p,
+  .phone-shell.wide > .row,
+  .phone-shell.wide > .span-all { column-span: all; }
+  .phone-shell.wide > .seg { display: flex; width: fit-content; }
+  .phone-shell.wide > .btn.btn-block { width: min(420px, 100%); margin-inline: auto; display: flex; }
+  .phone-shell.wide > p { text-align: left; }
+  /* The tab bar moves from the bottom of the screen to a strip under the app bar. */
+  .page:has(> .bottom-nav) { padding-top: 84px; padding-bottom: 48px; }
+  .bottom-nav { top: 65px; bottom: auto; border-top: 0; border-bottom: 1px solid var(--outline-soft); padding-bottom: 0; z-index: 30; }
+  .bottom-nav-inner { width: min(1100px, 100% - 48px); display: flex; gap: 6px; padding-block: 6px; }
+  .bottom-nav a { flex-direction: row; gap: 8px; padding: 6px 16px 6px 8px; font-size: 14px; border-radius: 999px; }
+  .bottom-nav a .ind { width: 36px; height: 30px; }
+  .bottom-nav a[aria-current="page"] { background: var(--primary-container); color: var(--on-primary-container); }
+  .bottom-nav a[aria-current="page"] .ind { background: transparent; }
+  .video-wrap { aspect-ratio: 16 / 10; }
+}
+@media print { .page:has(> .bottom-nav) { padding-top: 0; } }
+
+/* ---------- consistency pass ---------- */
+/* One primary action colour everywhere (the old green button now matches the purple one). */
+.btn-green { background: var(--primary); color: var(--on-primary); }
+.btn-green:hover:not([disabled]) { background: var(--primary-hover); box-shadow: var(--shadow-1); }
+.btn-outlined { color: var(--ink); }
+.btn-outlined:hover:not([disabled]) { border-color: var(--primary); }
+a { color: var(--primary-hover); }
+.btn-text { color: var(--primary-hover); }
+.card { border: 1px solid var(--outline-soft); box-shadow: none; }
+.banner-warn { background: var(--mod-container); color: #f7dfb4; }
+.banner-error { background: var(--high-container); color: #fbd3db; }
+/* Pricing cards are selectable. */
+.plan { cursor: pointer; display: flex; flex-direction: column; transition: border-color 0.15s, background 0.15s; }
+.plan .check-list { flex: 1; }
+.plan:hover { border-color: var(--outline); }
+.plan.selected { border-color: var(--primary); background: color-mix(in srgb, var(--primary) 9%, var(--surface)); box-shadow: 0 0 0 1px var(--primary); }
+
+/* ---------- light "training app" theme ---------- */
+h1, h2 { font-weight: 800; letter-spacing: -0.025em; }
+h1 { font-weight: 900; }
+h3, h4 { font-weight: 700; }
+.eyebrow { font-weight: 800; letter-spacing: 0.12em; font-size: 11.5px; color: var(--primary); }
+.card { border: 1px solid var(--outline-soft); box-shadow: var(--shadow-1); border-radius: 18px; }
+.card.flat { box-shadow: none; }
+.appbar { background: color-mix(in srgb, #ffffff 90%, transparent); }
+.brand { color: var(--ink); font-weight: 900; letter-spacing: -0.03em; }
+.nav a { font-weight: 600; }
+.btn { font-weight: 700; }
+.btn-filled, .btn-green { box-shadow: 0 1px 2px rgba(91,61,245,0.35); }
+.btn-outlined { background: var(--surface); border-color: var(--outline); color: var(--ink); }
+a, .btn-text { color: var(--primary); }
+.big-stat, .price { font-weight: 900; letter-spacing: -0.03em; }
+.band { font-weight: 700; }
+.band-moderate { color: var(--mod); }
+.pill { font-weight: 600; }
+.banner-warn { color: #6b4000; }
+.banner-error { color: #8f1730; }
+.banner-success { color: #0a5c2d; }
+.bottom-nav { background: var(--surface); }
+.bottom-nav a { font-weight: 600; }
+.input, .select, .textarea { background: var(--surface); }
+.seg { background: var(--surface-2); }
+.meal[aria-pressed="true"] { color: #fff; }
+.check-list li::before { color: var(--teal); }
+.plan.selected { background: color-mix(in srgb, var(--primary) 5%, var(--surface)); }
+.footer { background: var(--surface); }
+input[type="range"].green { accent-color: var(--primary); }

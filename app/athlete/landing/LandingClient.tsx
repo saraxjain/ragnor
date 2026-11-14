@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { AthleteNav, AthletePicker } from "@/components/AthleteShell.tsx";
 import { BandChip, ErrorBanner, postJson, useApi } from "@/components/ui.tsx";
 import { IconUpload, IconVideo, IconSpark, IconCheck, IconAlert, IconInfo } from "@/components/icons.tsx";
+import { CameraRecorder, cameraSupported } from "@/components/CameraRecorder.tsx";
 import type { LandingResult, LandingScore } from "@/shared/lib/index.ts";
 import type { Athlete, FixPlan } from "@/lib/store.ts";
 
@@ -32,6 +33,9 @@ export function LandingClient({ id }: { id: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [duration, setDuration] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [camera, setCamera] = useState(false);
+  const [canRecord, setCanRecord] = useState(false);
+  useEffect(() => setCanRecord(cameraSupported()), []); // checked after mount so server and browser render the same HTML
 
   useEffect(() => {
     const a = existing.data?.athlete;
@@ -99,7 +103,7 @@ export function LandingClient({ id }: { id: string }) {
 
   return (
     <div className="page">
-      <div className="phone-shell stack" style={{ paddingInline: 16 }}>
+      <div className="phone-shell wide stack" style={{ paddingInline: 16 }}>
         <div className="row spread wrap">
           <h2>LandingCheck</h2>
           <AthletePicker id={id} />
@@ -107,7 +111,9 @@ export function LandingClient({ id }: { id: string }) {
         <p className="small muted">Film a drop jump: step off a box about knee height, land on both feet, jump straight up. Gemini watches the landing for the movement patterns linked to ACL tears.</p>
 
         <section className="card stack">
-          {url ? (
+          {camera ? (
+            <CameraRecorder onDone={(f) => { setCamera(false); pick(f); }} onCancel={() => setCamera(false)} />
+          ) : url ? (
             <>
               <div className="video-wrap">
                 <video ref={videoRef} src={url} controls playsInline muted onLoadedMetadata={(e) => setDuration(e.currentTarget.duration || 0)} aria-label="Your landing video" />
@@ -123,10 +129,15 @@ export function LandingClient({ id }: { id: string }) {
               )}
               <div className="row wrap">
                 <button className="btn btn-filled" onClick={() => analyze(false)} disabled={busy}>{busy ? <span className="spinner" /> : <IconSpark size={18} />} Analyze with Gemini</button>
+                {canRecord && <button className="btn btn-text" onClick={() => setCamera(true)}>Record again</button>}
                 <button className="btn btn-text" onClick={() => inputRef.current?.click()}>Choose another video</button>
               </div>
             </>
           ) : (
+            <>
+            {canRecord && (
+              <button className="btn btn-filled btn-lg btn-block" onClick={() => { setError(null); setCamera(true); }}><IconVideo size={20} /> Record with camera</button>
+            )}
             <div
               className={`drop ${over ? "over" : ""}`}
               role="button"
@@ -138,10 +149,11 @@ export function LandingClient({ id }: { id: string }) {
               onDrop={(e) => { e.preventDefault(); setOver(false); pick(e.dataTransfer.files[0]); }}
             >
               <div className="feature-icon" style={{ background: "var(--teal-container)", color: "var(--teal-ink)", margin: "0 auto 12px" }}><IconVideo /></div>
-              <strong>Record or upload a landing video</strong>
-              <p className="small muted mt-8">On a phone this opens the camera. 5–10 seconds, under 18 MB.</p>
+              <strong>{canRecord ? "Or upload a landing video" : "Record or upload a landing video"}</strong>
+              <p className="small muted mt-8">Drag a file here or choose one. 5–10 seconds, under 18 MB.</p>
               <span className="btn btn-tonal btn-sm mt-16"><IconUpload size={16} /> Choose video</span>
             </div>
+            </>
           )}
           <input ref={inputRef} type="file" accept="video/*" capture="environment" hidden onChange={(e) => pick(e.target.files?.[0])} />
           <div className="row" style={{ justifyContent: "center" }}>
@@ -168,7 +180,7 @@ export function LandingClient({ id }: { id: string }) {
             <div className="row spread">
               <div>
                 <h3 id="results">{found.length} landing {found.length === 1 ? "error" : "errors"} found</h3>
-                <p className="small muted">{res.mode === "gemini" ? "Scored by Gemini from your video" : res.mode === "demo" ? "Sample result (demo)" : "Your last screen"} · LESS-style screen, not a diagnosis</p>
+                <p className="small muted">{res.mode === "gemini" ? "Scored by Gemini from your video" : res.mode === "demo" ? "Sample result" : "Your last screen"} · LESS-style screen, not a diagnosis</p>
               </div>
               <BandChip band={res.score.band} label={res.score.band === "low" ? "Clean" : res.score.band === "moderate" ? "Work on it" : "Priority"} />
             </div>
