@@ -9,9 +9,12 @@
     "start": "next start",
     "test": "node --test shared/lib/rules.test.ts",
     "seed": "node shared/scripts/make-seed.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "train": "node shared/scripts/train-model.ts",
+    "eval": "node shared/scripts/eval-offline.ts"
   },
   "dependencies": {
+    "@google/adk": "^2.5.0",
     "@google/genai": "^3.3.0",
     "firebase-admin": "^14.5.1",
     "next": "^16.4.6",

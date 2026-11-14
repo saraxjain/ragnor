@@ -1,0 +1,106 @@
+{
+ "$comment": "Evidence library the case-conference agents cite. key_point is our paraphrase, not a quote. Entries without a url are well-known references to verify before citing externally.",
+ "entries": [
+  {
+   "id": "E1",
+   "domain": [
+    "context"
+   ],
+   "title": "ATLAS: athletic trainer access in US high schools",
+   "source": "NATA / Korey Stringer Institute (J Athl Train 2019)",
+   "url": "https://www.athleticbusiness.com/high-school/one-third-of-high-schools-operating-without-athletic-trainer.html",
+   "key_point": "About a third of US high schools have no athletic trainer access; only about 37% of public schools have a full-time trainer."
+  },
+  {
+   "id": "E2",
+   "domain": [
+    "movement"
+   ],
+   "title": "Is the Landing Error Scoring System reliable and valid?",
+   "source": "Hanzl\u00edkov\u00e1 & H\u00e9bert-Losier, Sports Health 2020",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7040940",
+   "key_point": "LESS is a reliable screen of jump-landing errors linked to ACL-injury mechanics; its power to predict injury is still being established."
+  },
+  {
+   "id": "E3",
+   "domain": [
+    "movement"
+   ],
+   "title": "Neuromuscular training and noncontact ACL injuries in female athletes",
+   "source": "Grindstaff et al., J Athl Train",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1748422",
+   "key_point": "Neuromuscular training programs reduced noncontact ACL injuries in female athletes; female athletes in jumping/cutting sports tear ACLs several times more often than males."
+  },
+  {
+   "id": "E4",
+   "domain": [
+    "movement"
+   ],
+   "title": "Preventing ACL injuries in female athletes",
+   "source": "Boston Children's Hospital",
+   "url": "https://answers.childrenshospital.org/prevent-acl-injuries-female-athletes",
+   "key_point": "Neuromuscular warm-ups help most when athletes do them consistently; feedback on technique improves the benefit."
+  },
+  {
+   "id": "E5",
+   "domain": [
+    "recovery"
+   ],
+   "title": "Training adaptation and heart rate variability in elite endurance athletes",
+   "source": "Plews et al., Sports Med 2013",
+   "url": "",
+   "key_point": "Tracking HRV against an athlete's own rolling baseline reflects fatigue and adaptation better than single readings; sustained drops suggest incomplete recovery."
+  },
+  {
+   "id": "E7",
+   "domain": [
+    "load"
+   ],
+   "title": "The training-injury prevention paradox",
+   "source": "Gabbett, Br J Sports Med 2016",
+   "url": "",
+   "key_point": "Rapid spikes in training load relative to what an athlete is prepared for (high acute:chronic workload ratio) are associated with higher injury risk; steady, well-built load is protective."
+  },
+  {
+   "id": "E8",
+   "domain": [
+    "recovery"
+   ],
+   "title": "Chronic lack of sleep and sports injuries in adolescent athletes",
+   "source": "Milewski et al., J Pediatr Orthop 2014",
+   "url": "",
+   "key_point": "Adolescent athletes who slept less than 8 hours a night had a higher rate of injury than those sleeping 8 or more."
+  },
+  {
+   "id": "E9",
+   "domain": [
+    "load",
+    "movement"
+   ],
+   "title": "Exercise interventions to prevent sports injuries",
+   "source": "Lauersen et al., Br J Sports Med 2014",
+   "url": "",
+   "key_point": "Strength-training programs substantially reduced sports injuries in a meta-analysis of randomized trials."
+  },
+  {
+   "id": "E10",
+   "domain": [
+    "load"
+   ],
+   "title": "Monitoring training: monotony and strain",
+   "source": "Foster, Med Sci Sports Exerc 1998",
+   "url": "",
+   "key_point": "High training monotony (little day-to-day variation) combined with high load (strain) is associated with illness and overtraining."
+  },
+  {
+   "id": "E11",
+   "domain": [
+    "recovery"
+   ],
+   "title": "Relative Energy Deficiency in Sport (REDs)",
+   "source": "IOC consensus statement, Br J Sports Med 2023",
+   "url": "",
+   "key_point": "Low energy availability (under-fueling relative to training) impairs recovery, bone health and performance and raises injury risk."
+  }
+ ]
+}

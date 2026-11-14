@@ -111,7 +111,7 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
               </Link>
               {a.landing?.fixplan && (
                 <Link href={`/athlete/landing?id=${id}#fixplan`} className="action-tile">
-                  <span className="icon-bubble" style={{ background: "#e8def8", color: "#5b3f9a" }}><IconSpark /></span>
+                  <span className="icon-bubble" style={{ background: "var(--primary-container)", color: "var(--on-primary-container)" }}><IconSpark /></span>
                   <div style={{ flex: 1 }}><strong>Your FixPlan</strong><div className="small muted">{a.landing.fixplan.focus}</div></div>
                   <IconChevron />
                 </Link>

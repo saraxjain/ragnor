@@ -5,7 +5,7 @@
 
 type Levels = Record<string, number>;
 
-const FILL = ["#e9edf3", "#ffd9a8", "#ffa94d", "#e11d48"];
+const FILL = ["#2a2d32", "#ffd9a8", "#ffa94d", "#e11d48"];
 const LABEL = ["none", "mild", "moderate", "severe"];
 
 interface Region {
@@ -62,7 +62,7 @@ function Figure({ title, regions, value, onTap }: { title: string; regions: Regi
           const common = {
             className: onTap ? "body-region" : undefined,
             fill: FILL[lvl],
-            stroke: lvl ? "#b45309" : "#cfd6e0",
+            stroke: lvl ? "#b45309" : "#4a4e55",
             strokeWidth: lvl ? 1.4 : 1,
             role: onTap ? "button" : "img",
             tabIndex: onTap ? 0 : undefined,

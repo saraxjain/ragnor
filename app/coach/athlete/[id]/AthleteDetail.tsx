@@ -5,13 +5,21 @@ import { TrendChart } from "@/components/charts.tsx";
 import { IconBack, IconWave, IconHeart, IconMoon, IconVideo, IconWatch } from "@/components/icons.tsx";
 import type { Athlete, Alert, AuditEntry } from "@/lib/store.ts";
 import type { WearableComparison } from "@/shared/lib/index.ts";
+import type { ModelScore } from "@/lib/risk.ts";
+import { useState } from "react";
+import { RiskPanel, RiskBadge } from "@/components/RiskPanel.tsx";
+import { CaseReview } from "@/components/CaseReview.tsx";
 
 interface Resp {
   athlete: Athlete;
   wearable_compare: WearableComparison | null;
   alerts: Alert[];
   audit: AuditEntry[];
+  model: ModelScore;
 }
+
+const TABS = [["overview","Overview"],["risk","Risk model"],["case","AI case review"],["audit","Audit"]] as const;
+type Tab = typeof TABS[number][0];
 
 const LABEL: Record<string, string> = {
   R1_sleep_load: "Sleep + load",
@@ -25,6 +33,7 @@ const LABEL: Record<string, string> = {
 
 export function AthleteDetail({ id }: { id: string }) {
   const { data, error, loading, reload } = useApi<Resp>(`/api/athletes/${id}`);
+  const [tab, setTab] = useState<Tab>("overview");
   const a = data?.athlete;
 
   const days = a ? [...a.wearable.baseline_days.slice(-9), ...a.wearable.recent] : [];
@@ -48,10 +57,19 @@ export function AthleteDetail({ id }: { id: string }) {
               </div>
               <div className="row wrap">
                 <BandChip band={a.risk_today.band} />
+                {data?.model && <RiskBadge m={data.model} />}
                 <Link className="btn btn-tonal btn-sm" href={`/athlete?id=${a.id}`}>Athlete's view</Link>
               </div>
             </header>
 
+            <nav className="tabs" role="tablist" aria-label="Case file">
+              {TABS.map(([k, l]) => <button key={k} role="tab" aria-selected={tab === k} className={tab === k ? "tab active" : "tab"} onClick={() => setTab(k)}>{l}</button>)}
+            </nav>
+
+            {tab === "risk" && data?.model && <RiskPanel m={data.model} name={a.name} />}
+            {tab === "case" && <CaseReview id={a.id} name={a.name} />}
+
+            {tab === "overview" && <>
             <section className="card" aria-labelledby="why">
               <div className="card-header">
                 <h3 id="why">Why {a.name.split(" ")[0]} is {a.risk_today.band === "low" ? "low risk" : "flagged"} today</h3>
@@ -128,7 +146,9 @@ export function AthleteDetail({ id }: { id: string }) {
               </div>
             </div>
 
-            <section className="card flat" aria-labelledby="audit">
+            </>}
+
+            {tab === "audit" && <section className="card flat" aria-labelledby="audit">
               <div className="card-header">
                 <h3 id="audit">Audit log</h3>
                 <span className="small muted">Every flag and decision is recorded</span>
@@ -142,7 +162,7 @@ export function AthleteDetail({ id }: { id: string }) {
                   </div>
                 ))}
               </div>
-            </section>
+            </section>}
           </>
         )}
       </div>

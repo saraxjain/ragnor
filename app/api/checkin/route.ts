@@ -3,48 +3,10 @@ import { generateStructured, loadPrompt, live, friendlyGeminiError } from "@/lib
 import { addCheckin, getAthlete, TODAY } from "@/lib/store.ts";
 import { sanitizeDeep, RED_FLAG_MESSAGE, type CheckIn } from "@/shared/lib/index.ts";
 import checkinSchema from "@/shared/schemas/checkin.schema.json";
+import { parseCheckinText as roughParse, type Extracted } from "@/shared/lib/extract.ts";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
-
-interface Extracted {
-  sleep_h: number | null;
-  soreness: { area: string; level: number }[];
-  load_min: number | null;
-  intensity: CheckIn["intensity"];
-  took_hit: boolean;
-  symptoms: string[];
-  red_flags: string[];
-  transcript_summary: string;
-}
-
-/** Tiny offline parser so the demo works without a Gemini key (typed check-ins only). */
-function roughParse(text: string): Extracted {
-  const t = text.toLowerCase();
-  const num = (re: RegExp) => {
-    const m = t.match(re);
-    return m ? Number(m[1]) : null;
-  };
-  const areas: [RegExp, string][] = [
-    [/left hamstring/, "hamstring_l"], [/right hamstring/, "hamstring_r"], [/hamstring/, "hamstring_l"],
-    [/left knee/, "knee_l"], [/right knee/, "knee_r"], [/knee/, "knee_r"],
-    [/left ankle/, "ankle_l"], [/right ankle/, "ankle_r"], [/ankle/, "ankle_r"],
-    [/calf/, "calf_l"], [/quad/, "quad_l"], [/back/, "lower_back"], [/shoulder/, "shoulder_r"], [/neck/, "neck"],
-  ];
-  const soreness: Extracted["soreness"] = [];
-  for (const [re, area] of areas) if (re.test(t) && !soreness.some((s) => s.area.split("_")[0] === area.split("_")[0])) soreness.push({ area, level: /really|very|bad|severe/.test(t) ? 3 : /tight|sore/.test(t) ? 2 : 1 });
-  const symptoms = ["headache", "dizziness", "nausea"].filter((s) => t.includes(s.replace("iness", "y")) || t.includes(s));
-  return {
-    sleep_h: num(/(\d+(?:\.\d)?)\s*(?:hours|hrs|h)\b/),
-    soreness,
-    load_min: num(/(\d+)\s*(?:min|minutes)/) ?? (t.match(/(\d+(?:\.\d)?)\s*hour practice/) ? Number(t.match(/(\d+(?:\.\d)?)\s*hour practice/)![1]) * 60 : null),
-    intensity: /brutal|hard|intense|tough/.test(t) ? "hard" : /easy|light/.test(t) ? "light" : "moderate",
-    took_hit: /\b(hit|collid|header|elbow to|knocked)\b/.test(t),
-    symptoms,
-    red_flags: /vomit|threw up/.test(t) ? ["repeated_vomiting"] : /passed out|blacked out/.test(t) ? ["loss_of_consciousness"] : [],
-    transcript_summary: text.slice(0, 160),
-  };
-}
 
 export async function POST(req: Request) {
   try {
@@ -105,6 +67,7 @@ export async function POST(req: Request) {
         ex = roughParse(text);
         mode = "offline";
       }
+      if (ex.meals != null) extras.meals = ex.meals;
     } else return fail("Record or type a check-in first.", 400);
 
     const clean = sanitizeDeep(ex);
