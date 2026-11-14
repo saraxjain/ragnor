@@ -37,15 +37,22 @@ const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
  * Run a Gemini call with retries (0.8s, 2s backoff) on busy/rate-limit errors, then move to the next fallback model.
  * Non-transient errors (bad request, bad key) fail immediately.
  */
+const isQuota = (e: unknown) => /exceeded your current quota|RESOURCE_EXHAUSTED.*quota|billing/i.test(e instanceof Error ? e.message : String(e));
+const TIMEOUT_MS = Number(process.env.GEMINI_TIMEOUT_MS) || 25_000;
+function withTimeout<T>(p: Promise<T>): Promise<T> {
+  return Promise.race([p, new Promise<T>((_, rej) => setTimeout(() => rej(new Error(`Gemini timed out after ${TIMEOUT_MS / 1000}s (503 slow response)`)), TIMEOUT_MS))]);
+}
+
 export async function withGeminiRetry<T>(fn: (model: string) => Promise<T>): Promise<T> {
   let last: unknown;
   for (const model of modelChain()) {
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
-        return await fn(model);
+        return await withTimeout(fn(model));
       } catch (e) {
         last = e;
-        if (!isTransient(e)) throw e;
+        if (isQuota(e)) { console.warn(`[gemini] ${model}: API key is out of quota; not retrying`); break; } // retrying a quota error just wastes minutes
+        if (!isTransient(e) && !/timed out/.test(String(e))) throw e;
         console.warn(`[gemini] ${model} busy (attempt ${attempt + 1}/3): ${e instanceof Error ? e.message.slice(0, 120) : e}`);
         if (attempt < 2) await wait(attempt === 0 ? 800 : 2000);
       }
@@ -55,7 +62,8 @@ export async function withGeminiRetry<T>(fn: (model: string) => Promise<T>): Pro
 }
 
 export function friendlyGeminiError(e: unknown): string {
-  return isTransient(e)
+  if (isQuota(e)) return "This Gemini API key is out of free quota (Google's limit, not the app). Wait a minute, or use a key with billing enabled.";
+  return isTransient(e) || /timed out/.test(String(e))
     ? "Gemini is very busy right now (Google's servers, not the app). Try again in a minute."
     : e instanceof Error ? e.message : String(e);
 }
