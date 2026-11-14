@@ -22,7 +22,7 @@ const RING = {
 
 const HEALTH_MSG: Record<string, { tone: "success" | "warn" | "info"; text: string }> = {
   synced: { tone: "success", text: "Connected. Your Fitbit / Pixel Watch data is synced and your baseline is updated." },
-  not_configured: { tone: "info", text: "Google Health API isn't connected on this demo server yet, so you're seeing sample watch data." },
+  not_configured: { tone: "info", text: "Your watch isn't connected yet, so you're seeing sample watch data." },
   denied: { tone: "warn", text: "You didn't grant access, so nothing was synced. You can connect any time." },
   too_little_data: { tone: "warn", text: "Connected, but there isn't enough recent data yet. Wear your watch overnight for a few nights." },
   error: { tone: "warn", text: "Something went wrong syncing your watch. Your existing data is unchanged." },
@@ -34,10 +34,10 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
 
   return (
     <div className="page">
-      <div className="phone-shell stack" style={{ paddingInline: 16 }}>
+      <div className="phone-shell wide stack" style={{ paddingInline: 16 }}>
         <div className="row spread wrap">
           <div>
-            <div className="small muted">{new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</div>
+            <div className="small muted">{new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</div>
             <h2>{a ? `Hi, ${a.name.split(" ")[0]}` : "Today"}</h2>
           </div>
           <AthletePicker id={id} />
@@ -126,7 +126,7 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
                   <p className="small muted mt-8">Ragnor reads only overnight HRV, resting heart rate and sleep through the Google Health API, to learn your normal. You can disconnect any time.</p>
                   <div className="row wrap mt-16">
                     <a className="btn btn-tonal btn-sm" href={`/api/health/connect?athlete_id=${id}`}>{a.wearable.source === "google_health" ? "Sync again" : "Connect with Google"}</a>
-                    {!data?.integrations.google_health && <span className="tiny muted row" style={{ gap: 4 }}><IconLock size={12} /> Demo: using sample watch data</span>}
+                    {!data?.integrations.google_health && <span className="tiny muted row" style={{ gap: 4 }}><IconLock size={12} /> Using sample watch data</span>}
                   </div>
                 </div>
               </div>

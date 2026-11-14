@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node --test shared/lib/rules.test.ts",
+    "test": "node --test shared/lib/*.test.ts lib/*.test.ts",
     "seed": "node shared/scripts/make-seed.ts",
     "typecheck": "tsc --noEmit",
     "train": "node shared/scripts/train-model.ts",

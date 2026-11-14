@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { AthleteNav, AthletePicker } from "@/components/AthleteShell.tsx";
-import { BandChip, ErrorBanner, prettyArea, prettySymptom } from "@/components/ui.tsx";
+import { prettyArea, prettySymptom } from "@/components/ui.tsx";
+import { CheckinError, CheckinResult } from "./CheckinResult.tsx";
 import { BodyMap } from "@/components/BodyMap.tsx";
-import { IconMic, IconStop, IconAlert, IconCheck, IconMoon, IconClock } from "@/components/icons.tsx";
+import { IconMic, IconStop } from "@/components/icons.tsx";
 import type { CheckIn, RiskResult } from "@/shared/lib/index.ts";
 
 interface Result {
@@ -27,6 +27,8 @@ export function CheckinClient({ id }: { id: string }) {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<Result | null>(null);
   const [tab, setTab] = useState<"tap" | "talk">("tap");
+  const [followup, setFollowup] = useState<{ question: string } | null>(null);
+  const [answer, setAnswer] = useState("");
   const [sleepH, setSleepH] = useState(7.5);
   const [sore, setSore] = useState<Record<string, number>>({});
   const [minutes, setMinutes] = useState(90);
@@ -88,7 +90,8 @@ export function CheckinClient({ id }: { id: string }) {
     }
   }
 
-  async function submit(useAudio: boolean) {
+  /** `reply` is set when answering (or skipping, with "") the agent's one follow-up question. */
+  async function submit(useAudio: boolean, reply?: string) {
     setBusy(true);
     setError(null);
     try {
@@ -96,9 +99,20 @@ export function CheckinClient({ id }: { id: string }) {
       f.set("athlete_id", id);
       if (useAudio && audio) f.set("audio", new File([audio], "checkin.webm", { type: audio.type }));
       else f.set("text", text);
+      if (reply !== undefined && followup) {
+        f.set("followup_done", "1");
+        f.set("followup_question", followup.question);
+        f.set("followup_answer", reply);
+      }
       const res = await fetch("/api/checkin", { method: "POST", body: f });
       const body = await res.json();
       if (!res.ok) throw new Error(body.error ?? "Check-in failed");
+      if (body.mode === "followup") {
+        setFollowup({ question: String(body.question) });
+        setAnswer("");
+        return;
+      }
+      setFollowup(null);
       setResult(body);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Check-in failed");
@@ -109,7 +123,7 @@ export function CheckinClient({ id }: { id: string }) {
 
   return (
     <div className="page">
-      <div className="phone-shell stack" style={{ paddingInline: 16 }}>
+      <div className="phone-shell wide stack" style={{ paddingInline: 16 }}>
         <div className="row spread wrap">
           <div>
             <h2>Daily check-in</h2>
@@ -204,67 +218,33 @@ export function CheckinClient({ id }: { id: string }) {
               </div>
               <label htmlFor="ci-text" className="sr-only">Your check-in</label>
               <textarea id="ci-text" className="textarea" placeholder="e.g. Slept 7 hours, calves a little sore, 90-minute practice, no hits." value={text} onChange={(e) => setText(e.target.value)} />
-              <button className="btn btn-tonal" onClick={() => submit(false)} disabled={busy || !text.trim()}>
+              <button className="btn btn-tonal" onClick={() => { setFollowup(null); submit(false); }} disabled={busy || !text.trim() || Boolean(followup)}>
                 {busy ? <span className="spinner" /> : null} Send typed check-in
               </button>
             </section>
+
+            {followup && (
+              <section className="card stack" style={{ "--gap": "10px" } as React.CSSProperties} aria-labelledby="fu" aria-live="polite">
+                <span className="pill teal" style={{ alignSelf: "flex-start" }}>One quick question</span>
+                <strong id="fu">{followup.question}</strong>
+                <label htmlFor="fu-answer" className="sr-only">Your answer</label>
+                <input id="fu-answer" className="textarea" style={{ minHeight: 0 }} value={answer} onChange={(e) => setAnswer(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter" && answer.trim() && !busy) submit(false, answer.trim()); }} placeholder="Type a short answer" autoFocus />
+                <div className="row wrap" style={{ gap: 8 }}>
+                  <button className="btn btn-filled" onClick={() => submit(false, answer.trim())} disabled={busy || !answer.trim()}>Send answer</button>
+                  <button className="btn btn-text" onClick={() => submit(false, "")} disabled={busy}>Skip</button>
+                </div>
+                <p className="tiny muted">Asked by the check-in agent (Google ADK). Nothing is guessed if you skip.</p>
+              </section>
+            )}
           </>
         )}
 
         {busy && <div className="row small muted" role="status"><span className="spinner" /> Gemini is reading your check-in…</div>}
-        {error && <ErrorBanner message={error} />}
+        {error && <CheckinError message={error} />}
 
-        {result && (
-          <>
-            {result.red_flag_message && (
-              <div className="banner banner-emergency" role="alert"><IconAlert size={22} /><div>{result.red_flag_message}</div></div>
-            )}
-            <section className="card stack" aria-labelledby="got">
-              <div className="row spread">
-                <h3 id="got">Here's what we logged</h3>
-                <span className="pill teal">{result.mode === "tap" ? "Tap check-in" : result.mode.startsWith("gemini") ? "Read by Gemini" : "Offline parser"}</span>
-              </div>
-              <div className="grid grid-2" style={{ "--gap": "10px" } as React.CSSProperties}>
-                <Field icon={<IconMoon size={16} />} label="Sleep" value={result.checkin.sleep_h != null ? `${result.checkin.sleep_h} h` : "Not mentioned"} />
-                <Field icon={<IconClock size={16} />} label="Practice" value={result.checkin.load_min != null ? `${result.checkin.load_min} min · ${result.checkin.intensity}` : result.checkin.intensity} />
-              </div>
-              <div>
-                <div className="small muted">Sore areas</div>
-                <div className="row wrap mt-8">
-                  {result.checkin.soreness.length ? result.checkin.soreness.map((s) => <span key={s.area} className="chip">{prettyArea(s.area)} · {s.level}/3</span>) : <span className="small">None</span>}
-                </div>
-              </div>
-              {result.checkin.meals != null && <div className="small"><span className="muted">Meals:</span> {result.checkin.meals} of 3{result.checkin.effort ? ` · Effort ${result.checkin.effort}/10` : ""}</div>}
-              {result.checkin.symptoms.length > 0 && (
-                <div>
-                  <div className="small muted">Symptoms mentioned</div>
-                  <div className="row wrap mt-8">{result.checkin.symptoms.map((s) => <span key={s} className="chip">{prettySymptom(s)}</span>)}</div>
-                </div>
-              )}
-              <hr className="divider" />
-              <div className="row spread">
-                <span className="small">Today's status</span>
-                <BandChip band={result.risk.band} />
-              </div>
-              {result.risk.flags.slice(0, 3).map((f) => <Link key={f.rule_id + (f.area ?? "")} href={`/athlete/flag?id=${id}&rule=${f.rule_id}${f.area ? `&area=${f.area}` : ""}`} className="small" style={{ display: "block" }}>• {f.reason} →</Link>)}
-            </section>
-            <div className="row">
-              <Link href={`/athlete?id=${id}`} className="btn btn-filled"><IconCheck size={18} /> Done</Link>
-              <button className="btn btn-text" onClick={() => { setResult(null); setAudio(null); setText(""); }}>New check-in</button>
-            </div>
-          </>
-        )}
+        {result && <CheckinResult id={id} result={result} onNew={() => { setResult(null); setAudio(null); setText(""); setFollowup(null); }} />}
       </div>
       <AthleteNav id={id} />
-    </div>
-  );
-}
-
-function Field({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
-  return (
-    <div style={{ background: "var(--surface-1)", borderRadius: 14, padding: "10px 12px" }}>
-      <div className="row small muted" style={{ gap: 6 }}>{icon}{label}</div>
-      <div className="strong mt-8" style={{ marginTop: 2 }}>{value}</div>
     </div>
   );
 }

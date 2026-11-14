@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { readMyProfile, restoreIfMissing, type MyProfile } from "@/lib/myProfile.ts";
 import { IconHome, IconMic, IconVideo, IconPhone } from "./icons.tsx";
 
 export const DEMO_ATHLETES = [
@@ -33,9 +35,25 @@ export function AthleteNav({ id }: { id: string }) {
   );
 }
 
+const NEW = "__new__";
+
 export function AthletePicker({ id }: { id: string }) {
   const router = useRouter();
   const path = usePathname();
+  const [mine, setMine] = useState<MyProfile | null>(null);
+
+  useEffect(() => {
+    const p = readMyProfile();
+    setMine(p);
+    if (!p) return;
+    const hasId = new URLSearchParams(window.location.search).has("id");
+    // Someone with their own profile lands on it by default instead of on a sample athlete.
+    if (!hasId && id !== p.id) return router.replace(`${path}?id=${p.id}`);
+    // The demo store is in memory: put the profile back if the server restarted, then reload the page's data.
+    if (id === p.id) void restoreIfMissing(p).then((restored) => restored && window.location.reload()).catch(() => {});
+  }, [id, path, router]);
+
+  const known = id === mine?.id || DEMO_ATHLETES.some((a) => a.id === id);
   return (
     <label className="row small muted" style={{ gap: 6 }}>
       <span>Viewing as</span>
@@ -43,10 +61,15 @@ export function AthletePicker({ id }: { id: string }) {
         className="select"
         style={{ width: "auto", padding: "6px 10px", borderRadius: 999, fontSize: 13 }}
         value={id}
-        onChange={(e) => router.push(`${path}?id=${e.target.value}`)}
-        aria-label="Demo athlete"
+        onChange={(e) => router.push(e.target.value === NEW ? "/athlete/new" : `${path}?id=${e.target.value}`)}
+        aria-label="Athlete"
       >
-        {DEMO_ATHLETES.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}
+        {mine && <option value={mine.id}>{mine.name} (you)</option>}
+        {!known && <option value={id}>Another athlete</option>}
+        <optgroup label="Sample athletes">
+          {DEMO_ATHLETES.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}
+        </optgroup>
+        <option value={NEW}>{mine ? "Manage my profile…" : "＋ Create my profile…"}</option>
       </select>
     </label>
   );

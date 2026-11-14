@@ -63,7 +63,7 @@ export function CoachDashboard() {
   async function resetDemo() {
     await postJson("/api/demo/reset", {});
     await Promise.all([reload(), brief.reload()]);
-    toast.show("Demo reset to this morning.");
+    toast.show("Sample data reset to this morning.");
   }
 
   return (
@@ -71,17 +71,17 @@ export function CoachDashboard() {
       <div className="container stack" style={{ "--gap": "20px" } as React.CSSProperties}>
         <header className="row spread wrap">
           <div>
-            <div className="small muted">{new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })} · Westbrook High (demo)</div>
+            <div className="small muted">{new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })} · Westbrook High</div>
             <h2>Good morning, Coach</h2>
           </div>
           <div className="row wrap" style={{ gap: 8 }}>
             {data && (
               <>
-                <ModePill live={data.integrations.gemini} label={data.integrations.gemini ? "Gemini live" : "Gemini: demo"} />
+                <ModePill live={data.integrations.gemini} label={data.integrations.gemini ? "Gemini live" : "Gemini: offline"} />
                 <ModePill live={data.integrations.google_health} label={data.integrations.google_health ? "Google Health live" : "Watch data: sample"} />
               </>
             )}
-            <button className="btn btn-text btn-sm" onClick={resetDemo}><IconRefresh size={16} /> Reset demo</button>
+            <button className="btn btn-text btn-sm" onClick={resetDemo}><IconRefresh size={16} /> Reset sample data</button>
           </div>
         </header>
 

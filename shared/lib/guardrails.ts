@@ -9,7 +9,7 @@ export const BANNED_PATTERNS: { id: string; re: RegExp }[] = [
   { id: "diagnosis", re: /\bdiagnos(e|es|ed|is|ing|tic)\b/i },
   { id: "cleared", re: /\b(cleared|clearance|clear to (play|return|practice))\b/i },
   { id: "safe_to_play", re: /\bsafe to (play|return|practice|compete)\b/i },
-  { id: "youre_fine", re: /\b(you('| a)re|you're) (fine|okay|ok|good to go|all good|healthy)\b/i },
+  { id: "youre_fine", re: /\b(you(['\u2019]| a)re) (fine|okay|ok|good to go|all good|healthy)\b/i },
   { id: "good_to_go", re: /\bgood to go\b/i },
   { id: "no_concussion", re: /\b(no|not a|don't have a|do not have a) concussion\b/i },
   { id: "has_concussion", re: /\b(you|they|he|she) (have|has|had) a concussion\b/i },

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SignupForm } from "@/components/SignupForm.tsx";
+import { Pricing } from "@/components/Pricing.tsx";
 import { LogoMark } from "@/components/Logo.tsx";
 import { IconVideo, IconUsers, IconWatch, IconShield, IconReport, IconSpark, IconWave, IconAlert } from "@/components/icons.tsx";
 
@@ -118,11 +119,7 @@ export default function Home() {
             <h2 id="pricing" className="mt-8">Trainer-level follow-up for a fraction of trainer hours</h2>
           </div>
         </div>
-        <div className="grid grid-3">
-          <Plan featured name="High schools" price="$20" sub="per athlete, per season" items={["Free for athletes", "Coach and trainer view, weekly report", "LandingCheck + FixPlan", "Fitbit / Pixel Watch baselines"]} />
-          <Plan name="Universities & park districts" price="$40" sub="per athlete, per season" items={["Everything in High schools", "Multi-team admin view", "Compliance reporting"]} />
-          <Plan name="Pro teams" price="Custom" sub="custom contract" items={["Integrations with existing staff tools", "Custom risk rules with your medical staff", "Priority support"]} />
-        </div>
+        <Pricing />
         <p className="tiny muted mt-8">Institutions pay; athletes never do. Why schools pay: it saves trainers hours of tracking, and a documented trail of flags and staff approvals lowers liability. Our $20–$40 sits between student tools (training logs, ~$900–1,400/yr) and pro load trackers (~$28K per team).</p>
       </section>
 
@@ -133,7 +130,6 @@ export default function Home() {
               <span className="eyebrow">Spring 2027 pilot</span>
               <h2 id="pilot" className="mt-8">Bring Ragnor to your school</h2>
               <p className="muted mt-16">We're starting with girls' soccer, basketball, volleyball and gymnastics programs, where ACL risk is several times higher and concussions still go unreported.</p>
-              <div className="banner banner-warn mt-16"><IconAlert size={18} /> <span>Demo build: all athletes and data on this site are fictional.</span></div>
             </div>
             <SignupForm />
           </div>
@@ -142,7 +138,7 @@ export default function Home() {
 
       <footer className="footer mt-40">
         <div className="container row wrap spread">
-          <div className="row"><LogoMark size={22} /> <span>Ragnor · Built at GDG UC Santa Cruz DevFest 2026</span></div>
+          <div className="row"><LogoMark size={22} /> <span>Ragnor · Built at GDG UC Santa Cruz DevFest 2026 · Athletes and data shown are fictional samples.</span></div>
           <div className="row wrap" style={{ gap: 16 }}>
             <a href="https://www.athleticbusiness.com/high-school/one-third-of-high-schools-operating-without-athletic-trainer.html" target="_blank" rel="noreferrer">ATLAS study</a>
             <a href="https://concussions.smart-teams.org/?p=1820" target="_blank" rel="noreferrer">Concussion underreporting</a>
@@ -170,20 +166,6 @@ function Tech({ name, body }: { name: string; body: string }) {
     <div className="card flat">
       <h4>{name}</h4>
       <p className="small muted mt-8">{body}</p>
-    </div>
-  );
-}
-
-function Plan({ name, price, sub, items, featured }: { name: string; price: string; sub: string; items: string[]; featured?: boolean }) {
-  return (
-    <div className={`card ${featured ? "primary" : ""}`} style={featured ? { outline: "2px solid var(--primary)" } : undefined}>
-      <div className="row spread">
-        <h3>{name}</h3>
-        {featured && <span className="pill" style={{ background: "var(--primary)", color: "#fff" }}>Beachhead</span>}
-      </div>
-      <div className="price mt-16">{price}</div>
-      <div className="small" style={{ opacity: 0.75 }}>{sub}</div>
-      <ul className="check-list">{items.map((i) => <li key={i}>{i}</li>)}</ul>
     </div>
   );
 }
