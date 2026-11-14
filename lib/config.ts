@@ -1,7 +1,7 @@
 // Which integrations are live. Everything has a demo-mode fallback so the app always runs.
 export const config = {
   geminiKey: process.env.GEMINI_API_KEY ?? "",
-  geminiModel: process.env.GEMINI_MODEL ?? "gemini-2.5-flash",
+  geminiModel: process.env.GEMINI_MODEL || "gemini-3.8-flash",
   elevenKey: process.env.ELEVENLABS_API_KEY ?? "",
   elevenAgentId: process.env.ELEVENLABS_AGENT_ID ?? process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID ?? "",
   elevenPhoneNumberId: process.env.ELEVENLABS_PHONE_NUMBER_ID ?? "",

@@ -47,7 +47,7 @@ import { scoreLanding, sanitizeDeep } from "../shared/lib/index.ts";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 const res = await ai.models.generateContent({
-  model: "gemini-2.5-flash", // check for the current model name
+  model: "gemini-3.8-flash", // check for the current model name
   contents: [{ role: "user", parts: [videoPart, { text: LANDINGCHECK_PROMPT }] }],
   config: { responseMimeType: "application/json", responseSchema: landingSchema },
 });
