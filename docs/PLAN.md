@@ -5,9 +5,10 @@ https://claude.ai/artifact/6ac9Qu7ZpjQgvFdjt2vkC6
 
 ## Event rules (GDG UC Santa Cruz DevFest 2026)
 
-- **Submissions close Sun Nov 15 at 11:00 AM** on Devpost, with a demo video uploaded. We target 10:30.
-- Venue: Sat 11:30 AM–6:30 PM (closed overnight), Sun from 9:00 AM.
-- Judging: judges come to our table, 1–2 minute pitch.
+- **Devpost deadline: Sun Nov 15, 8:30 AM PST** (kickoff slides said 11:00; Devpost is earlier, so plan for 8:30). We submit by **8:00**.
+- Demo video: **2 minutes or less**, uploaded to Devpost.
+- Judging: science-fair style at our table (live demo, slides and/or video). Expect technical questions.
+- Eligibility: students only, above the legal age of majority; all teammates added to the Devpost project.
 - Theme: "Build, Secure, Scale: Developers and Builders in the Agentic Era."
 - Tracks: Best Integration of Gemini or Google API · Best Startup Potential · Best Social Impact · Best UI.
 - Credits: g.dev/credits/devfest-santa-cruz (personal Google account; not compatible with AI Studio billing, so use Antigravity).
@@ -18,13 +19,15 @@ All four tracks, with **Best Startup Potential** first: season report for athlet
 
 ## Timeline
 
-1. **Sat 11:30–12:30:** Setup over lunch: API keys, credits, Firestore, shared JSON shapes.
+1. **Sat 11:30–12:30:** Setup: API keys, credits, Firestore, shared JSON shapes.
 2. **Sat 12:30–4:00:** Each person builds their piece against mock data; film drop-jump clips.
 3. **Sat 4:00–6:15:** First end-to-end integration; push to GitHub.
-4. **Sat 7:30 pm–2:00 am (home):** Fix and tune; build the AD season report and landing page; write the Devpost business section.
-5. **Sun 7:00–9:00 am (home):** UI polish; record and edit the demo video.
-6. **Sun 9:00–10:30 am (venue):** Upload video, finish Devpost. **Submit by 10:30.**
-7. **Sun 10:30–11:30:** Rehearse the 90-second table pitch. Judging at 11:30.
+4. **Sat 7:30 pm–1:00 am (home):** Fix and tune; season report and landing page; write the Devpost page except the video.
+5. **Sat 1:00–5:30 am:** Sleep.
+6. **Sun 5:30–7:30 am:** Code freeze at 6:30; record and edit the video (2:00 max).
+7. **Sun 7:30–8:00 am:** Upload video, check teammates are on the project, **submit by 8:00**.
+8. **Sun 9:00–11:30:** Set up the table (live app, looping video, 4-slide deck); rehearse.
+9. **Sun 11:30:** Judging.
 
 ## Shared JSON shapes (draft)
 
