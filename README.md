@@ -42,4 +42,4 @@ See [`docs/PLAN.md`](docs/PLAN.md) for the full plan.
 | Agent lead | HitWatch |
 | Wearables lead | Google Health API sync, baselines, impact webhook |
 | App lead | Next.js app, Firestore, rules engine, coach view, guardrails |
-| Pitch lead | Interviews, deck, demo script, Devpost, backup video |
+| Pitch lead | Market evidence, deck, demo script, Devpost (incl. business section), demo video |

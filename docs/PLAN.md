@@ -14,7 +14,7 @@ https://claude.ai/artifact/6ac9Qu7ZpjQgvFdjt2vkC6
 
 ## Priority
 
-All four tracks, with **Best Startup Potential** first: season report for athletic directors, landing page with pricing and pilot sign-up, a letter of intent, and a Devpost business section.
+All four tracks, with **Best Startup Potential** first: season report for athletic directors, landing page with pricing and pilot sign-up, a proof-of-demand slide built from published data, and a Devpost business section.
 
 ## Timeline
 
