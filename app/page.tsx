@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { SignupForm } from "@/components/SignupForm.tsx";
 import { LogoMark } from "@/components/Logo.tsx";
-import { IconVideo, IconUsers, IconWatch, IconShield, IconReport, IconSpark, IconWave, IconAlert } from "@/components/icons.tsx";
+import { IconWave, IconAlert } from "@/components/icons.tsx";
+
+const STEPS = [
+  { title: "Your normal, from your watch", body: "Overnight HRV, resting heart rate and sleep from Fitbit and Pixel Watch, through the Google Health API. Ragnor only ever asks one question: is this athlete back to their own baseline?" },
+  { title: "LandingCheck", body: "A 10-second phone video of a drop jump. Gemini flags the landing errors linked to ACL tears, like a knee caving inward, with the exact moment it happens." },
+  { title: "FixPlan", body: "A 10-minute warm-up built for the errors found, and a weekly re-film so athletes can see the change." },
+  { title: "Coach view", body: "One list: who to look at today and why, in plain words. Every alert waits for a person to approve it before anyone is contacted." },
+  { title: "Season report", body: "For athletic directors: athletes screened, alerts handled and staff hours saved, with an audit trail behind every flag." },
+];
 
 export default function Home() {
   return (
@@ -47,19 +55,21 @@ export default function Home() {
       </section>
 
       <section className="container mt-40" aria-labelledby="how">
-        <div className="section-title">
-          <div>
-            <span className="eyebrow">How it works</span>
-            <h2 id="how" className="mt-8">The follow-through a trainer would do, without the trainer</h2>
-          </div>
+        <div className="center">
+          <span className="eyebrow">How it works</span>
+          <h2 id="how" className="mt-8">The follow-through a trainer would do, without the trainer</h2>
         </div>
-        <div className="grid grid-3">
-          <Feature icon={<IconWatch />} tone="var(--teal-container)" ink="var(--teal-ink)" title="Your normal, from your watch" body="Overnight HRV, resting heart rate and sleep from Fitbit and Pixel Watch, through the Google Health API. Ragnor only ever asks one question: is this athlete back to their own baseline?" />
-          <Feature icon={<IconVideo />} tone="var(--primary-container)" ink="var(--primary)" title="LandingCheck" body="A 10-second phone video of a drop jump. Gemini flags the landing errors linked to ACL tears, like a knee caving inward, with the exact moment it happens." />
-          <Feature icon={<IconSpark />} tone="var(--primary-container)" ink="var(--on-primary-container)" title="FixPlan" body="A 10-minute warm-up built for the errors found, and a weekly re-film so athletes can see the change." />
-          <Feature icon={<IconUsers />} tone="var(--mod-container)" ink="var(--mod)" title="Coach view" body="One list: who to look at today and why, in plain words. Every alert waits for a person to approve it before anyone is contacted." />
-          <Feature icon={<IconReport />} tone="var(--low-container)" ink="var(--low)" title="Season report" body="For athletic directors: athletes screened, alerts handled and staff hours saved, with an audit trail behind every flag." />
-        </div>
+        <ol className="steps">
+          {STEPS.map((st, i) => (
+            <li key={st.title}>
+              <span className="step-num">{i + 1}</span>
+              <div>
+                <h3>{st.title}</h3>
+                <p className="muted mt-8">{st.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section className="container mt-40" aria-labelledby="diff">
@@ -87,7 +97,7 @@ export default function Home() {
             <h2 id="google" className="mt-8">Gemini, the Google Health API and Firebase</h2>
           </div>
         </div>
-        <div className="grid grid-4">
+        <div className="row wrap" style={{ justifyContent: "center", gap: 16 }}>
           <Tech name="Gemini video understanding" body="Scores landing videos with structured output: one field per landing error, with timestamp and confidence." />
           <Tech name="Google Health API" body="Fitbit and Pixel Watch HRV, resting heart rate and sleep for personal baselines." />
           <Tech name="Firebase" body="Athletes, check-ins, the alert approval queue and the audit log." />
@@ -109,10 +119,10 @@ export default function Home() {
         <div className="section-title">
           <div>
             <span className="eyebrow">Pricing</span>
-            <h2 id="pricing" className="mt-8">Trainer-level follow-up for a fraction of trainer hours</h2>
+            <h2 id="pricing" className="mt-8">Simple pricing, per athlete</h2>
           </div>
         </div>
-        <div className="grid grid-3">
+        <div className="grid grid-3 plans">
           <Plan featured name="High schools" price="$20" sub="per athlete, per season" items={["Free for athletes", "Coach and trainer view, weekly report", "LandingCheck + FixPlan", "Fitbit / Pixel Watch baselines"]} />
           <Plan name="Universities & park districts" price="$40" sub="per athlete, per season" items={["Everything in High schools", "Multi-team admin view", "Compliance reporting"]} />
           <Plan name="Pro teams" price="Custom" sub="custom contract" items={["Integrations with existing staff tools", "Custom risk rules with your medical staff", "Priority support"]} />
@@ -149,18 +159,9 @@ export default function Home() {
   );
 }
 
-function Feature({ icon, title, body, tone, ink }: { icon: React.ReactNode; title: string; body: string; tone: string; ink: string }) {
-  return (
-    <div className="card">
-      <h3>{title}</h3>
-      <p className="muted mt-8">{body}</p>
-    </div>
-  );
-}
-
 function Tech({ name, body }: { name: string; body: string }) {
   return (
-    <div className="card flat">
+    <div className="card flat" style={{ flex: "1 1 240px", maxWidth: 320 }}>
       <h4>{name}</h4>
       <p className="small muted mt-8">{body}</p>
     </div>
@@ -169,10 +170,10 @@ function Tech({ name, body }: { name: string; body: string }) {
 
 function Plan({ name, price, sub, items, featured }: { name: string; price: string; sub: string; items: string[]; featured?: boolean }) {
   return (
-    <div className={`card ${featured ? "primary" : ""}`} style={featured ? { outline: "2px solid var(--primary)" } : undefined}>
+    <div tabIndex={0} className={`card plan ${featured ? "featured" : ""}`}>
       <div className="row spread">
         <h3>{name}</h3>
-        {featured && <span className="pill" style={{ background: "var(--primary)", color: "#fff" }}>Beachhead</span>}
+        {featured && <span className="pill" style={{ background: "var(--primary)", color: "#fff" }}>Most popular</span>}
       </div>
       <div className="price mt-16">{price}</div>
       <div className="small" style={{ opacity: 0.75 }}>{sub}</div>
