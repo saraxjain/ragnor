@@ -13,6 +13,7 @@ import {
   scoreLanding,
   RULES_VERSION,
   type CheckIn,
+  type HitWatchDay,
   type LandingResult,
   type WearableDay,
 } from "../lib/index.ts";
@@ -126,7 +127,7 @@ const athletes = roster.map((a) => {
   let hitwatch = null;
   if (a.scenario === "hitwatch") {
     const baseline_symptoms = { fatigue: 1 };
-    const days = [
+    const days: HitWatchDay[] = [
       { day: 0, symptoms: { headache: 1 }, red_flags: [] as string[] },
       { day: 1, symptoms: { headache: 1, fatigue: 1 }, red_flags: [] as string[] },
       { day: 2, symptoms: { headache: 3, light_sensitivity: 2, feeling_in_a_fog: 2, fatigue: 1 }, red_flags: [] as string[], worse_than_yesterday: true },

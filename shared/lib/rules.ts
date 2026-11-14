@@ -197,8 +197,9 @@ export function evaluateHitWatch(args: {
   }
 
   const yTotal = yesterday ? sum(Object.values(yesterday.symptoms)) : null;
-  if (today.worse_than_yesterday || (yTotal != null && totalToday > yTotal)) {
-    reasons.push(yTotal != null ? `Worse than yesterday (${yTotal} to ${totalToday})` : "Athlete says it's worse than yesterday");
+  const scoreRose = yTotal != null && totalToday > yTotal;
+  if (scoreRose || today.worse_than_yesterday) {
+    reasons.push(scoreRose ? `Worse than yesterday (${yTotal} to ${totalToday})` : "Athlete says it's worse than yesterday");
     raise("same_day");
   }
 

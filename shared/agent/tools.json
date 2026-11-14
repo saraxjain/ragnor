@@ -4,7 +4,7 @@
     {
       "name": "log_symptoms",
       "description": "Save today's HitWatch follow-up answers for this athlete and hit.",
-      "endpoint": "POST /api/hitwatch/log",
+      "endpoint": "POST /api/hitwatch/tools/log_symptoms",
       "parameters": {
         "type": "object",
         "properties": {
@@ -37,7 +37,7 @@
     {
       "name": "compare_to_baseline",
       "description": "Compare today's symptoms and the athlete's wearable data (HRV, resting heart rate, sleep) to their own preseason baseline. Returns whether to escalate and why.",
-      "endpoint": "POST /api/hitwatch/compare",
+      "endpoint": "POST /api/hitwatch/tools/compare_to_baseline",
       "parameters": {
         "type": "object",
         "properties": {
@@ -52,7 +52,7 @@
     {
       "name": "draft_alert",
       "description": "Create an alert DRAFT for the coach/trainer approval queue. Never sends anything by itself; a human must approve it.",
-      "endpoint": "POST /api/alerts/draft",
+      "endpoint": "POST /api/hitwatch/tools/draft_alert",
       "parameters": {
         "type": "object",
         "properties": {
@@ -71,7 +71,7 @@
     {
       "name": "schedule_followup",
       "description": "Schedule the next HitWatch call (tomorrow by default, or a callback time the athlete asked for).",
-      "endpoint": "POST /api/hitwatch/schedule",
+      "endpoint": "POST /api/hitwatch/tools/schedule_followup",
       "parameters": {
         "type": "object",
         "properties": {

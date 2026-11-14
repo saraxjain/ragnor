@@ -6,7 +6,17 @@ Ragnor turns the wearables athletes already own into an athletic trainer for the
 
 Built at GDG UC Santa Cruz DevFest 2026 (theme: "Build, Secure, Scale"), submitted to the **Best Startup Potential** track.
 
-> Status: planning. Requirements are still being added; no app code yet.
+> **Status: working app.** Runs end to end in demo mode with no keys; add Gemini, ElevenLabs, Google Health API and Firebase keys to go live. See [`docs/SETUP.md`](docs/SETUP.md).
+
+## Quick start
+
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm test           # rules engine + guardrails
+```
+
+**Demo path (60 seconds):** open `/coach` → **Run the scripted demo call** for Maya → watch the transcript, the four agent tool calls and the same-day alert land in the queue → **Approve** → open Maya to see HRV below her baseline after the hit → `/athlete/landing?id=ath_02` → **Use the sample result** → **Build my FixPlan** → `/report`.
 
 ## Features (planned)
 
@@ -25,9 +35,9 @@ Built at GDG UC Santa Cruz DevFest 2026 (theme: "Build, Secure, Scale"), submitt
 - A rules engine decides the risk level; Gemini only extracts and explains.
 - Every flag is logged with its inputs, rule version and reason.
 
-## Planned stack
+## Stack
 
-- Next.js (web app that works on phones), Firebase / Firestore
+- Next.js 16 + TypeScript (one app: landing page, athlete app, coach dashboard, AD report, API routes), Material 3 / Fitbit-style UI, Firebase / Firestore mirror
 - Gemini API (video, Live API, function calling, grounding)
 - ElevenLabs conversational agent (outbound calls, Gemini as the LLM)
 - Google Health API (Fitbit / Pixel Watch data)
