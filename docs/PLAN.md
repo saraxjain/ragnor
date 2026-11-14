@@ -65,7 +65,7 @@ Evidence wording for the pitch: HRV drops after concussion and recovers with sym
 | --- | --- |
 | LandingCheck | Gemini video understanding + structured JSON output (one field per landing error, timestamp, confidence) |
 | Check-in (voice) | Gemini audio → structured fields |
-| HitWatch | ElevenLabs voice agent (Gemini as LLM) + Gemini function calling: `log_symptoms`, `compare_to_baseline`, `draft_alert`, `schedule_followup` |
+| HitWatch | ElevenLabs voice + **Google Agent Development Kit (ADK)** agent on Gemini with tools `log_symptoms`, `compare_to_baseline`, `draft_alert`, `schedule_followup` (fallback: plain function calling, then offline rules) |
 | FixPlan, coach briefing | Gemini structured output |
 | Wearables | Google Health API |
 | Data | Firebase / Firestore mirror |

@@ -9,10 +9,12 @@
     "start": "next start",
     "test": "node --test shared/lib/rules.test.ts",
     "seed": "node shared/scripts/make-seed.ts",
+    "adk:smoke": "node shared/scripts/adk-smoke.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@elevenlabs/react": "^1.22.1",
+    "@google/adk": "^2.5.0",
     "@google/genai": "^3.3.0",
     "firebase-admin": "^14.5.1",
     "next": "^16.4.6",

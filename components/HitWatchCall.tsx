@@ -63,7 +63,7 @@ export function HitWatchCall({ athleteId, athleteName, onDone, prefer }: { athle
       await sleep(l.role === "agent" ? 900 : 700);
     }
     setPhase("processing");
-    setEngine(res.run.mode === "gemini" ? "Gemini function calling" : "Rules engine (offline)");
+    setEngine(res.run.mode === "adk" ? "Google ADK agent + Gemini" : res.run.mode === "gemini" ? "Gemini function calling" : "Rules engine (offline)");
     for (const t of res.run.tool_calls) {
       await sleep(550);
       setTools((x) => [...x, t]);
