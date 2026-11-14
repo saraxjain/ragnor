@@ -97,7 +97,6 @@ export default function Home() {
       <section className="container mt-40" aria-labelledby="safety">
         <div className="card flat">
           <div className="row" style={{ alignItems: "flex-start", gap: 16 }}>
-            <span className="feature-icon" style={{ background: "var(--surface-2)", color: "var(--ink-2)", margin: 0 }}><IconShield /></span>
             <div>
               <h3 id="safety">Safety first, by design</h3>
               <p className="muted mt-8">Ragnor is a wellness and triage tool, not a medical device. It never says an athlete is cleared, fine or safe to play, and a filter blocks that language from every AI output. Emergency answers show "get medical care now" instantly. LandingCheck is a LESS-style screen, not a validated clinical score, and HRV can show recovery but can't detect a concussion. Return-to-play decisions stay with licensed clinicians.</p>
@@ -153,7 +152,6 @@ export default function Home() {
 function Feature({ icon, title, body, tone, ink }: { icon: React.ReactNode; title: string; body: string; tone: string; ink: string }) {
   return (
     <div className="card">
-      <div className="feature-icon" style={{ background: tone, color: ink }}>{icon}</div>
       <h3>{title}</h3>
       <p className="muted mt-8">{body}</p>
     </div>
