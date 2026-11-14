@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Server-only posture: no client (browser/mobile) access at all. The app reads and writes through the Firebase Admin SDK on the
+    // server, which bypasses these rules ("The server client libraries bypass all Cloud Firestore Security Rules"). The access control
+    // (roles, team scope, consent gate, approval queue, coach restriction) lives in src/lib/data/guarded.ts.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

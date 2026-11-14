@@ -6,7 +6,7 @@ Ragnor turns the wearables athletes already own into an athletic trainer for the
 
 Built at GDG UC Santa Cruz DevFest 2026 (theme: "Build, Secure, Scale"), submitted to the **Best Startup Potential** track.
 
-> Status: planning. Requirements are still being added; no app code yet.
+> Status: app scaffold running on mock data (Next.js, rules engine, approval queue, HitWatch demo, coach view). See [`docs/APP_NOTES.md`](docs/APP_NOTES.md) for what is mock, what is live and what is unverified.
 
 ## Features (planned)
 
@@ -33,6 +33,17 @@ Built at GDG UC Santa Cruz DevFest 2026 (theme: "Build, Secure, Scale"), submitt
 - Google Health API (Fitbit / Pixel Watch data)
 
 See [`docs/PLAN.md`](docs/PLAN.md) for the full plan.
+
+## Run the app locally
+
+```bash
+npm install
+cp .env.example .env.local   # optional: every key is optional, demo mode needs none
+npm run dev                  # http://localhost:3000  (pick a demo role; "For judges" has the architecture and the AI panel)
+npm test && npx tsc --noEmit && npm run lint && npm run build
+```
+
+Details, env vars and the HitWatch voice-agent setup: [`docs/APP_NOTES.md`](docs/APP_NOTES.md), [`docs/HITWATCH_SETUP.md`](docs/HITWATCH_SETUP.md).
 
 ## Team
 

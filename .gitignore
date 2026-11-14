@@ -10,3 +10,15 @@ dist/
 .vercel
 __pycache__/
 .venv/
+
+# App (Next.js / TypeScript / tests)
+build/
+coverage/
+next-env.d.ts
+*.tsbuildinfo
+.env.production
+.env.development
+
+# Firebase service-account keys must never be committed
+*-firebase-adminsdk-*.json
+serviceAccount*.json
