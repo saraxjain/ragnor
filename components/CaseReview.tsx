@@ -114,7 +114,7 @@ export function CaseReview({ id, name }: { id: string; name: string }) {
                 <div key={i} className="list-item"><span style={{ color: k.passed ? "var(--low)" : "var(--mod)", width: 20 }}>{k.passed ? "✓" : "!"}</span><span className="small" style={{ flex: 1 }}><strong>{k.name}</strong> · {k.note}</span></div>
               ))}
             </div>
-            <p className="tiny muted mt-8">The code-level safety check always runs after the AI reviewer and can only make the plan more cautious. Literature ids [E#] refer to the evidence library on the Platform page.</p>
+            <p className="tiny muted mt-8">The code-level safety check always runs after the AI reviewer and can only make the plan more cautious. Literature ids [E#] refer to published sports-medicine studies in Ragnor's evidence library.</p>
           </section>
         </>
       )}

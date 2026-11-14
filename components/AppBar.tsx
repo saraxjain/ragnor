@@ -7,7 +7,6 @@ const LINKS = [
   { href: "/", label: "For schools", match: (p: string) => p === "/", hideSm: true },
   { href: "/athlete", label: "Athlete", match: (p: string) => p.startsWith("/athlete") },
   { href: "/coach", label: "Coach", match: (p: string) => p.startsWith("/coach") },
-  { href: "/platform", label: "Platform", match: (p: string) => p.startsWith("/platform") },
   { href: "/report", label: "Report", match: (p: string) => p.startsWith("/report"), hideSm: true },
 ];
 

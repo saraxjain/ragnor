@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import type { ModelScore } from "@/lib/risk.ts";
 import { FEATURE_LABELS } from "@/shared/lib/features.ts";
 
@@ -44,7 +43,7 @@ export function RiskPanel({ m, name }: { m: ModelScore; name: string }) {
             </div>
           ))}
         </div>
-        <p className="tiny muted mt-16">Logistic-regression model on 10 engineered features. Used to decide who to look at first, never to diagnose or clear. Validated on held-out athletes; see <Link href="/platform/model">Model &amp; evals</Link>.</p>
+        <p className="tiny muted mt-16">Logistic-regression model on 10 engineered features. Used to decide who to look at first, never to diagnose or clear. Validated on held-out (simulated) athletes.</p>
       </section>
       <section className="card">
         <h3 style={{ marginBottom: 10 }}>Feature vector (today)</h3>
