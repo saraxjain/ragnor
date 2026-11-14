@@ -2,47 +2,47 @@
    Tokens follow M3 roles; risk colors use M3 error / tertiary / success tones and are never color-only (always a label). */
 
 :root {
-  color-scheme: dark;
-  --bg: #000000;
-  --surface: #121316;
-  --surface-1: #17191c;
-  --surface-2: #1f2125;
-  --surface-3: #2a2d32;
-  --outline: #3c3f45;
-  --outline-soft: #26282d;
-  --ink: #f3f3f5;
-  --ink-2: #c9cbcf;
-  --ink-3: #9aa0a6;
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-1: #f7f8fa;
+  --surface-2: #f1f3f6;
+  --surface-3: #e4e7ec;
+  --outline: #c5cad3;
+  --outline-soft: #e4e7ec;
+  --ink: #111318;
+  --ink-2: #3d424b;
+  --ink-3: #6b7079;
 
-  --primary: #9b6bff; /* Ragnor purple (deck) */
-  --primary-hover: #b08cff;
+  --primary: #1d4ed8; /* Ragnor purple (deck) */
+  --primary-hover: #1e40af;
   --on-primary: #ffffff;
-  --primary-container: #2b1a52;
-  --on-primary-container: #e7dcff;
+  --primary-container: #e0e9ff;
+  --on-primary-container: #0b2a6f;
 
-  --teal: #22d35e; /* Ragnor green (deck), for rings and fills */
-  --teal-ink: #4ade80;
-  --teal-container: #0e2c19;
+  --teal: #334155; /* Ragnor green (deck), for rings and fills */
+  --teal-ink: #334155;
+  --teal-container: #e2e8f0;
 
-  --high: #ff4d6d; /* Ragnor pink (deck) */
-  --high-container: #3b0d18;
-  --mod: #f5b451;
-  --mod-fill: #e8a33d;
-  --mod-container: #3a2a0f;
-  --low: #4ade80;
-  --low-fill: #22d35e;
-  --low-container: #0e2c19;
+  --high: #d6336c; /* Ragnor pink (deck) */
+  --high-container: #fde7ee;
+  --mod: #b45309;
+  --mod-fill: #d97706;
+  --mod-container: #fdf1dc;
+  --low: #0369a1;
+  --low-fill: #0284c7;
+  --low-container: #e0f2fe;
 
-  --hrv: #9b6bff;
-  --rhr: #ff4d6d;
-  --sleep: #6b93ff;
+  --hrv: #1d4ed8;
+  --rhr: #d6336c;
+  --sleep: #3b5bdb;
 
   --radius-s: 10px;
   --radius-m: 16px;
   --radius-l: 24px;
   --radius-xl: 32px;
-  --shadow-1: 0 0 0 1px rgba(255,255,255,0.06);
-  --shadow-2: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.6);
+  --shadow-1: 0 0 0 1px rgba(0,0,0,0.06);
+  --shadow-2: 0 0 0 1px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08);
 
   --font: Lato, "Google Sans Text", Roboto, "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-display: Merriweather, Georgia, "Times New Roman", serif;
@@ -260,7 +260,7 @@ p { margin: 0; }
 .price { font-family: var(--font-display); font-size: 40px; font-weight: 900; letter-spacing: -0.02em; }
 .check-list { list-style: none; padding: 0; margin: 12px 0 0; display: flex; flex-direction: column; gap: 8px; }
 .check-list li { display: flex; gap: 10px; font-size: 14px; color: var(--ink-2); }
-.check-list li::before { content: "✓"; color: var(--teal-ink); font-weight: 700; }
+.check-list li::before { content: "•"; color: var(--teal-ink); font-weight: 700; }
 .google-strip { display: flex; flex-wrap: wrap; gap: 10px; }
 .footer { border-top: 1px solid var(--outline-soft); padding: 32px 0 48px; color: var(--ink-3); font-size: 13px; }
 
@@ -299,8 +299,8 @@ p { margin: 0; }
 @media (max-width: 560px) { .hero-mock { display: none; } }
 
 /* ---------- Ragnor brand additions (from the team deck) ---------- */
-.btn-green { background: var(--teal); color: #0b2e16; }
-.btn-green:hover:not([disabled]) { background: #1fbf55; box-shadow: var(--shadow-1); }
+.btn-green { background: var(--teal); color: #fff; }
+.btn-green:hover:not([disabled]) { background: #1e293b; box-shadow: var(--shadow-1); }
 .accent-bar { height: 6px; border-radius: 3px; width: 56px; background: var(--teal); margin-bottom: 14px; }
 .accent-bar.pink { background: var(--high); }
 .accent-bar.purple { background: var(--primary); }
@@ -310,7 +310,7 @@ p { margin: 0; }
 .toggle-chip { border: 1px solid var(--outline); background: var(--surface); border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 700; cursor: pointer; color: var(--ink-2); }
 .toggle-chip[aria-pressed="true"] { background: var(--primary-container); border-color: var(--primary); color: var(--on-primary-container); }
 .meal { flex: 1; height: 44px; border-radius: 12px; border: 1px solid var(--outline); background: var(--surface-2); font-weight: 700; cursor: pointer; color: var(--ink-3); }
-.meal[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: #0b2e16; }
+.meal[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: #fff; }
 input[type="range"] { accent-color: var(--primary); width: 100%; }
 input[type="range"].green { accent-color: var(--teal); }
 .body-region { cursor: pointer; transition: fill .15s; }
@@ -331,3 +331,22 @@ input[type="range"].green { accent-color: var(--teal); }
 input, select, textarea { background: var(--surface-1); color: var(--ink); border-color: var(--outline); }
 .fixplan-card { background: var(--primary-container) !important; }
 .icon-soft { background: var(--primary-container) !important; color: var(--on-primary-container) !important; }
+
+/* ---- top bar stays dark so the white logo reads; page body is white ---- */
+.appbar { background: #000; border-bottom-color: #26282d; }
+.appbar .brand, .appbar .brand:hover { color: #ffffff; }
+.appbar .nav a { color: #d7d9dd; }
+.appbar .nav a:hover { background: #1f2125; }
+.appbar .nav a[aria-current="page"] { background: #2b1a52; color: #e7dcff; }
+
+/* ---- how it works: numbered, centered list ---- */
+.steps { list-style: none; margin: 28px auto 0; padding: 0; max-width: 720px; }
+.steps li { display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 22px 0; border-top: 1px solid var(--outline-soft); }
+.steps li:last-child { border-bottom: 1px solid var(--outline-soft); }
+.step-num { font-family: var(--font-display); font-weight: 900; font-size: 22px; color: var(--primary); }
+
+/* ---- pricing: $20 highlighted by default; hover or click highlights any box ---- */
+.plans .plan { cursor: pointer; outline: 2px solid transparent; transition: background .15s, outline-color .15s; }
+.plan.featured { outline-color: var(--primary); background: var(--primary-container); }
+.plan:hover, .plan:focus-within { outline-color: var(--primary); background: var(--primary-container); }
+.plans:has(.plan:hover, .plan:focus-within) .plan.featured:not(:hover):not(:focus-within) { outline-color: transparent; background: var(--surface); }

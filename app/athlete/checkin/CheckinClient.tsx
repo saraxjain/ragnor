@@ -160,7 +160,7 @@ export function CheckinClient({ id }: { id: string }) {
               <div className="row" style={{ gap: 8 }}>
                 {["Breakfast", "Lunch", "Dinner"].map((m, i) => (
                   <button key={m} className="meal" aria-pressed={meals[i]} aria-label={m} onClick={() => setMeals((x) => x.map((v, j) => (j === i ? !v : v)))}>
-                    {m[0]}{meals[i] ? " ✓" : ""}
+                    {m[0]}
                   </button>
                 ))}
               </div>

@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { SignupForm } from "@/components/SignupForm.tsx";
 import { LogoMark } from "@/components/Logo.tsx";
-import { IconVideo, IconUsers, IconWatch, IconShield, IconReport, IconSpark, IconWave, IconAlert } from "@/components/icons.tsx";
+import { IconWave, IconAlert } from "@/components/icons.tsx";
+
+const STEPS = [
+  { title: "Your normal, from your watch", body: "Overnight HRV, resting heart rate and sleep from Fitbit and Pixel Watch, through the Google Health API. Ragnor only ever asks one question: is this athlete back to their own baseline?" },
+  { title: "LandingCheck", body: "A 10-second phone video of a drop jump. Gemini flags the landing errors linked to ACL tears, like a knee caving inward, with the exact moment it happens." },
+  { title: "FixPlan", body: "A 10-minute warm-up built for the errors found, and a weekly re-film so athletes can see the change." },
+  { title: "Coach view", body: "One list: who to look at today and why, in plain words. Every alert waits for a person to approve it before anyone is contacted." },
+  { title: "Season report", body: "For athletic directors: athletes screened, alerts handled and staff hours saved, with an audit trail behind every flag." },
+];
 
 export default function Home() {
   return (
@@ -9,7 +17,6 @@ export default function Home() {
       <section className="hero">
         <div className="container hero-grid">
           <div>
-            <span className="pill teal">For high schools without a full-time athletic trainer</span>
             <h1 className="mt-16">
               Wearables collect the data.
               <br />
@@ -45,26 +52,24 @@ export default function Home() {
           </div>
         </div>
         <p className="tiny muted mt-8">Sources: NATA / Korey Stringer Institute ATLAS study; Register-Mihalik et al. 2013; NFHS 2024–25 participation survey.</p>
-        <blockquote className="card flat mt-24" style={{ margin: "24px 0 0", borderLeft: "6px solid var(--high)", borderRadius: 16 }}>
-          <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(20px, 2.4vw, 28px)", lineHeight: 1.35 }}>“Five concussions taught me the warning signs were there. Nobody was reading them.”</p>
-          <p className="small strong mt-8">Chelsi Vaghela, co-founder</p>
-        </blockquote>
       </section>
 
       <section className="container mt-40" aria-labelledby="how">
-        <div className="section-title">
-          <div>
-            <span className="eyebrow">How it works</span>
-            <h2 id="how" className="mt-8">The follow-through a trainer would do, without the trainer</h2>
-          </div>
+        <div className="center">
+          <span className="eyebrow">How it works</span>
+          <h2 id="how" className="mt-8">The follow-through a trainer would do, without the trainer</h2>
         </div>
-        <div className="grid grid-3">
-          <Feature icon={<IconWatch />} tone="var(--teal-container)" ink="var(--teal-ink)" title="Your normal, from your watch" body="Overnight HRV, resting heart rate and sleep from Fitbit and Pixel Watch, through the Google Health API. Ragnor only ever asks one question: is this athlete back to their own baseline?" />
-          <Feature icon={<IconVideo />} tone="var(--primary-container)" ink="var(--primary)" title="LandingCheck" body="A 10-second phone video of a drop jump. Gemini flags the landing errors linked to ACL tears, like a knee caving inward, with the exact moment it happens." />
-          <Feature icon={<IconSpark />} tone="var(--primary-container)" ink="var(--on-primary-container)" title="FixPlan" body="A 10-minute warm-up built for the errors found, and a weekly re-film so athletes can see the change." />
-          <Feature icon={<IconUsers />} tone="var(--mod-container)" ink="var(--mod)" title="Coach view" body="One list: who to look at today and why, in plain words. Every alert waits for a person to approve it before anyone is contacted." />
-          <Feature icon={<IconReport />} tone="var(--low-container)" ink="var(--low)" title="Season report" body="For athletic directors: athletes screened, alerts handled and staff hours saved, with an audit trail behind every flag." />
-        </div>
+        <ol className="steps">
+          {STEPS.map((st, i) => (
+            <li key={st.title}>
+              <span className="step-num">{i + 1}</span>
+              <div>
+                <h3>{st.title}</h3>
+                <p className="muted mt-8">{st.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section className="container mt-40" aria-labelledby="diff">
@@ -92,7 +97,7 @@ export default function Home() {
             <h2 id="google" className="mt-8">Gemini, the Google Health API and Firebase</h2>
           </div>
         </div>
-        <div className="grid grid-4">
+        <div className="row wrap" style={{ justifyContent: "center", gap: 16 }}>
           <Tech name="Gemini video understanding" body="Scores landing videos with structured output: one field per landing error, with timestamp and confidence." />
           <Tech name="Google Health API" body="Fitbit and Pixel Watch HRV, resting heart rate and sleep for personal baselines." />
           <Tech name="Firebase" body="Athletes, check-ins, the alert approval queue and the audit log." />
@@ -102,7 +107,6 @@ export default function Home() {
       <section className="container mt-40" aria-labelledby="safety">
         <div className="card flat">
           <div className="row" style={{ alignItems: "flex-start", gap: 16 }}>
-            <span className="feature-icon" style={{ background: "var(--surface-2)", color: "var(--ink-2)", margin: 0 }}><IconShield /></span>
             <div>
               <h3 id="safety">Safety first, by design</h3>
               <p className="muted mt-8">Ragnor is a wellness and triage tool, not a medical device. It never says an athlete is cleared, fine or safe to play, and a filter blocks that language from every AI output. Emergency answers show "get medical care now" instantly. LandingCheck is a LESS-style screen, not a validated clinical score, and HRV can show recovery but can't detect a concussion. Return-to-play decisions stay with licensed clinicians.</p>
@@ -115,10 +119,10 @@ export default function Home() {
         <div className="section-title">
           <div>
             <span className="eyebrow">Pricing</span>
-            <h2 id="pricing" className="mt-8">Trainer-level follow-up for a fraction of trainer hours</h2>
+            <h2 id="pricing" className="mt-8">Simple pricing, per athlete</h2>
           </div>
         </div>
-        <div className="grid grid-3">
+        <div className="grid grid-3 plans">
           <Plan featured name="High schools" price="$20" sub="per athlete, per season" items={["Free for athletes", "Coach and trainer view, weekly report", "LandingCheck + FixPlan", "Fitbit / Pixel Watch baselines"]} />
           <Plan name="Universities & park districts" price="$40" sub="per athlete, per season" items={["Everything in High schools", "Multi-team admin view", "Compliance reporting"]} />
           <Plan name="Pro teams" price="Custom" sub="custom contract" items={["Integrations with existing staff tools", "Custom risk rules with your medical staff", "Priority support"]} />
@@ -155,19 +159,9 @@ export default function Home() {
   );
 }
 
-function Feature({ icon, title, body, tone, ink }: { icon: React.ReactNode; title: string; body: string; tone: string; ink: string }) {
-  return (
-    <div className="card">
-      <div className="feature-icon" style={{ background: tone, color: ink }}>{icon}</div>
-      <h3>{title}</h3>
-      <p className="muted mt-8">{body}</p>
-    </div>
-  );
-}
-
 function Tech({ name, body }: { name: string; body: string }) {
   return (
-    <div className="card flat">
+    <div className="card flat" style={{ flex: "1 1 240px", maxWidth: 320 }}>
       <h4>{name}</h4>
       <p className="small muted mt-8">{body}</p>
     </div>
@@ -176,10 +170,10 @@ function Tech({ name, body }: { name: string; body: string }) {
 
 function Plan({ name, price, sub, items, featured }: { name: string; price: string; sub: string; items: string[]; featured?: boolean }) {
   return (
-    <div className={`card ${featured ? "primary" : ""}`} style={featured ? { outline: "2px solid var(--primary)" } : undefined}>
+    <div tabIndex={0} className={`card plan ${featured ? "featured" : ""}`}>
       <div className="row spread">
         <h3>{name}</h3>
-        {featured && <span className="pill" style={{ background: "var(--primary)", color: "#fff" }}>Beachhead</span>}
+        {featured && <span className="pill" style={{ background: "var(--primary)", color: "#fff" }}>Most popular</span>}
       </div>
       <div className="price mt-16">{price}</div>
       <div className="small" style={{ opacity: 0.75 }}>{sub}</div>
@@ -224,9 +218,8 @@ function HeroMock() {
             </div>
           </div>
           <div className="stack mt-16" style={{ gap: 8 }}>
-            <div className="bubble agent" style={{ fontSize: 12 }}>How'd you sleep last night?</div>
-            <div className="bubble athlete" style={{ fontSize: 12 }}>About five and a half hours.</div>
-            <div className="bubble agent" style={{ fontSize: 12 }}>Thanks. Anything sore or tight today?</div>
+            <div className="bubble athlete" style={{ fontSize: 12 }}>Slept 5.5 hours. Left hamstring tight, 2 of 3.</div>
+            <div className="bubble agent" style={{ fontSize: 12 }}>Sleep and HRV are below her normal. Flagged for the trainer to review. Nothing is sent without approval.</div>
           </div>
         </div>
       </div>
