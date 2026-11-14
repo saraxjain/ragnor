@@ -26,7 +26,9 @@ export function NewProfile() {
     setError(null);
     try {
       const res = await fetch("/api/athletes", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name, sport, grade, device }) });
-      const body = await res.json();
+      // A non-JSON reply means the server itself hiccuped; show plain words, not a parser error.
+      const body = await res.json().catch(() => null);
+      if (!body) throw new Error("We couldn't reach the server. Wait a moment and try again.");
       if (!res.ok) throw new Error(body.error ?? "We couldn't create your profile.");
       saveMyProfile(body.athlete as MyProfile);
       router.push(`/athlete?id=${body.athlete.id}`);
