@@ -1,3 +1,5 @@
+> The team's full pitch deck is `docs/Ragnor-pitch-deck.pdf`. Use it as the master; this file is the short table version.
+
 # Table deck: 4 slides (+1 backup)
 
 For the science-fair judging. Each slide maps to the Best Startup Potential criteria: named user, differentiation, plan to reach users, evidence of demand, business model.
@@ -24,7 +26,7 @@ Diagram: Phone video / voice / watch / mouthguard → Gemini (video understandin
 - **Different:** others screen once, coach individuals or alert at the moment of impact. Ragnor follows through for a whole team without a trainer.
 - **Demand:** Hurtblocker ACL app hit 4,000 downloads in 2 months; Google launched a Gemini Fitbit coach; booster clubs already pay ~$150 per sensor mouthguard.
 - **Go-to-market:** free pilots → booster clubs and athletic directors → districts and state associations.
-- **Model:** free athlete app; ~$2,000/school/year (hypothesis); ~13,000 schools without a full-time trainer means ~$26M/yr to start.
+- **Model:** free for athletes; $20/athlete/season (high schools), $40 (universities, park districts); $165.3M beachhead, $254.2M SAM.
 - **Moat:** an injury-outcome dataset that grows every season.
 
 ## Backup slide: What we won't claim

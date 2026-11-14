@@ -16,7 +16,7 @@ import type {
   WearableDay,
 } from "./types.ts";
 
-export const RULES_VERSION = "2026-11-14.1";
+export const RULES_VERSION = "2026-11-14.2";
 
 const BAND_ORDER: Band[] = ["low", "moderate", "high"];
 const maxBand = (a: Band, b: Band): Band => (BAND_ORDER.indexOf(a) >= BAND_ORDER.indexOf(b) ? a : b);
@@ -135,6 +135,11 @@ export function dailyRisk(input: DailyRiskInput): RiskResult {
       area: "head",
       reason: `HitWatch: ${input.active_hitwatch.reasons.join("; ")}`,
     });
+  }
+
+  // R9: under-fueled on a hard day (meals come from the tap check-in)
+  if (today && today.meals != null && today.meals <= 1 && (today.intensity === "hard" || (today.effort ?? 0) >= 8 || (today.load_min ?? 0) >= 90)) {
+    flags.push({ rule_id: "R9_fuel", band: "moderate", reason: `Only ${today.meals} meal${today.meals === 1 ? "" : "s"} logged on a hard practice day` });
   }
 
   // R8: red flags in today's check-in are always high

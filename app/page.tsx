@@ -36,15 +36,19 @@ export default function Home() {
             <p className="muted">of US public high schools have a full-time athletic trainer. About a third have no trainer access at all.</p>
           </div>
           <div className="card">
-            <div className="big-stat">~4 in 10</div>
+            <div className="big-stat purple">~4 in 10</div>
             <p className="muted">possible concussions in high school athletes are never reported to a coach or medical professional.</p>
           </div>
           <div className="card">
-            <div className="big-stat">8.27M</div>
+            <div className="big-stat green">8.27M</div>
             <p className="muted">students played high school sports in 2024–25, a record. Most of them already wear a fitness tracker or smartwatch.</p>
           </div>
         </div>
         <p className="tiny muted mt-8">Sources: NATA / Korey Stringer Institute ATLAS study; Register-Mihalik et al. 2013; NFHS 2024–25 participation survey.</p>
+        <blockquote className="card flat mt-24" style={{ margin: "24px 0 0", borderLeft: "6px solid var(--high)", borderRadius: 16 }}>
+          <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(20px, 2.4vw, 28px)", lineHeight: 1.35 }}>“Five concussions taught me the warning signs were there. Nobody was reading them.”</p>
+          <p className="small strong mt-8">Chelsi Vaghela, co-founder</p>
+        </blockquote>
       </section>
 
       <section className="container mt-40" aria-labelledby="how">
@@ -118,11 +122,11 @@ export default function Home() {
           </div>
         </div>
         <div className="grid grid-3">
-          <Plan name="Athlete" price="Free" sub="forever" items={["Daily check-ins", "LandingCheck + FixPlan", "Connect Fitbit or Pixel Watch"]} />
-          <Plan featured name="School" price="$2,000" sub="per school, per year" items={["Coach view and morning briefing", "HitWatch follow-up calls", "Alert approval queue", "Season report for the AD"]} />
-          <Plan name="District" price="Custom" sub="multi-school" items={["Admin view across schools", "Compliance reporting", "Mouthguard sensor integrations", "Priority support"]} />
+          <Plan featured name="High schools" price="$20" sub="per athlete, per season" items={["Free for athletes", "Coach and trainer view, weekly report", "HitWatch follow-up calls", "LandingCheck + FixPlan", "Fitbit / Pixel Watch baselines"]} />
+          <Plan name="Universities & park districts" price="$40" sub="per athlete, per season" items={["Everything in High schools", "Multi-team admin view", "Mouthguard sensor integrations", "Compliance reporting"]} />
+          <Plan name="Pro teams" price="Custom" sub="custom contract" items={["Integrations with existing staff tools", "Custom risk rules with your medical staff", "Priority support"]} />
         </div>
-        <p className="tiny muted mt-8">Pricing is a launch hypothesis we're validating with pilot schools.</p>
+        <p className="tiny muted mt-8">Institutions pay; athletes never do. Why schools pay: it saves trainers hours of tracking, and a documented follow-up trail for concussion protocols lowers liability. Our $20–$40 sits between student tools (training logs, ~$900–1,400/yr) and pro load trackers (~$28K per team).</p>
       </section>
 
       <section className="container mt-40" aria-labelledby="pilot">
@@ -178,7 +182,7 @@ function Plan({ name, price, sub, items, featured }: { name: string; price: stri
     <div className={`card ${featured ? "primary" : ""}`} style={featured ? { outline: "2px solid var(--primary)" } : undefined}>
       <div className="row spread">
         <h3>{name}</h3>
-        {featured && <span className="pill" style={{ background: "var(--primary)", color: "#fff" }}>Most schools</span>}
+        {featured && <span className="pill" style={{ background: "var(--primary)", color: "#fff" }}>Beachhead</span>}
       </div>
       <div className="price mt-16">{price}</div>
       <div className="small" style={{ opacity: 0.75 }}>{sub}</div>

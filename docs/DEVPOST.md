@@ -11,11 +11,11 @@ Wearables collect the data. Ragnor turns it into a decision: an AI athletic trai
 
 ## Inspiration
 
-One of our teammates is a three-sport athlete who has had five concussions. One of them wasn't caught until symptoms showed up two days later, when nobody was checking. That's not rare: high school athletes leave roughly 4 in 10 possible concussions unreported, and only about 37% of US public high schools have a full-time athletic trainer to notice. Meanwhile, athletes already wear smartwatches and some teams already buy sensor mouthguards. The warning signs are being collected. Nobody follows up on them.
+Our co-founder Chelsi is a three-sport athlete who has had five concussions: "the warning signs were there; nobody was reading them." One of them wasn't caught until symptoms showed up two days later, when nobody was checking. That's not rare: high school athletes leave roughly 4 in 10 possible concussions unreported, and only about 37% of US public high schools have a full-time athletic trainer to notice. Meanwhile, athletes already wear smartwatches and some teams already buy sensor mouthguards. The warning signs are being collected. Nobody follows up on them.
 
 ## What it does
 
-Ragnor is an AI agent that turns the wearables athletes already own into an athletic trainer.
+Ragnor turns the wearables athletes already own into an athletic trainer. One 60-second daily check-in (sleep, soreness on a body map, practice, food), plus Fitbit / Pixel Watch data, becomes a plain-language flag with its likely cause and what to do.
 
 - **HitWatch:** after a hit is logged, or a mouthguard sensor reports a hard impact, Ragnor phones the athlete every day for a week in a natural voice. It asks graded symptom questions, compares the answers and the athlete's overnight HRV, resting heart rate and sleep to their own normal, and drafts an alert to the coach when something changes. A human approves every alert.
 - **LandingCheck:** an athlete films a 10-second drop jump on a phone. Gemini watches the video and flags LESS-style landing errors (like a knee caving inward) with the exact timestamp, the movement patterns linked to ACL tears.
@@ -49,10 +49,10 @@ Each piece exists somewhere on its own: apps that screen a jump once, wellness c
 
 ## Business model (rough)
 
-- **Free** athlete app.
-- **School license:** about $2,000 per school per year for the coach view, HitWatch and season reports (a hypothesis we'll test in pilots, well under the cost of part-time trainer hours).
-- **District license** with an admin view and compliance reporting.
-- **Market:** roughly 13,000 US high schools without a full-time trainer means about $26M a year at the school price, before clubs, colleges and parents.
+- **Institutions pay per athlete, per season; free for athletes.** High schools $20, universities and park districts $40, pro teams custom.
+- **Why they pay:** it saves athletic trainers hours of tracking, and a documented follow-up trail for concussion protocols lowers liability.
+- **Market:** beachhead 8,266,244 US high school athletes × $20 = **$165.3M**; adding NCAA athletes ($22.2M) and park districts ($66.7M) gives a **$254.2M SAM**; global sports technology TAM is $34.25B (2025).
+- **Price position:** between student tools (Volt ~$900–1,400/yr, TeamBuildr ~$90/mo, ImPACT ~$500/school) and pro load trackers (Catapult >$28K/team/yr).
 - **Moat:** every follow-up and screen is linked to what happened next. Over seasons, that becomes an injury-outcome dataset nobody else has.
 
 ## How we built it

@@ -8,13 +8,31 @@ Built at GDG UC Santa Cruz DevFest 2026 (theme: "Build, Secure, Scale"), submitt
 
 > **Status: working app.** Runs end to end in demo mode with no keys; add Gemini, ElevenLabs, Google Health API and Firebase keys to go live. See [`docs/SETUP.md`](docs/SETUP.md).
 
-## Quick start
+## Run it on your laptop
+
+You need **Node.js 22.18 or newer** (check with `node -v`; install from https://nodejs.org if needed) and **git**.
 
 ```bash
-npm install
-npm run dev        # http://localhost:3000
-npm test           # rules engine + guardrails
+git clone https://github.com/saraxjain/ragnor.git
+cd ragnor
+npm install                 # first time only, takes a minute
+cp .env.example .env.local  # creates your private keys file
+npm run dev                 # starts the app
 ```
+
+Open **http://localhost:3000**. Stop it with `Ctrl + C`. Next time, just `cd ragnor` and `npm run dev`.
+
+### Adding API keys
+
+Open `.env.local` (in the `ragnor` folder) in any editor, e.g. `code .env.local` or `open -e .env.local` on a Mac, and paste each key right after its `=`, with no spaces or quotes:
+
+```
+GEMINI_API_KEY=AIzaSy...your-key...
+ELEVENLABS_API_KEY=sk_...your-key...
+ELEVENLABS_AGENT_ID=agent_...
+```
+
+Save, then restart the app (`Ctrl + C`, `npm run dev`). The status pills on `/coach` turn green for each live service. `.env.local` is git-ignored: **never commit keys or paste them in Discord.** Full details per service: [`docs/SETUP.md`](docs/SETUP.md).
 
 **Demo path (60 seconds):** open `/coach` → **Run the scripted demo call** for Maya → watch the transcript, the four agent tool calls and the same-day alert land in the queue → **Approve** → open Maya to see HRV below her baseline after the hit → `/athlete/landing?id=ath_02` → **Use the sample result** → **Build my FixPlan** → `/report`.
 
@@ -42,7 +60,7 @@ npm test           # rules engine + guardrails
 - ElevenLabs conversational agent (outbound calls, Gemini as the LLM)
 - Google Health API (Fitbit / Pixel Watch data)
 
-See [`docs/PLAN.md`](docs/PLAN.md) for the full plan.
+**Team docs:** full plan [`docs/PLAN.md`](docs/PLAN.md) · pitch deck [`docs/Ragnor-pitch-deck.pdf`](docs/Ragnor-pitch-deck.pdf) · Devpost draft [`docs/DEVPOST.md`](docs/DEVPOST.md) · video script [`docs/VIDEO_SCRIPT.md`](docs/VIDEO_SCRIPT.md) · setup [`docs/SETUP.md`](docs/SETUP.md)
 
 ## Team
 

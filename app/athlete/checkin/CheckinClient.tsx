@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AthleteNav, AthletePicker } from "@/components/AthleteShell.tsx";
 import { BandChip, ErrorBanner, prettyArea, prettySymptom } from "@/components/ui.tsx";
+import { BodyMap } from "@/components/BodyMap.tsx";
 import { IconMic, IconStop, IconAlert, IconCheck, IconMoon, IconClock, IconPhone } from "@/components/icons.tsx";
 import type { CheckIn, RiskResult } from "@/shared/lib/index.ts";
 
@@ -26,6 +27,15 @@ export function CheckinClient({ id }: { id: string }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<Result | null>(null);
+  const [tab, setTab] = useState<"tap" | "talk">("tap");
+  const [sleepH, setSleepH] = useState(7.5);
+  const [sore, setSore] = useState<Record<string, number>>({});
+  const [minutes, setMinutes] = useState(90);
+  const [effort, setEffort] = useState(6);
+  const [acts, setActs] = useState<string[]>([]);
+  const [meals, setMeals] = useState<boolean[]>([true, true, false]);
+  const [hit, setHit] = useState(false);
+  const [hitSymptoms, setHitSymptoms] = useState<string[]>([]);
   const recRef = useRef<MediaRecorder | null>(null);
   const chunks = useRef<Blob[]>([]);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -63,6 +73,24 @@ export function CheckinClient({ id }: { id: string }) {
     setRecording(false);
   }
 
+  async function submitTap() {
+    setBusy(true);
+    setError(null);
+    try {
+      const f = new FormData();
+      f.set("athlete_id", id);
+      f.set("structured", JSON.stringify({ sleep_h: sleepH, soreness: sore, load_min: minutes, effort, activities: acts, meals: meals.filter(Boolean).length, took_hit: hit, symptoms: hit ? hitSymptoms : [] }));
+      const res = await fetch("/api/checkin", { method: "POST", body: f });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body.error ?? "Check-in failed");
+      setResult(body);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Check-in failed");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function submit(useAudio: boolean) {
     setBusy(true);
     setError(null);
@@ -86,11 +114,87 @@ export function CheckinClient({ id }: { id: string }) {
     <div className="page">
       <div className="phone-shell stack" style={{ paddingInline: 16 }}>
         <div className="row spread wrap">
-          <h2>Check-in</h2>
+          <div>
+            <h2>Daily check-in</h2>
+            <span className="pill teal" style={{ marginTop: 6 }}>Takes 60 seconds</span>
+          </div>
           <AthletePicker id={id} />
         </div>
 
         {!result && (
+          <div className="seg" role="group" aria-label="Check-in style" style={{ alignSelf: "flex-start" }}>
+            <button aria-pressed={tab === "tap"} onClick={() => setTab("tap")}>Tap</button>
+            <button aria-pressed={tab === "talk"} onClick={() => setTab("talk")}>Talk (Gemini)</button>
+          </div>
+        )}
+
+        {!result && tab === "tap" && (
+          <>
+            <section className="card stack" style={{ "--gap": "8px" } as React.CSSProperties} aria-labelledby="sl">
+              <div className="row spread"><strong id="sl">Sleep</strong><span className="strong">{sleepH} hrs</span></div>
+              <input type="range" className="green" min={3} max={12} step={0.5} value={sleepH} onChange={(e) => setSleepH(Number(e.target.value))} aria-label="Hours slept" />
+            </section>
+
+            <section className="card stack" style={{ "--gap": "8px" } as React.CSSProperties} aria-labelledby="so">
+              <div className="row spread">
+                <strong id="so">Soreness</strong>
+                <span className="small" style={{ color: Object.keys(sore).length ? "var(--mod)" : "var(--ink-3)", fontWeight: 700 }}>
+                  {Object.keys(sore).length ? Object.entries(sore).map(([a, l]) => `${prettyArea(a)} ${l}/3`).join(", ") : "Tap where it's sore"}
+                </span>
+              </div>
+              <BodyMap value={sore} onChange={setSore} />
+              <p className="tiny muted center">Tap again for worse. A fourth tap clears it.</p>
+            </section>
+
+            <section className="card stack" style={{ "--gap": "10px" } as React.CSSProperties} aria-labelledby="pr">
+              <div className="row spread"><strong id="pr">Practice</strong><span className="strong">{minutes} min</span></div>
+              <input type="range" min={0} max={240} step={15} value={minutes} onChange={(e) => setMinutes(Number(e.target.value))} aria-label="Practice minutes" />
+              <div className="row wrap" style={{ gap: 6 }}>
+                {[["sprints", "Sprints"], ["lower_body_lift", "Lower body lift"], ["upper_body_lift", "Upper body lift"], ["scrimmage", "Scrimmage / game"], ["skills", "Skills"], ["conditioning", "Conditioning"]].map(([k, l]) => (
+                  <button key={k} className="toggle-chip" aria-pressed={acts.includes(k)} onClick={() => setActs((x) => x.includes(k) ? x.filter((y) => y !== k) : [...x, k])}>{l}</button>
+                ))}
+              </div>
+              <div className="row spread"><span className="small muted">Effort</span><span className="strong">{effort}/10</span></div>
+              <input type="range" min={1} max={10} step={1} value={effort} onChange={(e) => setEffort(Number(e.target.value))} aria-label="Effort from 1 to 10" />
+            </section>
+
+            <section className="card stack" style={{ "--gap": "8px" } as React.CSSProperties} aria-labelledby="me">
+              <strong id="me">Meals eaten</strong>
+              <div className="row" style={{ gap: 8 }}>
+                {["Breakfast", "Lunch", "Dinner"].map((m, i) => (
+                  <button key={m} className="meal" aria-pressed={meals[i]} aria-label={m} onClick={() => setMeals((x) => x.map((v, j) => (j === i ? !v : v)))}>
+                    {m[0]}{meals[i] ? " ✓" : ""}
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section className="card stack" style={{ "--gap": "10px" } as React.CSSProperties} aria-labelledby="hi">
+              <div className="row spread">
+                <strong id="hi">Any hit to the head today?</strong>
+                <div className="seg" role="group" aria-label="Hit to the head">
+                  <button aria-pressed={!hit} onClick={() => setHit(false)}>No</button>
+                  <button aria-pressed={hit} onClick={() => setHit(true)}>Yes</button>
+                </div>
+              </div>
+              {hit && (
+                <>
+                  <span className="small muted">Anything you're feeling? (tap all that apply)</span>
+                  <div className="row wrap" style={{ gap: 6 }}>
+                    {["headache", "dizziness", "nausea", "light_sensitivity", "feeling_in_a_fog", "blurred_vision"].map((sy) => (
+                      <button key={sy} className="toggle-chip" aria-pressed={hitSymptoms.includes(sy)} onClick={() => setHitSymptoms((x) => x.includes(sy) ? x.filter((y) => y !== sy) : [...x, sy])}>{prettySymptom(sy)}</button>
+                    ))}
+                  </div>
+                  <p className="tiny muted">HitWatch will check in with you daily for a week. Symptoms can show up a day or two later.</p>
+                </>
+              )}
+            </section>
+
+            <button className="btn btn-green btn-lg btn-block" onClick={submitTap} disabled={busy}>{busy ? <span className="spinner" /> : null} Submit</button>
+          </>
+        )}
+
+        {!result && tab === "talk" && (
           <>
             <section className="card stack center" style={{ alignItems: "center", paddingBlock: 28 }} aria-labelledby="voice">
               <h3 id="voice">Talk for about 20 seconds</h3>
@@ -142,7 +246,7 @@ export function CheckinClient({ id }: { id: string }) {
             <section className="card stack" aria-labelledby="got">
               <div className="row spread">
                 <h3 id="got">Here's what we logged</h3>
-                <span className="pill teal">{result.mode.startsWith("gemini") ? "Read by Gemini" : "Offline parser"}</span>
+                <span className="pill teal">{result.mode === "tap" ? "Tap check-in" : result.mode.startsWith("gemini") ? "Read by Gemini" : "Offline parser"}</span>
               </div>
               <div className="grid grid-2" style={{ "--gap": "10px" } as React.CSSProperties}>
                 <Field icon={<IconMoon size={16} />} label="Sleep" value={result.checkin.sleep_h != null ? `${result.checkin.sleep_h} h` : "Not mentioned"} />
@@ -154,6 +258,7 @@ export function CheckinClient({ id }: { id: string }) {
                   {result.checkin.soreness.length ? result.checkin.soreness.map((s) => <span key={s.area} className="chip">{prettyArea(s.area)} · {s.level}/3</span>) : <span className="small">None</span>}
                 </div>
               </div>
+              {result.checkin.meals != null && <div className="small"><span className="muted">Meals:</span> {result.checkin.meals} of 3{result.checkin.effort ? ` · Effort ${result.checkin.effort}/10` : ""}</div>}
               {result.checkin.symptoms.length > 0 && (
                 <div>
                   <div className="small muted">Symptoms mentioned</div>
@@ -165,7 +270,7 @@ export function CheckinClient({ id }: { id: string }) {
                 <span className="small">Today's status</span>
                 <BandChip band={result.risk.band} />
               </div>
-              {result.risk.flags.slice(0, 3).map((f) => <p key={f.rule_id + (f.area ?? "")} className="small muted">• {f.reason.replace(/^HitWatch: /, "")}</p>)}
+              {result.risk.flags.slice(0, 3).map((f) => <Link key={f.rule_id + (f.area ?? "")} href={`/athlete/flag?id=${id}&rule=${f.rule_id}${f.area ? `&area=${f.area}` : ""}`} className="small" style={{ display: "block" }}>• {f.reason.replace(/^HitWatch: /, "")} →</Link>)}
             </section>
             {result.hitwatch_started && (
               <div className="banner banner-info" role="status"><IconPhone size={20} /><div>You mentioned a hit, so HitWatch is on: we'll call you once a day for a week to check how you feel. <Link href={`/athlete/hitwatch?id=${id}`}>See HitWatch</Link></div></div>

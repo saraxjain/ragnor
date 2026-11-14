@@ -124,6 +124,14 @@ test("daily: nothing going on -> low, and missing check-in marks low confidence"
   assert.equal(r.low_confidence, true);
 });
 
+test("daily: one meal on a hard day -> moderate (R9)", () => {
+  const c = { ...checkin("2026-11-14", 8, 100), meals: 1, effort: 9 };
+  const r = dailyRisk({ athlete_id: "a1", date: "2026-11-14", checkins: [c] });
+  assert.equal(r.band, "moderate");
+  assert.equal(r.flags[0].rule_id, "R9_fuel");
+  assert.equal(r.flags[0].reason, "Only 1 meal logged on a hard practice day");
+});
+
 // ---------- HitWatch ----------
 
 test("hitwatch: any red flag is urgent", () => {

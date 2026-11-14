@@ -40,6 +40,9 @@ export interface CheckIn {
   took_hit: boolean;
   symptoms: string[];
   red_flags: string[];
+  meals?: number | null; // meals eaten today (0-3), from the tap check-in
+  effort?: number | null; // session effort 1-10
+  activities?: string[]; // e.g. sprints, lower_body_lift
 }
 
 export interface LandingItem {

@@ -3,7 +3,8 @@ import Link from "next/link";
 import type { Athlete } from "@/lib/store.ts";
 import type { WearableComparison } from "@/shared/lib/index.ts";
 import { useApi, ErrorBanner, LoadingCard, BandChip, InfoBanner, prettyArea } from "@/components/ui.tsx";
-import { Ring, Sparkline } from "@/components/charts.tsx";
+import { Ring, Sparkline, TrendChart } from "@/components/charts.tsx";
+import { BodyMap } from "@/components/BodyMap.tsx";
 import { AthleteNav, AthletePicker } from "@/components/AthleteShell.tsx";
 import { IconWave, IconHeart, IconMoon, IconMic, IconVideo, IconPhone, IconWatch, IconChevron, IconSpark, IconLock } from "@/components/icons.tsx";
 
@@ -62,9 +63,12 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
               {a.risk_today.flags.length > 0 && (
                 <ul className="stack" style={{ listStyle: "none", padding: 0, margin: 0, width: "100%", textAlign: "left", "--gap": "8px" } as React.CSSProperties}>
                   {a.risk_today.flags.slice(0, 3).map((f) => (
-                    <li key={f.rule_id + (f.area ?? "")} className="row" style={{ alignItems: "flex-start", gap: 10, background: "var(--surface-1)", borderRadius: 14, padding: "10px 12px" }}>
-                      <span className={`band band-${f.band}`} style={{ height: 22, fontSize: 11, flex: "none" }}>{f.band === "high" ? "High" : f.band === "moderate" ? "Mod" : "Low"}</span>
-                      <span className="small">{f.reason.replace(/^HitWatch: /, "")}</span>
+                    <li key={f.rule_id + (f.area ?? "")}>
+                      <Link href={`/athlete/flag?id=${id}&rule=${f.rule_id}${f.area ? `&area=${f.area}` : ""}`} className="row" style={{ alignItems: "flex-start", gap: 10, background: "var(--surface-1)", borderRadius: 14, padding: "10px 12px", color: "inherit", textDecoration: "none" }}>
+                        <span className={`band band-${f.band}`} style={{ height: 22, fontSize: 11, flex: "none" }}>{f.band === "high" ? "High" : f.band === "moderate" ? "Mod" : "Low"}</span>
+                        <span className="small" style={{ flex: 1 }}>{f.reason.replace(/^HitWatch: /, "")}</span>
+                        <IconChevron size={16} />
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -86,6 +90,8 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
                 </div>
               </Link>
             )}
+
+            <TodayBodyAndLoad a={a} />
 
             <section aria-labelledby="body">
               <div className="row spread" style={{ margin: "8px 0 10px" }}>
@@ -146,6 +152,30 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
         )}
       </div>
       <AthleteNav id={id} />
+    </div>
+  );
+}
+
+function TodayBodyAndLoad({ a }: { a: Athlete }) {
+  const today = a.checkins.find((c) => c.date === a.risk_today.date);
+  const sore: Record<string, number> = Object.fromEntries((today?.soreness ?? []).map((s) => [s.area, s.level]));
+  const last7 = [...a.checkins].sort((x, y) => x.date.localeCompare(y.date)).slice(-7);
+  const prev = [...a.checkins].sort((x, y) => x.date.localeCompare(y.date)).slice(-14, -7);
+  const prevAvg = prev.length ? Math.round(prev.reduce((s, c) => s + (c.load_min ?? 0), 0) / prev.length) : null;
+  return (
+    <div className="grid grid-2" style={{ "--gap": "10px" } as React.CSSProperties}>
+      <section className="card" aria-label="Where it's sore today" style={{ padding: 14 }}>
+        <strong className="small">Where it's sore</strong>
+        <div className="mt-8"><BodyMap value={sore} /></div>
+        {!Object.keys(sore).length && <p className="tiny muted center">Nothing sore logged today.</p>}
+      </section>
+      <section className="card" aria-label="Training load, 7 days" style={{ padding: 14 }}>
+        <strong className="small">Training load, 7 days</strong>
+        <div className="mt-8">
+          <TrendChart label="Training minutes per day" points={last7.map((c) => ({ date: c.date, value: c.load_min }))} baseline={prevAvg} tolerance={(prevAvg ?? 0) * 0.25} color="#7e3af2" unit="min" lowerIsWorse={false} height={170} />
+        </div>
+        <p className="tiny muted">Band = last week's typical day.</p>
+      </section>
     </div>
   );
 }

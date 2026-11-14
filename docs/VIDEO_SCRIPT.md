@@ -11,7 +11,7 @@ About 280 spoken words. Record screen + phone; voiceover can be one person. Targ
 | 1:05–1:30 | Athlete does a drop jump → Gemini result with timestamps → FixPlan warm-up → before/after clip | "LandingCheck watches a ten-second phone video and flags the landing errors linked to ACL tears, like this left knee caving in at 1.4 seconds. FixPlan builds a warm-up for exactly that, and a re-film shows the change." |
 | 1:30–1:40 | Season report screen | "Athletic directors get a season report: athletes screened, hits followed up, alerts handled." |
 | 1:40–1:50 | Architecture slide (Gemini video + function calling, Google Health API, Firebase, ElevenLabs, rules engine, guardrails) | "It's built on Gemini, the Google Health API and Firebase. Ragnor never diagnoses and never clears anyone. A human makes every call." |
-| 1:50–1:58 | Pricing / market card + tagline | "Schools pay per year, for a fraction of a trainer's cost. Wearables collect the data. Ragnor turns it into a decision." |
+| 1:50–1:58 | Pricing / market card + tagline | "Twenty dollars per athlete per season, free for athletes. Wearables collect the data. Ragnor turns it into a decision." |
 
 Checklist before upload:
 - [ ] Under 2:00 (Devpost rule).

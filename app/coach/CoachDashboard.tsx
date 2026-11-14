@@ -118,7 +118,7 @@ export function CoachDashboard() {
                               <Avatar name={ath?.name ?? "?"} />
                               <div>
                                 <strong>{ath?.name}</strong>
-                                <div className="small muted">HitWatch · {timeAgo(al.created_at)}</div>
+                                <div className="small muted">{al.hit_id ? "HitWatch" : "Athlete asked for a check-in"} · {timeAgo(al.created_at)}</div>
                               </div>
                             </div>
                             <span className={`band ${al.urgency === "urgent" ? "band-high" : "band-moderate"}`}>{al.urgency === "urgent" ? "Urgent" : al.urgency === "same_day" ? "Same day" : "Routine"}</span>
@@ -148,7 +148,7 @@ export function CoachDashboard() {
 
                 <section className="card" aria-labelledby="roster">
                   <div className="card-header">
-                    <h3 id="roster">Who to look at today</h3>
+                    <div className="row" style={{ gap: 10 }}><h3 id="roster">Who to look at today</h3><Link href="/report" className="btn btn-filled btn-sm">Weekly report</Link></div>
                     <div className="row" role="tablist" aria-label="Filter roster" style={{ gap: 4 }}>
                       <button role="tab" aria-selected={filter === "flagged"} className={`btn btn-sm ${filter === "flagged" ? "btn-tonal" : "btn-text"}`} onClick={() => setFilter("flagged")}>Flagged</button>
                       <button role="tab" aria-selected={filter === "all"} className={`btn btn-sm ${filter === "all" ? "btn-tonal" : "btn-text"}`} onClick={() => setFilter("all")}>All {data.athletes.length}</button>
