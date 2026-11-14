@@ -45,10 +45,6 @@ export default function Home() {
           </div>
         </div>
         <p className="tiny muted mt-8">Sources: NATA / Korey Stringer Institute ATLAS study; Register-Mihalik et al. 2013; NFHS 2024–25 participation survey.</p>
-        <blockquote className="card flat mt-24" style={{ margin: "24px 0 0", borderLeft: "6px solid var(--high)", borderRadius: 16 }}>
-          <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(20px, 2.4vw, 28px)", lineHeight: 1.35 }}>“Five concussions taught me the warning signs were there. Nobody was reading them.”</p>
-          <p className="small strong mt-8">Chelsi Vaghela, co-founder</p>
-        </blockquote>
       </section>
 
       <section className="container mt-40" aria-labelledby="how">

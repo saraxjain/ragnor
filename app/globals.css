@@ -2,47 +2,47 @@
    Tokens follow M3 roles; risk colors use M3 error / tertiary / success tones and are never color-only (always a label). */
 
 :root {
-  color-scheme: dark;
-  --bg: #000000;
-  --surface: #121316;
-  --surface-1: #17191c;
-  --surface-2: #1f2125;
-  --surface-3: #2a2d32;
-  --outline: #3c3f45;
-  --outline-soft: #26282d;
-  --ink: #f3f3f5;
-  --ink-2: #c9cbcf;
-  --ink-3: #9aa0a6;
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-1: #f7f8fa;
+  --surface-2: #f1f3f6;
+  --surface-3: #e4e7ec;
+  --outline: #c5cad3;
+  --outline-soft: #e4e7ec;
+  --ink: #111318;
+  --ink-2: #3d424b;
+  --ink-3: #6b7079;
 
-  --primary: #9b6bff; /* Ragnor purple (deck) */
-  --primary-hover: #b08cff;
+  --primary: #6d3fe0; /* Ragnor purple (deck) */
+  --primary-hover: #5a2fc7;
   --on-primary: #ffffff;
-  --primary-container: #2b1a52;
-  --on-primary-container: #e7dcff;
+  --primary-container: #efe8ff;
+  --on-primary-container: #2b1a52;
 
-  --teal: #22d35e; /* Ragnor green (deck), for rings and fills */
-  --teal-ink: #4ade80;
-  --teal-container: #0e2c19;
+  --teal: #16a34a; /* Ragnor green (deck), for rings and fills */
+  --teal-ink: #15803d;
+  --teal-container: #e3f7ea;
 
-  --high: #ff4d6d; /* Ragnor pink (deck) */
-  --high-container: #3b0d18;
-  --mod: #f5b451;
-  --mod-fill: #e8a33d;
-  --mod-container: #3a2a0f;
-  --low: #4ade80;
-  --low-fill: #22d35e;
-  --low-container: #0e2c19;
+  --high: #d6336c; /* Ragnor pink (deck) */
+  --high-container: #fde7ee;
+  --mod: #b45309;
+  --mod-fill: #d97706;
+  --mod-container: #fdf1dc;
+  --low: #15803d;
+  --low-fill: #16a34a;
+  --low-container: #e3f7ea;
 
-  --hrv: #9b6bff;
-  --rhr: #ff4d6d;
-  --sleep: #6b93ff;
+  --hrv: #6d3fe0;
+  --rhr: #d6336c;
+  --sleep: #3b5bdb;
 
   --radius-s: 10px;
   --radius-m: 16px;
   --radius-l: 24px;
   --radius-xl: 32px;
-  --shadow-1: 0 0 0 1px rgba(255,255,255,0.06);
-  --shadow-2: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.6);
+  --shadow-1: 0 0 0 1px rgba(0,0,0,0.06);
+  --shadow-2: 0 0 0 1px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08);
 
   --font: Lato, "Google Sans Text", Roboto, "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-display: Merriweather, Georgia, "Times New Roman", serif;
@@ -331,3 +331,10 @@ input[type="range"].green { accent-color: var(--teal); }
 input, select, textarea { background: var(--surface-1); color: var(--ink); border-color: var(--outline); }
 .fixplan-card { background: var(--primary-container) !important; }
 .icon-soft { background: var(--primary-container) !important; color: var(--on-primary-container) !important; }
+
+/* ---- top bar stays dark so the white logo reads; page body is white ---- */
+.appbar { background: #000; border-bottom-color: #26282d; }
+.appbar .brand, .appbar .brand:hover { color: #ffffff; }
+.appbar .nav a { color: #d7d9dd; }
+.appbar .nav a:hover { background: #1f2125; }
+.appbar .nav a[aria-current="page"] { background: #2b1a52; color: #e7dcff; }
