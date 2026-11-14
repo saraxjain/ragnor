@@ -12,13 +12,17 @@ https://claude.ai/artifact/6ac9Qu7ZpjQgvFdjt2vkC6
 - Tracks: Best Integration of Gemini or Google API · Best Startup Potential · Best Social Impact · Best UI.
 - Credits: g.dev/credits/devfest-santa-cruz (personal Google account; not compatible with AI Studio billing, so use Antigravity).
 
+## Priority
+
+All four tracks, with **Best Startup Potential** first: season report for athletic directors, landing page with pricing and pilot sign-up, a letter of intent, and a Devpost business section.
+
 ## Timeline
 
 1. **Sat 11:30–12:30:** Setup over lunch: API keys, credits, Firestore, shared JSON shapes.
 2. **Sat 12:30–4:00:** Each person builds their piece against mock data; film drop-jump clips.
-3. **Sat 4:00–6:15:** First end-to-end integration; push before the venue closes.
-4. **Sat 7:30–11:30 pm (remote):** Fix, tune prompts, UI polish; film raw demo clips.
-5. **Sun 7:30–9:00 am (remote):** Final fixes; record and edit the demo video.
+3. **Sat 4:00–6:15:** First end-to-end integration; push to GitHub.
+4. **Sat 7:30 pm–2:00 am (home):** Fix and tune; build the AD season report and landing page; write the Devpost business section.
+5. **Sun 7:00–9:00 am (home):** UI polish; record and edit the demo video.
 6. **Sun 9:00–10:30 am (venue):** Upload video, finish Devpost. **Submit by 10:30.**
 7. **Sun 10:30–11:30:** Rehearse the 90-second table pitch. Judging at 11:30.
 
