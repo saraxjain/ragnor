@@ -1,0 +1,87 @@
+{
+  "$comment": "Tool / function declarations for the HitWatch agent. Same shape works as Gemini functionDeclarations and as ElevenLabs server-tool parameter schemas. Backend endpoints are suggestions.",
+  "tools": [
+    {
+      "name": "log_symptoms",
+      "description": "Save today's HitWatch follow-up answers for this athlete and hit.",
+      "endpoint": "POST /api/hitwatch/log",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "athlete_id": { "type": "string" },
+          "hit_id": { "type": "string" },
+          "day": { "type": "integer", "description": "Days since the hit (0-7)." },
+          "symptoms": {
+            "type": "array",
+            "description": "Each symptom asked about, with severity 0-6.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "description": "Symptom name from the checklist, snake_case, e.g. headache, light_sensitivity." },
+                "severity": { "type": "integer", "description": "0 (none) to 6 (worst)." }
+              },
+              "required": ["name", "severity"]
+            }
+          },
+          "red_flags": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Emergency signs reported, snake_case, e.g. repeated_vomiting, worsening_headache."
+          },
+          "worse_than_yesterday": { "type": "boolean" },
+          "athlete_quote": { "type": "string", "description": "Short paraphrase of what the athlete said." }
+        },
+        "required": ["athlete_id", "hit_id", "day", "symptoms", "red_flags"]
+      }
+    },
+    {
+      "name": "compare_to_baseline",
+      "description": "Compare today's symptoms and the athlete's wearable data (HRV, resting heart rate, sleep) to their own preseason baseline. Returns whether to escalate and why.",
+      "endpoint": "POST /api/hitwatch/compare",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "athlete_id": { "type": "string" },
+          "hit_id": { "type": "string" },
+          "day": { "type": "integer" }
+        },
+        "required": ["athlete_id", "hit_id", "day"]
+      },
+      "returns": "{ escalate: boolean, urgency: 'routine'|'same_day'|'urgent', reasons: string[], symptom_total_today: number, symptom_total_baseline: number, wearable: { hrv_pct_vs_baseline, rhr_delta_bpm, sleep_h_avg_3d, data_available } }"
+    },
+    {
+      "name": "draft_alert",
+      "description": "Create an alert DRAFT for the coach/trainer approval queue. Never sends anything by itself; a human must approve it.",
+      "endpoint": "POST /api/alerts/draft",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "athlete_id": { "type": "string" },
+          "hit_id": { "type": "string" },
+          "urgency": { "type": "string", "enum": ["routine", "same_day", "urgent"] },
+          "summary": { "type": "string", "description": "Two sentences for the coach: what changed and why it matters. No diagnosis." },
+          "recipients_suggested": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["coach", "athletic_trainer", "parent", "clinician"] }
+          }
+        },
+        "required": ["athlete_id", "hit_id", "urgency", "summary", "recipients_suggested"]
+      }
+    },
+    {
+      "name": "schedule_followup",
+      "description": "Schedule the next HitWatch call (tomorrow by default, or a callback time the athlete asked for).",
+      "endpoint": "POST /api/hitwatch/schedule",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "athlete_id": { "type": "string" },
+          "hit_id": { "type": "string" },
+          "when_iso": { "type": "string", "description": "ISO 8601 date-time for the next call." },
+          "reason": { "type": "string", "enum": ["daily", "callback_requested", "no_answer"] }
+        },
+        "required": ["athlete_id", "hit_id", "when_iso", "reason"]
+      }
+    }
+  ]
+}

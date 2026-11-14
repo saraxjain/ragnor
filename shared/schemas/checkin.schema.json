@@ -1,0 +1,56 @@
+{
+  "$comment": "Gemini responseSchema for the voice check-in. Gemini extracts what the athlete SAID; it never guesses missing values.",
+  "type": "object",
+  "properties": {
+    "sleep_h": { "type": "number", "nullable": true, "description": "Hours slept last night, or null if not mentioned." },
+    "soreness": {
+      "type": "array",
+      "description": "One entry per body area mentioned. Scale 0 (none) to 3 (severe).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "area": {
+            "type": "string",
+            "enum": [
+              "neck", "shoulder_l", "shoulder_r", "lower_back",
+              "hip_l", "hip_r", "hamstring_l", "hamstring_r", "quad_l", "quad_r",
+              "knee_l", "knee_r", "calf_l", "calf_r", "ankle_l", "ankle_r", "other"
+            ]
+          },
+          "level": { "type": "integer", "description": "0-3" }
+        },
+        "required": ["area", "level"]
+      }
+    },
+    "load_min": { "type": "integer", "nullable": true, "description": "Training minutes today, or null." },
+    "intensity": { "type": "string", "enum": ["light", "moderate", "hard", "unknown"] },
+    "took_hit": { "type": "boolean", "description": "True if the athlete mentions any blow to the head, neck or body that jolted the head." },
+    "symptoms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "headache", "pressure_in_head", "neck_pain", "nausea", "dizziness",
+          "blurred_vision", "balance_problems", "light_sensitivity", "noise_sensitivity",
+          "feeling_slowed_down", "feeling_in_a_fog", "difficulty_concentrating",
+          "difficulty_remembering", "fatigue", "confusion", "drowsiness",
+          "more_emotional", "irritability", "sadness", "nervous_anxious", "trouble_sleeping"
+        ]
+      }
+    },
+    "red_flags": {
+      "type": "array",
+      "description": "Emergency signs mentioned. Any entry here triggers immediate 'get medical care now' guidance.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "worsening_headache", "repeated_vomiting", "seizure", "loss_of_consciousness",
+          "increasing_confusion", "slurred_speech", "weakness_or_numbness", "unequal_pupils",
+          "cannot_recognize_people_or_places", "neck_pain_severe"
+        ]
+      }
+    },
+    "transcript_summary": { "type": "string", "description": "One neutral sentence summarizing what the athlete said." }
+  },
+  "required": ["soreness", "intensity", "took_hit", "symptoms", "red_flags", "transcript_summary"]
+}

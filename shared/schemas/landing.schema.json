@@ -1,0 +1,56 @@
+{
+  "$comment": "Gemini responseSchema for LandingCheck. LESS-style screen of a drop-jump landing video. Not a validated LESS score.",
+  "type": "object",
+  "properties": {
+    "video_ok": {
+      "type": "boolean",
+      "description": "False if the athlete, both knees and both feet are not clearly visible through landing."
+    },
+    "video_issue": {
+      "type": "string",
+      "description": "If video_ok is false, a short, friendly instruction to re-film (e.g. 'Step back so your feet are in frame')."
+    },
+    "view": {
+      "type": "string",
+      "enum": ["front", "side", "front_and_side", "unclear"]
+    },
+    "initial_contact_s": {
+      "type": "number",
+      "description": "Timestamp in seconds when the feet first touch the ground after the drop."
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "knee_flexion_contact",
+              "knee_valgus_contact",
+              "knee_valgus_max",
+              "trunk_flexion_contact",
+              "lateral_trunk_lean",
+              "stance_width",
+              "foot_rotation",
+              "asymmetric_foot_contact",
+              "heel_first_landing",
+              "stiff_landing_overall"
+            ]
+          },
+          "present": { "type": "boolean", "description": "True if this landing error is visible." },
+          "side": { "type": "string", "enum": ["left", "right", "both", "none"] },
+          "timestamp_s": { "type": "number", "description": "Video time in seconds where the error is clearest." },
+          "confidence": { "type": "number", "description": "0 to 1. Use below 0.5 when the camera angle makes this hard to judge." },
+          "plain_language": { "type": "string", "description": "One sentence an athlete understands, e.g. 'Your left knee caves inward as you land.'" }
+        },
+        "required": ["id", "present", "side", "timestamp_s", "confidence", "plain_language"]
+      }
+    },
+    "summary": {
+      "type": "string",
+      "description": "Two sentences max: the most important thing to fix. No medical claims."
+    }
+  },
+  "required": ["video_ok", "view", "items", "summary"]
+}

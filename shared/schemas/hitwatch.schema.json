@@ -1,0 +1,21 @@
+{
+  "$comment": "One HitWatch daily follow-up, produced by the agent after a call. Symptom names match checkin.schema.json. Severity 0-6 per symptom (graded symptom checklist style).",
+  "type": "object",
+  "properties": {
+    "athlete_id": { "type": "string" },
+    "hit_id": { "type": "string" },
+    "day": { "type": "integer", "description": "Days since the hit, 0-7." },
+    "call_completed": { "type": "boolean" },
+    "symptoms": {
+      "type": "object",
+      "description": "Map of symptom name -> severity 0 (none) to 6 (severe). Only include symptoms asked about.",
+      "additionalProperties": { "type": "integer" }
+    },
+    "red_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "athlete_quote": { "type": "string", "description": "Short paraphrase of what the athlete said, for the coach." }
+  },
+  "required": ["athlete_id", "hit_id", "day", "call_completed", "symptoms", "red_flags"]
+}

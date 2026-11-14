@@ -1,0 +1,4288 @@
+{
+  "generated_for": "2026-11-14",
+  "rules_version": "2026-11-14.1",
+  "team": "Westbrook High (fictional)",
+  "roster_summary": [
+    {
+      "id": "ath_01",
+      "name": "Maya Torres",
+      "band": "high",
+      "reasons": [
+        "HitWatch: Symptom score is 8, up 7 from their preseason 1; New or stronger symptoms: headache (3/6); Worse than yesterday (2 to 8); Body not back to baseline yet: HRV is 22.5% below this athlete's normal over the last 3 nights; Resting heart rate is 5.8 bpm above normal",
+        "HRV is 22.5% below this athlete's normal over the last 3 nights; Resting heart rate is 5.8 bpm above normal"
+      ]
+    },
+    {
+      "id": "ath_03",
+      "name": "Priya Nair",
+      "band": "high",
+      "reasons": [
+        "Under 6 hours of sleep for 3 nights while practice load rose 32% from last week",
+        "Averaging 5.5 hours of sleep over the last 3 nights"
+      ]
+    },
+    {
+      "id": "ath_07",
+      "name": "Hannah Brooks",
+      "band": "high",
+      "reasons": [
+        "Right knee soreness is severe today (3 of 3)"
+      ]
+    },
+    {
+      "id": "ath_02",
+      "name": "Jordan Lee",
+      "band": "moderate",
+      "reasons": [
+        "Last landing screen showed 3 landing errors (3 at the knee)"
+      ]
+    },
+    {
+      "id": "ath_05",
+      "name": "Sofia Ramirez",
+      "band": "moderate",
+      "reasons": [
+        "Left hamstring sore for 3 of the last 3 days"
+      ]
+    },
+    {
+      "id": "ath_11",
+      "name": "Zoe Martinez",
+      "band": "moderate",
+      "reasons": [
+        "Last landing screen showed 3 landing errors (3 at the knee)"
+      ]
+    },
+    {
+      "id": "ath_04",
+      "name": "Ava Johnson",
+      "band": "low",
+      "reasons": []
+    },
+    {
+      "id": "ath_06",
+      "name": "Chloe Kim",
+      "band": "low",
+      "reasons": []
+    },
+    {
+      "id": "ath_08",
+      "name": "Lena Okafor",
+      "band": "low",
+      "reasons": []
+    },
+    {
+      "id": "ath_09",
+      "name": "Riley Chen",
+      "band": "low",
+      "reasons": []
+    },
+    {
+      "id": "ath_10",
+      "name": "Grace Patel",
+      "band": "low",
+      "reasons": []
+    },
+    {
+      "id": "ath_12",
+      "name": "Emma Wilson",
+      "band": "low",
+      "reasons": []
+    }
+  ],
+  "season_report": {
+    "season": "Fall 2026 (demo)",
+    "school": "Westbrook High School (fictional)",
+    "athletes_enrolled": 12,
+    "landing_screens_completed": 12,
+    "athletes_flagged_for_landing_work": 2,
+    "hits_followed_up": 1,
+    "hitwatch_calls_completed": 3,
+    "alerts_drafted": 1,
+    "alerts_approved_by_staff": 0,
+    "avg_checkin_completion_pct": 86,
+    "est_staff_hours_saved": 14,
+    "note": "Demo figures. Hours saved = estimated minutes per manual check-in/screen avoided x count."
+  },
+  "athletes": [
+    {
+      "id": "ath_01",
+      "name": "Maya Torres",
+      "sport": "Girls Soccer",
+      "grade": 11,
+      "scenario": "hitwatch",
+      "device": "Pixel Watch",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": 55.5,
+          "rhr_bpm": 56.1,
+          "sleep_h": 8,
+          "days_used": 16
+        },
+        "baseline_days": [
+          {
+            "date": "2026-10-15",
+            "hrv_ms": 57.9,
+            "rhr_bpm": 55.5,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-16",
+            "hrv_ms": 53.6,
+            "rhr_bpm": 57.6,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-17",
+            "hrv_ms": 56.2,
+            "rhr_bpm": 55.5,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-18",
+            "hrv_ms": 58.5,
+            "rhr_bpm": 57.4,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-19",
+            "hrv_ms": 54,
+            "rhr_bpm": 55.4,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-10-20",
+            "hrv_ms": 54.6,
+            "rhr_bpm": 55,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-21",
+            "hrv_ms": 56.3,
+            "rhr_bpm": 57.2,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-22",
+            "hrv_ms": 52.6,
+            "rhr_bpm": 56.3,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-10-23",
+            "hrv_ms": 58.9,
+            "rhr_bpm": 56.1,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-24",
+            "hrv_ms": 55.6,
+            "rhr_bpm": 55.4,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-10-25",
+            "hrv_ms": 52.2,
+            "rhr_bpm": 57.7,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-10-26",
+            "hrv_ms": 58.3,
+            "rhr_bpm": 56.4,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-27",
+            "hrv_ms": 57,
+            "rhr_bpm": 55.7,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-28",
+            "hrv_ms": 54.1,
+            "rhr_bpm": 55.8,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-29",
+            "hrv_ms": 54.9,
+            "rhr_bpm": 54.9,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-30",
+            "hrv_ms": 53.3,
+            "rhr_bpm": 56.1,
+            "sleep_h": 7.8
+          }
+        ],
+        "recent": [
+          {
+            "date": "2026-11-08",
+            "hrv_ms": 53.5,
+            "rhr_bpm": 54.9,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-11-09",
+            "hrv_ms": 56.4,
+            "rhr_bpm": 55,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-11-10",
+            "hrv_ms": 55.5,
+            "rhr_bpm": 56.8,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-11-11",
+            "hrv_ms": 56.3,
+            "rhr_bpm": 57.7,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-11-12",
+            "hrv_ms": 44.7,
+            "rhr_bpm": 61.1,
+            "sleep_h": 6.5
+          },
+          {
+            "date": "2026-11-13",
+            "hrv_ms": 42.2,
+            "rhr_bpm": 62,
+            "sleep_h": 6.2
+          },
+          {
+            "date": "2026-11-14",
+            "hrv_ms": 42.1,
+            "rhr_bpm": 62.7,
+            "sleep_h": 6.2
+          }
+        ]
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 95,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 93,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 89,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 98,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 7.6,
+          "soreness": [],
+          "load_min": 100,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 96,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 95,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 8.5,
+          "soreness": [],
+          "load_min": 97,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 8.5,
+          "soreness": [],
+          "load_min": 91,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 86,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 6.5,
+          "soreness": [],
+          "load_min": 86,
+          "intensity": "moderate",
+          "took_hit": true,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 6.2,
+          "soreness": [],
+          "load_min": 89,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 6.2,
+          "soreness": [],
+          "load_min": 91,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.1,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your knees stay in line with your toes."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.3,
+              "confidence": 0.75,
+              "plain_language": "You bend your hips and knees to absorb the landing."
+            }
+          ],
+          "summary": "Clean landing. Keep landing softly with knees over toes."
+        },
+        "score": {
+          "score": 0,
+          "band": "low",
+          "knee_errors": 0,
+          "errors": [],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": {
+        "hit_id": "hit_001",
+        "hit_date": "2026-11-12",
+        "hit_description": "in Thursday's game against Harbor High (header collision)",
+        "source": "mouthguard_impact (simulated)",
+        "impact_g": 68,
+        "baseline_symptoms": {
+          "fatigue": 1
+        },
+        "calls": [
+          {
+            "day": 0,
+            "symptoms": {
+              "headache": 1
+            },
+            "red_flags": [],
+            "date": "2026-11-12",
+            "call_completed": true
+          },
+          {
+            "day": 1,
+            "symptoms": {
+              "headache": 1,
+              "fatigue": 1
+            },
+            "red_flags": [],
+            "date": "2026-11-13",
+            "call_completed": true
+          },
+          {
+            "day": 2,
+            "symptoms": {
+              "headache": 3,
+              "light_sensitivity": 2,
+              "feeling_in_a_fog": 2,
+              "fatigue": 1
+            },
+            "red_flags": [],
+            "worse_than_yesterday": true,
+            "date": "2026-11-14",
+            "call_completed": true
+          }
+        ],
+        "today_decision": {
+          "escalate": true,
+          "urgency": "same_day",
+          "reasons": [
+            "Symptom score is 8, up 7 from their preseason 1",
+            "New or stronger symptoms: headache (3/6)",
+            "Worse than yesterday (2 to 8)",
+            "Body not back to baseline yet: HRV is 22.5% below this athlete's normal over the last 3 nights; Resting heart rate is 5.8 bpm above normal"
+          ],
+          "symptom_total_today": 8,
+          "symptom_total_baseline": 1,
+          "wearable": {
+            "data_available": true,
+            "hrv_pct_vs_baseline": -22.5,
+            "rhr_delta_bpm": 5.8,
+            "sleep_h_avg_3d": 6.3,
+            "below_baseline": true,
+            "reasons": [
+              "HRV is 22.5% below this athlete's normal over the last 3 nights",
+              "Resting heart rate is 5.8 bpm above normal"
+            ]
+          },
+          "rules_version": "2026-11-14.1"
+        },
+        "alert_draft": {
+          "status": "pending_approval",
+          "urgency": "same_day",
+          "summary": "Maya reported a stronger headache and light sensitivity on day 2 after Thursday's hit, and her overnight HRV is below her normal. Please review and contact a parent or clinician today.",
+          "recipients_suggested": [
+            "coach",
+            "parent"
+          ]
+        }
+      },
+      "risk_today": {
+        "athlete_id": "ath_01",
+        "date": "2026-11-14",
+        "band": "high",
+        "flags": [
+          {
+            "rule_id": "R7_hitwatch",
+            "band": "high",
+            "area": "head",
+            "reason": "HitWatch: Symptom score is 8, up 7 from their preseason 1; New or stronger symptoms: headache (3/6); Worse than yesterday (2 to 8); Body not back to baseline yet: HRV is 22.5% below this athlete's normal over the last 3 nights; Resting heart rate is 5.8 bpm above normal"
+          },
+          {
+            "rule_id": "R5_wearable_below_baseline",
+            "band": "moderate",
+            "reason": "HRV is 22.5% below this athlete's normal over the last 3 nights; Resting heart rate is 5.8 bpm above normal"
+          }
+        ],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    },
+    {
+      "id": "ath_02",
+      "name": "Jordan Lee",
+      "sport": "Girls Soccer",
+      "grade": 12,
+      "scenario": "landing_risk",
+      "device": "Fitbit Charge",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": 71.2,
+          "rhr_bpm": 52.4,
+          "sleep_h": 7.9,
+          "days_used": 16
+        },
+        "baseline_days": [
+          {
+            "date": "2026-10-15",
+            "hrv_ms": 71.6,
+            "rhr_bpm": 52.4,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-10-16",
+            "hrv_ms": 73.3,
+            "rhr_bpm": 52.2,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-17",
+            "hrv_ms": 75.2,
+            "rhr_bpm": 51.4,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-18",
+            "hrv_ms": 70,
+            "rhr_bpm": 52.2,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-19",
+            "hrv_ms": 70.6,
+            "rhr_bpm": 53.1,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-10-20",
+            "hrv_ms": 67.8,
+            "rhr_bpm": 52.4,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-21",
+            "hrv_ms": 72,
+            "rhr_bpm": 51.4,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-22",
+            "hrv_ms": 68.7,
+            "rhr_bpm": 53.4,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-23",
+            "hrv_ms": 68.3,
+            "rhr_bpm": 52.8,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-24",
+            "hrv_ms": 69.7,
+            "rhr_bpm": 52.2,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-25",
+            "hrv_ms": 72.6,
+            "rhr_bpm": 51.6,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-26",
+            "hrv_ms": 75.6,
+            "rhr_bpm": 51.6,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-27",
+            "hrv_ms": 71.8,
+            "rhr_bpm": 53.4,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-10-28",
+            "hrv_ms": 70.6,
+            "rhr_bpm": 51.7,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-29",
+            "hrv_ms": 69,
+            "rhr_bpm": 53.9,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-30",
+            "hrv_ms": 72.4,
+            "rhr_bpm": 52.6,
+            "sleep_h": 8
+          }
+        ],
+        "recent": [
+          {
+            "date": "2026-11-08",
+            "hrv_ms": 70.6,
+            "rhr_bpm": 51.9,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-11-09",
+            "hrv_ms": 71,
+            "rhr_bpm": 52.3,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-11-10",
+            "hrv_ms": 70.5,
+            "rhr_bpm": 51.3,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-11-11",
+            "hrv_ms": 71,
+            "rhr_bpm": 51,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-11-12",
+            "hrv_ms": 72,
+            "rhr_bpm": 51.6,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-11-13",
+            "hrv_ms": 75,
+            "rhr_bpm": 53.9,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-11-14",
+            "hrv_ms": 69.6,
+            "rhr_bpm": 52.5,
+            "sleep_h": 7.5
+          }
+        ]
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 97,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 7.6,
+          "soreness": [],
+          "load_min": 100,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 93,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 98,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 8.4,
+          "soreness": [],
+          "load_min": 94,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 100,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 7.2,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 91,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 84,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 90,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 83,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 96,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 85,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 84,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.2,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": true,
+              "side": "left",
+              "timestamp_s": 1.3,
+              "confidence": 0.82,
+              "plain_language": "Your left knee starts caving inward as your feet touch down."
+            },
+            {
+              "id": "knee_valgus_max",
+              "present": true,
+              "side": "left",
+              "timestamp_s": 1.4,
+              "confidence": 0.82,
+              "plain_language": "At the bottom of the landing, your left knee collapses inward past your big toe."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": true,
+              "side": "both",
+              "timestamp_s": 1.4,
+              "confidence": 0.82,
+              "plain_language": "You land with straight, stiff legs instead of sinking into the landing."
+            },
+            {
+              "id": "asymmetric_foot_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Both feet land at the same time. Nice."
+            },
+            {
+              "id": "stance_width",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your feet land about shoulder-width apart. Good."
+            }
+          ],
+          "summary": "Your left knee caves inward when you land. Focus on pushing your knees out over your toes and landing softly."
+        },
+        "score": {
+          "score": 3,
+          "band": "moderate",
+          "knee_errors": 3,
+          "errors": [
+            "knee_valgus_contact",
+            "knee_valgus_max",
+            "stiff_landing_overall"
+          ],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": null,
+      "risk_today": {
+        "athlete_id": "ath_02",
+        "date": "2026-11-14",
+        "band": "moderate",
+        "flags": [
+          {
+            "rule_id": "R6_landing",
+            "band": "moderate",
+            "area": "knee",
+            "reason": "Last landing screen showed 3 landing errors (3 at the knee)"
+          }
+        ],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    },
+    {
+      "id": "ath_03",
+      "name": "Priya Nair",
+      "sport": "Girls Basketball",
+      "grade": 10,
+      "scenario": "sleep_load",
+      "device": "Fitbit Sense",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": 64.3,
+          "rhr_bpm": 58,
+          "sleep_h": 8,
+          "days_used": 16
+        },
+        "baseline_days": [
+          {
+            "date": "2026-10-15",
+            "hrv_ms": 63.4,
+            "rhr_bpm": 59.4,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-16",
+            "hrv_ms": 63.7,
+            "rhr_bpm": 58.4,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-10-17",
+            "hrv_ms": 64,
+            "rhr_bpm": 57.9,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-18",
+            "hrv_ms": 66.1,
+            "rhr_bpm": 57,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-19",
+            "hrv_ms": 65,
+            "rhr_bpm": 57.5,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-20",
+            "hrv_ms": 61.9,
+            "rhr_bpm": 58.9,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-21",
+            "hrv_ms": 65.3,
+            "rhr_bpm": 58,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-22",
+            "hrv_ms": 65.1,
+            "rhr_bpm": 58.5,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-10-23",
+            "hrv_ms": 66.5,
+            "rhr_bpm": 57.1,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-24",
+            "hrv_ms": 63.8,
+            "rhr_bpm": 58.7,
+            "sleep_h": 8.6
+          },
+          {
+            "date": "2026-10-25",
+            "hrv_ms": 64.4,
+            "rhr_bpm": 56.6,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-26",
+            "hrv_ms": 63.2,
+            "rhr_bpm": 58,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-27",
+            "hrv_ms": 63.1,
+            "rhr_bpm": 59,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-28",
+            "hrv_ms": 67.4,
+            "rhr_bpm": 58.2,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-29",
+            "hrv_ms": 66,
+            "rhr_bpm": 57.3,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-30",
+            "hrv_ms": 60.3,
+            "rhr_bpm": 57.9,
+            "sleep_h": 8.2
+          }
+        ],
+        "recent": [
+          {
+            "date": "2026-11-08",
+            "hrv_ms": 67.1,
+            "rhr_bpm": 57.5,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-11-09",
+            "hrv_ms": 67.8,
+            "rhr_bpm": 57.9,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-11-10",
+            "hrv_ms": 67.2,
+            "rhr_bpm": 56.6,
+            "sleep_h": 7.3
+          },
+          {
+            "date": "2026-11-11",
+            "hrv_ms": 63.9,
+            "rhr_bpm": 58.1,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-11-12",
+            "hrv_ms": 64.5,
+            "rhr_bpm": 58.5,
+            "sleep_h": 5.4
+          },
+          {
+            "date": "2026-11-13",
+            "hrv_ms": 61.1,
+            "rhr_bpm": 58.8,
+            "sleep_h": 5.6
+          },
+          {
+            "date": "2026-11-14",
+            "hrv_ms": 63.6,
+            "rhr_bpm": 56.8,
+            "sleep_h": 5.6
+          }
+        ]
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 99,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 8.4,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 7.6,
+          "soreness": [],
+          "load_min": 96,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 86,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 99,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 8.1,
+          "soreness": [],
+          "load_min": 98,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 97,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 8.4,
+          "soreness": [],
+          "load_min": 118,
+          "intensity": "hard",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 121,
+          "intensity": "hard",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 129,
+          "intensity": "hard",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 121,
+          "intensity": "hard",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 5.4,
+          "soreness": [],
+          "load_min": 130,
+          "intensity": "hard",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 5.6,
+          "soreness": [],
+          "load_min": 125,
+          "intensity": "hard",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 5.6,
+          "soreness": [],
+          "load_min": 130,
+          "intensity": "hard",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.1,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your knees stay in line with your toes."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.3,
+              "confidence": 0.75,
+              "plain_language": "You bend your hips and knees to absorb the landing."
+            }
+          ],
+          "summary": "Clean landing. Keep landing softly with knees over toes."
+        },
+        "score": {
+          "score": 0,
+          "band": "low",
+          "knee_errors": 0,
+          "errors": [],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": null,
+      "risk_today": {
+        "athlete_id": "ath_03",
+        "date": "2026-11-14",
+        "band": "high",
+        "flags": [
+          {
+            "rule_id": "R1_sleep_load",
+            "band": "moderate",
+            "reason": "Under 6 hours of sleep for 3 nights while practice load rose 32% from last week"
+          },
+          {
+            "rule_id": "R5_wearable_below_baseline",
+            "band": "moderate",
+            "reason": "Averaging 5.5 hours of sleep over the last 3 nights"
+          }
+        ],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    },
+    {
+      "id": "ath_04",
+      "name": "Ava Johnson",
+      "sport": "Girls Basketball",
+      "grade": 11,
+      "scenario": "normal",
+      "device": "Pixel Watch",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": 63.3,
+          "rhr_bpm": 53.4,
+          "sleep_h": 7.8,
+          "days_used": 16
+        },
+        "baseline_days": [
+          {
+            "date": "2026-10-15",
+            "hrv_ms": 63.8,
+            "rhr_bpm": 52.9,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-16",
+            "hrv_ms": 60.4,
+            "rhr_bpm": 54.1,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-17",
+            "hrv_ms": 63.3,
+            "rhr_bpm": 53.3,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-10-18",
+            "hrv_ms": 62.8,
+            "rhr_bpm": 53.4,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-19",
+            "hrv_ms": 66,
+            "rhr_bpm": 52.3,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-20",
+            "hrv_ms": 60.6,
+            "rhr_bpm": 54.3,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-21",
+            "hrv_ms": 62.7,
+            "rhr_bpm": 52.2,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-22",
+            "hrv_ms": 61.6,
+            "rhr_bpm": 52.6,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-10-23",
+            "hrv_ms": 61.6,
+            "rhr_bpm": 52.3,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-24",
+            "hrv_ms": 64,
+            "rhr_bpm": 52.8,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-25",
+            "hrv_ms": 64.1,
+            "rhr_bpm": 54.5,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-26",
+            "hrv_ms": 65.5,
+            "rhr_bpm": 53.8,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-27",
+            "hrv_ms": 64.6,
+            "rhr_bpm": 55.2,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-28",
+            "hrv_ms": 64.3,
+            "rhr_bpm": 53.1,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-29",
+            "hrv_ms": 63.8,
+            "rhr_bpm": 52.8,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-30",
+            "hrv_ms": 63.2,
+            "rhr_bpm": 54,
+            "sleep_h": 7.7
+          }
+        ],
+        "recent": [
+          {
+            "date": "2026-11-08",
+            "hrv_ms": 63.9,
+            "rhr_bpm": 53.2,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-11-09",
+            "hrv_ms": 62.5,
+            "rhr_bpm": 53.2,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-11-10",
+            "hrv_ms": 64.7,
+            "rhr_bpm": 54.8,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-11-11",
+            "hrv_ms": 62,
+            "rhr_bpm": 53.1,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-11-12",
+            "hrv_ms": 62,
+            "rhr_bpm": 54.5,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-11-13",
+            "hrv_ms": 65.1,
+            "rhr_bpm": 54.1,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-11-14",
+            "hrv_ms": 58.5,
+            "rhr_bpm": 55,
+            "sleep_h": 8
+          }
+        ]
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 8.1,
+          "soreness": [],
+          "load_min": 84,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 83,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 86,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 95,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 7.6,
+          "soreness": [],
+          "load_min": 95,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 89,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 93,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 84,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 95,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 93,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 8.4,
+          "soreness": [],
+          "load_min": 84,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 84,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 96,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.1,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your knees stay in line with your toes."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.3,
+              "confidence": 0.75,
+              "plain_language": "You bend your hips and knees to absorb the landing."
+            }
+          ],
+          "summary": "Clean landing. Keep landing softly with knees over toes."
+        },
+        "score": {
+          "score": 0,
+          "band": "low",
+          "knee_errors": 0,
+          "errors": [],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": null,
+      "risk_today": {
+        "athlete_id": "ath_04",
+        "date": "2026-11-14",
+        "band": "low",
+        "flags": [],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    },
+    {
+      "id": "ath_05",
+      "name": "Sofia Ramirez",
+      "sport": "Girls Volleyball",
+      "grade": 12,
+      "scenario": "sore_hamstring",
+      "device": "Fitbit Charge",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": 65,
+          "rhr_bpm": 58.7,
+          "sleep_h": 8,
+          "days_used": 16
+        },
+        "baseline_days": [
+          {
+            "date": "2026-10-15",
+            "hrv_ms": 68.1,
+            "rhr_bpm": 60,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-16",
+            "hrv_ms": 63.2,
+            "rhr_bpm": 58.1,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-17",
+            "hrv_ms": 66.8,
+            "rhr_bpm": 59.7,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-18",
+            "hrv_ms": 63.5,
+            "rhr_bpm": 57.5,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-10-19",
+            "hrv_ms": 63.2,
+            "rhr_bpm": 59.3,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-20",
+            "hrv_ms": 65.6,
+            "rhr_bpm": 59.6,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-21",
+            "hrv_ms": 65.6,
+            "rhr_bpm": 59.7,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-10-22",
+            "hrv_ms": 63.7,
+            "rhr_bpm": 58.4,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-10-23",
+            "hrv_ms": 65.3,
+            "rhr_bpm": 58.1,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-24",
+            "hrv_ms": 68.3,
+            "rhr_bpm": 59.5,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-25",
+            "hrv_ms": 64.4,
+            "rhr_bpm": 57.7,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-26",
+            "hrv_ms": 62.2,
+            "rhr_bpm": 59.8,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-27",
+            "hrv_ms": 63.1,
+            "rhr_bpm": 57.3,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-10-28",
+            "hrv_ms": 62.3,
+            "rhr_bpm": 58.1,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-29",
+            "hrv_ms": 67.9,
+            "rhr_bpm": 58.5,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-30",
+            "hrv_ms": 66.8,
+            "rhr_bpm": 57.5,
+            "sleep_h": 8.6
+          }
+        ],
+        "recent": [
+          {
+            "date": "2026-11-08",
+            "hrv_ms": 62.5,
+            "rhr_bpm": 59.9,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-11-09",
+            "hrv_ms": 62.2,
+            "rhr_bpm": 57.4,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-11-10",
+            "hrv_ms": 64.8,
+            "rhr_bpm": 58.8,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-11-11",
+            "hrv_ms": 67.6,
+            "rhr_bpm": 60,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-11-12",
+            "hrv_ms": 66.9,
+            "rhr_bpm": 58.9,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-11-13",
+            "hrv_ms": 62.4,
+            "rhr_bpm": 57.5,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-11-14",
+            "hrv_ms": 62.2,
+            "rhr_bpm": 60.1,
+            "sleep_h": 8.4
+          }
+        ]
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 91,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 8.1,
+          "soreness": [],
+          "load_min": 83,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 86,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 8.4,
+          "soreness": [],
+          "load_min": 84,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 81,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 98,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 8.4,
+          "soreness": [],
+          "load_min": 96,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 85,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 88,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 84,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 83,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 7.6,
+          "soreness": [
+            {
+              "area": "hamstring_l",
+              "level": 2
+            }
+          ],
+          "load_min": 89,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 8.5,
+          "soreness": [
+            {
+              "area": "hamstring_l",
+              "level": 2
+            }
+          ],
+          "load_min": 97,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 8.4,
+          "soreness": [
+            {
+              "area": "hamstring_l",
+              "level": 2
+            }
+          ],
+          "load_min": 95,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.1,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your knees stay in line with your toes."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.3,
+              "confidence": 0.75,
+              "plain_language": "You bend your hips and knees to absorb the landing."
+            }
+          ],
+          "summary": "Clean landing. Keep landing softly with knees over toes."
+        },
+        "score": {
+          "score": 0,
+          "band": "low",
+          "knee_errors": 0,
+          "errors": [],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": null,
+      "risk_today": {
+        "athlete_id": "ath_05",
+        "date": "2026-11-14",
+        "band": "moderate",
+        "flags": [
+          {
+            "rule_id": "R3_persistent_soreness",
+            "band": "moderate",
+            "area": "hamstring_l",
+            "reason": "Left hamstring sore for 3 of the last 3 days"
+          }
+        ],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    },
+    {
+      "id": "ath_06",
+      "name": "Chloe Kim",
+      "sport": "Girls Volleyball",
+      "grade": 10,
+      "scenario": "normal",
+      "device": "Fitbit Inspire",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": 59.8,
+          "rhr_bpm": 53.7,
+          "sleep_h": 7.9,
+          "days_used": 16
+        },
+        "baseline_days": [
+          {
+            "date": "2026-10-15",
+            "hrv_ms": 61.9,
+            "rhr_bpm": 52.7,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-16",
+            "hrv_ms": 61,
+            "rhr_bpm": 52.9,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-17",
+            "hrv_ms": 59,
+            "rhr_bpm": 52.3,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-18",
+            "hrv_ms": 62.9,
+            "rhr_bpm": 53.4,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-19",
+            "hrv_ms": 59.9,
+            "rhr_bpm": 54.4,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-20",
+            "hrv_ms": 60.4,
+            "rhr_bpm": 52.9,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-21",
+            "hrv_ms": 58.2,
+            "rhr_bpm": 54.7,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-22",
+            "hrv_ms": 58.4,
+            "rhr_bpm": 54.4,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-23",
+            "hrv_ms": 62.7,
+            "rhr_bpm": 52.8,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-24",
+            "hrv_ms": 54.9,
+            "rhr_bpm": 54.4,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-25",
+            "hrv_ms": 61.8,
+            "rhr_bpm": 53,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-26",
+            "hrv_ms": 58,
+            "rhr_bpm": 54.3,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-10-27",
+            "hrv_ms": 57.4,
+            "rhr_bpm": 54.6,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-28",
+            "hrv_ms": 59.3,
+            "rhr_bpm": 54.4,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-29",
+            "hrv_ms": 60.9,
+            "rhr_bpm": 53.8,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-10-30",
+            "hrv_ms": 60.1,
+            "rhr_bpm": 54.5,
+            "sleep_h": 8.3
+          }
+        ],
+        "recent": [
+          {
+            "date": "2026-11-08",
+            "hrv_ms": 56.6,
+            "rhr_bpm": 53.9,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-11-09",
+            "hrv_ms": 60.1,
+            "rhr_bpm": 53.4,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-11-10",
+            "hrv_ms": 60.6,
+            "rhr_bpm": 54.9,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-11-11",
+            "hrv_ms": 55.7,
+            "rhr_bpm": 54.2,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-11-12",
+            "hrv_ms": 58.2,
+            "rhr_bpm": 53,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-11-13",
+            "hrv_ms": 61.3,
+            "rhr_bpm": 54.2,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-11-14",
+            "hrv_ms": 56.7,
+            "rhr_bpm": 53.9,
+            "sleep_h": 8.3
+          }
+        ]
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 83,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 89,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 93,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 97,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 90,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 97,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 88,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 82,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 94,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 83,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 82,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 8.5,
+          "soreness": [],
+          "load_min": 86,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 85,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.1,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your knees stay in line with your toes."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.3,
+              "confidence": 0.75,
+              "plain_language": "You bend your hips and knees to absorb the landing."
+            }
+          ],
+          "summary": "Clean landing. Keep landing softly with knees over toes."
+        },
+        "score": {
+          "score": 0,
+          "band": "low",
+          "knee_errors": 0,
+          "errors": [],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": null,
+      "risk_today": {
+        "athlete_id": "ath_06",
+        "date": "2026-11-14",
+        "band": "low",
+        "flags": [],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    },
+    {
+      "id": "ath_07",
+      "name": "Hannah Brooks",
+      "sport": "Gymnastics",
+      "grade": 11,
+      "scenario": "severe_knee",
+      "device": "Pixel Watch",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": 77.6,
+          "rhr_bpm": 52.6,
+          "sleep_h": 8.1,
+          "days_used": 16
+        },
+        "baseline_days": [
+          {
+            "date": "2026-10-15",
+            "hrv_ms": 73.9,
+            "rhr_bpm": 52.3,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-16",
+            "hrv_ms": 79.5,
+            "rhr_bpm": 52.3,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-17",
+            "hrv_ms": 74.4,
+            "rhr_bpm": 51.6,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-10-18",
+            "hrv_ms": 80.2,
+            "rhr_bpm": 53.6,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-19",
+            "hrv_ms": 78.3,
+            "rhr_bpm": 52.4,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-20",
+            "hrv_ms": 74.8,
+            "rhr_bpm": 52.5,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-21",
+            "hrv_ms": 78.1,
+            "rhr_bpm": 52,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-22",
+            "hrv_ms": 78.8,
+            "rhr_bpm": 51.2,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-23",
+            "hrv_ms": 80,
+            "rhr_bpm": 53.2,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-24",
+            "hrv_ms": 80.5,
+            "rhr_bpm": 53.3,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-25",
+            "hrv_ms": 75,
+            "rhr_bpm": 52.9,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-26",
+            "hrv_ms": 73.5,
+            "rhr_bpm": 51.9,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-27",
+            "hrv_ms": 79.2,
+            "rhr_bpm": 52.3,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-28",
+            "hrv_ms": 79.5,
+            "rhr_bpm": 54.1,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-10-29",
+            "hrv_ms": 80.4,
+            "rhr_bpm": 52.4,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-30",
+            "hrv_ms": 75.8,
+            "rhr_bpm": 53.3,
+            "sleep_h": 7.6
+          }
+        ],
+        "recent": [
+          {
+            "date": "2026-11-08",
+            "hrv_ms": 73.7,
+            "rhr_bpm": 53.1,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-11-09",
+            "hrv_ms": 81.3,
+            "rhr_bpm": 52.1,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-11-10",
+            "hrv_ms": 80.1,
+            "rhr_bpm": 52.8,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-11-11",
+            "hrv_ms": 79.3,
+            "rhr_bpm": 52.7,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-11-12",
+            "hrv_ms": 80.9,
+            "rhr_bpm": 52.5,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-11-13",
+            "hrv_ms": 79.1,
+            "rhr_bpm": 52.4,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-11-14",
+            "hrv_ms": 75.2,
+            "rhr_bpm": 53.8,
+            "sleep_h": 8.3
+          }
+        ]
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 93,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 80,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 95,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 94,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 90,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 95,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 92,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 96,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 8.1,
+          "soreness": [],
+          "load_min": 99,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 92,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 100,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 94,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 8.3,
+          "soreness": [
+            {
+              "area": "knee_r",
+              "level": 3
+            }
+          ],
+          "load_min": 99,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.1,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your knees stay in line with your toes."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.3,
+              "confidence": 0.75,
+              "plain_language": "You bend your hips and knees to absorb the landing."
+            }
+          ],
+          "summary": "Clean landing. Keep landing softly with knees over toes."
+        },
+        "score": {
+          "score": 0,
+          "band": "low",
+          "knee_errors": 0,
+          "errors": [],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": null,
+      "risk_today": {
+        "athlete_id": "ath_07",
+        "date": "2026-11-14",
+        "band": "high",
+        "flags": [
+          {
+            "rule_id": "R4_severe_soreness",
+            "band": "high",
+            "area": "knee_r",
+            "reason": "Right knee soreness is severe today (3 of 3)"
+          }
+        ],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    },
+    {
+      "id": "ath_08",
+      "name": "Lena Okafor",
+      "sport": "Gymnastics",
+      "grade": 12,
+      "scenario": "normal",
+      "device": "Fitbit Sense",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": 63,
+          "rhr_bpm": 59.8,
+          "sleep_h": 7.9,
+          "days_used": 16
+        },
+        "baseline_days": [
+          {
+            "date": "2026-10-15",
+            "hrv_ms": 60.5,
+            "rhr_bpm": 58.7,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-16",
+            "hrv_ms": 66.3,
+            "rhr_bpm": 60.9,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-17",
+            "hrv_ms": 62.5,
+            "rhr_bpm": 61.1,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-18",
+            "hrv_ms": 60.2,
+            "rhr_bpm": 58.5,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-10-19",
+            "hrv_ms": 60.1,
+            "rhr_bpm": 61.1,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-20",
+            "hrv_ms": 66.2,
+            "rhr_bpm": 60.8,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-21",
+            "hrv_ms": 60.6,
+            "rhr_bpm": 59,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-10-22",
+            "hrv_ms": 64.9,
+            "rhr_bpm": 59,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-23",
+            "hrv_ms": 66.5,
+            "rhr_bpm": 60,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-24",
+            "hrv_ms": 68,
+            "rhr_bpm": 58.6,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-25",
+            "hrv_ms": 62.6,
+            "rhr_bpm": 59.2,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-10-26",
+            "hrv_ms": 60.7,
+            "rhr_bpm": 58.3,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-27",
+            "hrv_ms": 60.4,
+            "rhr_bpm": 60.6,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-10-28",
+            "hrv_ms": 65.9,
+            "rhr_bpm": 59.8,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-29",
+            "hrv_ms": 60.8,
+            "rhr_bpm": 60.4,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-30",
+            "hrv_ms": 61.3,
+            "rhr_bpm": 61,
+            "sleep_h": 8
+          }
+        ],
+        "recent": [
+          {
+            "date": "2026-11-08",
+            "hrv_ms": 63.8,
+            "rhr_bpm": 59.1,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-11-09",
+            "hrv_ms": 60.7,
+            "rhr_bpm": 58.7,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-11-10",
+            "hrv_ms": 65.3,
+            "rhr_bpm": 59,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-11-11",
+            "hrv_ms": 64.4,
+            "rhr_bpm": 59.5,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-11-12",
+            "hrv_ms": 62.2,
+            "rhr_bpm": 58.5,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-11-13",
+            "hrv_ms": 61.2,
+            "rhr_bpm": 60.7,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-11-14",
+            "hrv_ms": 65,
+            "rhr_bpm": 59.5,
+            "sleep_h": 8.2
+          }
+        ]
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 91,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 88,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 98,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 93,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 83,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 8.1,
+          "soreness": [],
+          "load_min": 81,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 91,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 84,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 86,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 91,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 81,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 94,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.1,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your knees stay in line with your toes."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.3,
+              "confidence": 0.75,
+              "plain_language": "You bend your hips and knees to absorb the landing."
+            }
+          ],
+          "summary": "Clean landing. Keep landing softly with knees over toes."
+        },
+        "score": {
+          "score": 0,
+          "band": "low",
+          "knee_errors": 0,
+          "errors": [],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": null,
+      "risk_today": {
+        "athlete_id": "ath_08",
+        "date": "2026-11-14",
+        "band": "low",
+        "flags": [],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    },
+    {
+      "id": "ath_09",
+      "name": "Riley Chen",
+      "sport": "Girls Soccer",
+      "grade": 10,
+      "scenario": "normal",
+      "device": "Fitbit Charge",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": 56.3,
+          "rhr_bpm": 54.4,
+          "sleep_h": 7.9,
+          "days_used": 16
+        },
+        "baseline_days": [
+          {
+            "date": "2026-10-15",
+            "hrv_ms": 53.4,
+            "rhr_bpm": 54.3,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-16",
+            "hrv_ms": 54.8,
+            "rhr_bpm": 54.4,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-10-17",
+            "hrv_ms": 53.7,
+            "rhr_bpm": 54.4,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-18",
+            "hrv_ms": 55.9,
+            "rhr_bpm": 55.3,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-19",
+            "hrv_ms": 59.2,
+            "rhr_bpm": 53.8,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-20",
+            "hrv_ms": 55.2,
+            "rhr_bpm": 54.3,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-21",
+            "hrv_ms": 59.5,
+            "rhr_bpm": 53.7,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-22",
+            "hrv_ms": 55.5,
+            "rhr_bpm": 55.2,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-23",
+            "hrv_ms": 57.7,
+            "rhr_bpm": 54.1,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-24",
+            "hrv_ms": 57.4,
+            "rhr_bpm": 55.8,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-25",
+            "hrv_ms": 58.6,
+            "rhr_bpm": 53.7,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-26",
+            "hrv_ms": 59.7,
+            "rhr_bpm": 54.4,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-10-27",
+            "hrv_ms": 57.7,
+            "rhr_bpm": 54.7,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-28",
+            "hrv_ms": 54.8,
+            "rhr_bpm": 53.3,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-29",
+            "hrv_ms": 54.7,
+            "rhr_bpm": 55,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-10-30",
+            "hrv_ms": 53.6,
+            "rhr_bpm": 54.7,
+            "sleep_h": 8
+          }
+        ],
+        "recent": [
+          {
+            "date": "2026-11-08",
+            "hrv_ms": 57.3,
+            "rhr_bpm": 53.8,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-11-09",
+            "hrv_ms": 52.7,
+            "rhr_bpm": 54.2,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-11-10",
+            "hrv_ms": 54.9,
+            "rhr_bpm": 54.2,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-11-11",
+            "hrv_ms": 53.7,
+            "rhr_bpm": 55.7,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-11-12",
+            "hrv_ms": 53.7,
+            "rhr_bpm": 55.6,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-11-13",
+            "hrv_ms": 58.7,
+            "rhr_bpm": 55.6,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-11-14",
+            "hrv_ms": 58.3,
+            "rhr_bpm": 55.1,
+            "sleep_h": 7.9
+          }
+        ]
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 7.6,
+          "soreness": [],
+          "load_min": 81,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 93,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 7.6,
+          "soreness": [],
+          "load_min": 98,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 94,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 98,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 95,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 81,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 82,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 8.1,
+          "soreness": [],
+          "load_min": 85,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 8.5,
+          "soreness": [],
+          "load_min": 80,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 7.6,
+          "soreness": [],
+          "load_min": 81,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 95,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 100,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 88,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.1,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your knees stay in line with your toes."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.3,
+              "confidence": 0.75,
+              "plain_language": "You bend your hips and knees to absorb the landing."
+            }
+          ],
+          "summary": "Clean landing. Keep landing softly with knees over toes."
+        },
+        "score": {
+          "score": 0,
+          "band": "low",
+          "knee_errors": 0,
+          "errors": [],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": null,
+      "risk_today": {
+        "athlete_id": "ath_09",
+        "date": "2026-11-14",
+        "band": "low",
+        "flags": [],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    },
+    {
+      "id": "ath_10",
+      "name": "Grace Patel",
+      "sport": "Girls Basketball",
+      "grade": 12,
+      "scenario": "normal",
+      "device": "none",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": null,
+          "rhr_bpm": null,
+          "sleep_h": null,
+          "days_used": 0
+        },
+        "baseline_days": [],
+        "recent": []
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 100,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 92,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 84,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 7.2,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 82,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 100,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 84,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 83,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 88,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 7.2,
+          "soreness": [],
+          "load_min": 83,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 7.2,
+          "soreness": [],
+          "load_min": 89,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 86,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 85,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.1,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your knees stay in line with your toes."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.3,
+              "confidence": 0.75,
+              "plain_language": "You bend your hips and knees to absorb the landing."
+            }
+          ],
+          "summary": "Clean landing. Keep landing softly with knees over toes."
+        },
+        "score": {
+          "score": 0,
+          "band": "low",
+          "knee_errors": 0,
+          "errors": [],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": null,
+      "risk_today": {
+        "athlete_id": "ath_10",
+        "date": "2026-11-14",
+        "band": "low",
+        "flags": [],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    },
+    {
+      "id": "ath_11",
+      "name": "Zoe Martinez",
+      "sport": "Girls Volleyball",
+      "grade": 11,
+      "scenario": "landing_risk",
+      "device": "Pixel Watch",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": 59.4,
+          "rhr_bpm": 55.1,
+          "sleep_h": 7.9,
+          "days_used": 16
+        },
+        "baseline_days": [
+          {
+            "date": "2026-10-15",
+            "hrv_ms": 61.1,
+            "rhr_bpm": 54.9,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-16",
+            "hrv_ms": 56.8,
+            "rhr_bpm": 55,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-10-17",
+            "hrv_ms": 58.3,
+            "rhr_bpm": 54.8,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-18",
+            "hrv_ms": 58.9,
+            "rhr_bpm": 57.1,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-19",
+            "hrv_ms": 59.7,
+            "rhr_bpm": 55.4,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-20",
+            "hrv_ms": 59.5,
+            "rhr_bpm": 54.9,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-21",
+            "hrv_ms": 57.5,
+            "rhr_bpm": 54.7,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-22",
+            "hrv_ms": 63.1,
+            "rhr_bpm": 54.5,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-23",
+            "hrv_ms": 56.6,
+            "rhr_bpm": 54.8,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-24",
+            "hrv_ms": 58.3,
+            "rhr_bpm": 54.4,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-10-25",
+            "hrv_ms": 58,
+            "rhr_bpm": 54.6,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-10-26",
+            "hrv_ms": 58.2,
+            "rhr_bpm": 56.4,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-27",
+            "hrv_ms": 61.9,
+            "rhr_bpm": 55.8,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-28",
+            "hrv_ms": 58.1,
+            "rhr_bpm": 54.4,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-29",
+            "hrv_ms": 61.5,
+            "rhr_bpm": 54.5,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-30",
+            "hrv_ms": 62.9,
+            "rhr_bpm": 56,
+            "sleep_h": 8.3
+          }
+        ],
+        "recent": [
+          {
+            "date": "2026-11-08",
+            "hrv_ms": 64.1,
+            "rhr_bpm": 55.9,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-11-09",
+            "hrv_ms": 60.8,
+            "rhr_bpm": 54.8,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-11-10",
+            "hrv_ms": 60,
+            "rhr_bpm": 56.2,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-11-11",
+            "hrv_ms": 59.2,
+            "rhr_bpm": 56.6,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-11-12",
+            "hrv_ms": 61.7,
+            "rhr_bpm": 54.7,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-11-13",
+            "hrv_ms": 60.3,
+            "rhr_bpm": 56.7,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-11-14",
+            "hrv_ms": 62.3,
+            "rhr_bpm": 55.2,
+            "sleep_h": 7.7
+          }
+        ]
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 7.2,
+          "soreness": [],
+          "load_min": 92,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 8.1,
+          "soreness": [],
+          "load_min": 85,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 90,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 8,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 81,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 7.2,
+          "soreness": [],
+          "load_min": 94,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 7.6,
+          "soreness": [],
+          "load_min": 89,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 90,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 88,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 99,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 7.9,
+          "soreness": [],
+          "load_min": 80,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 88,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 8.4,
+          "soreness": [],
+          "load_min": 93,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 85,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.2,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": true,
+              "side": "left",
+              "timestamp_s": 1.3,
+              "confidence": 0.82,
+              "plain_language": "Your left knee starts caving inward as your feet touch down."
+            },
+            {
+              "id": "knee_valgus_max",
+              "present": true,
+              "side": "left",
+              "timestamp_s": 1.4,
+              "confidence": 0.82,
+              "plain_language": "At the bottom of the landing, your left knee collapses inward past your big toe."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": true,
+              "side": "both",
+              "timestamp_s": 1.4,
+              "confidence": 0.82,
+              "plain_language": "You land with straight, stiff legs instead of sinking into the landing."
+            },
+            {
+              "id": "asymmetric_foot_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Both feet land at the same time. Nice."
+            },
+            {
+              "id": "stance_width",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your feet land about shoulder-width apart. Good."
+            }
+          ],
+          "summary": "Your left knee caves inward when you land. Focus on pushing your knees out over your toes and landing softly."
+        },
+        "score": {
+          "score": 3,
+          "band": "moderate",
+          "knee_errors": 3,
+          "errors": [
+            "knee_valgus_contact",
+            "knee_valgus_max",
+            "stiff_landing_overall"
+          ],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": null,
+      "risk_today": {
+        "athlete_id": "ath_11",
+        "date": "2026-11-14",
+        "band": "moderate",
+        "flags": [
+          {
+            "rule_id": "R6_landing",
+            "band": "moderate",
+            "area": "knee",
+            "reason": "Last landing screen showed 3 landing errors (3 at the knee)"
+          }
+        ],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    },
+    {
+      "id": "ath_12",
+      "name": "Emma Wilson",
+      "sport": "Gymnastics",
+      "grade": 10,
+      "scenario": "normal",
+      "device": "Fitbit Inspire",
+      "wearable": {
+        "baseline": {
+          "hrv_ms": 74.3,
+          "rhr_bpm": 57.4,
+          "sleep_h": 8,
+          "days_used": 16
+        },
+        "baseline_days": [
+          {
+            "date": "2026-10-15",
+            "hrv_ms": 72.5,
+            "rhr_bpm": 58,
+            "sleep_h": 8.6
+          },
+          {
+            "date": "2026-10-16",
+            "hrv_ms": 76.8,
+            "rhr_bpm": 56.8,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-17",
+            "hrv_ms": 72.4,
+            "rhr_bpm": 56.3,
+            "sleep_h": 8.3
+          },
+          {
+            "date": "2026-10-18",
+            "hrv_ms": 76.5,
+            "rhr_bpm": 56.1,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-10-19",
+            "hrv_ms": 74.8,
+            "rhr_bpm": 58.8,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-20",
+            "hrv_ms": 75.1,
+            "rhr_bpm": 57.8,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-21",
+            "hrv_ms": 76.1,
+            "rhr_bpm": 59,
+            "sleep_h": 8.5
+          },
+          {
+            "date": "2026-10-22",
+            "hrv_ms": 74.9,
+            "rhr_bpm": 56.5,
+            "sleep_h": 7.9
+          },
+          {
+            "date": "2026-10-23",
+            "hrv_ms": 79,
+            "rhr_bpm": 56.4,
+            "sleep_h": 8
+          },
+          {
+            "date": "2026-10-24",
+            "hrv_ms": 74,
+            "rhr_bpm": 56.3,
+            "sleep_h": 8.4
+          },
+          {
+            "date": "2026-10-25",
+            "hrv_ms": 72.8,
+            "rhr_bpm": 57.7,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-26",
+            "hrv_ms": 73.4,
+            "rhr_bpm": 57.2,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-27",
+            "hrv_ms": 73,
+            "rhr_bpm": 58.6,
+            "sleep_h": 7.5
+          },
+          {
+            "date": "2026-10-28",
+            "hrv_ms": 73.5,
+            "rhr_bpm": 56.6,
+            "sleep_h": 7.7
+          },
+          {
+            "date": "2026-10-29",
+            "hrv_ms": 72.8,
+            "rhr_bpm": 57.4,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-10-30",
+            "hrv_ms": 71.3,
+            "rhr_bpm": 58.7,
+            "sleep_h": 7.4
+          }
+        ],
+        "recent": [
+          {
+            "date": "2026-11-08",
+            "hrv_ms": 74.3,
+            "rhr_bpm": 57.3,
+            "sleep_h": 7.4
+          },
+          {
+            "date": "2026-11-09",
+            "hrv_ms": 72.1,
+            "rhr_bpm": 57.2,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-11-10",
+            "hrv_ms": 78.4,
+            "rhr_bpm": 57.8,
+            "sleep_h": 8.2
+          },
+          {
+            "date": "2026-11-11",
+            "hrv_ms": 72.8,
+            "rhr_bpm": 57.7,
+            "sleep_h": 7.6
+          },
+          {
+            "date": "2026-11-12",
+            "hrv_ms": 77,
+            "rhr_bpm": 57.9,
+            "sleep_h": 7.8
+          },
+          {
+            "date": "2026-11-13",
+            "hrv_ms": 77.9,
+            "rhr_bpm": 58.2,
+            "sleep_h": 8.1
+          },
+          {
+            "date": "2026-11-14",
+            "hrv_ms": 78.7,
+            "rhr_bpm": 57.3,
+            "sleep_h": 7.3
+          }
+        ]
+      },
+      "checkins": [
+        {
+          "date": "2026-11-01",
+          "sleep_h": 8.3,
+          "soreness": [],
+          "load_min": 89,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-02",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 92,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-03",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 98,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-04",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 85,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-05",
+          "sleep_h": 7.5,
+          "soreness": [],
+          "load_min": 96,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-06",
+          "sleep_h": 7.2,
+          "soreness": [],
+          "load_min": 81,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-07",
+          "sleep_h": 7.7,
+          "soreness": [],
+          "load_min": 87,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-08",
+          "sleep_h": 7.4,
+          "soreness": [],
+          "load_min": 80,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-09",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 83,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-10",
+          "sleep_h": 8.2,
+          "soreness": [],
+          "load_min": 86,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-11",
+          "sleep_h": 7.6,
+          "soreness": [],
+          "load_min": 97,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-12",
+          "sleep_h": 7.8,
+          "soreness": [],
+          "load_min": 82,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-13",
+          "sleep_h": 8.1,
+          "soreness": [],
+          "load_min": 86,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        },
+        {
+          "date": "2026-11-14",
+          "sleep_h": 7.3,
+          "soreness": [],
+          "load_min": 99,
+          "intensity": "moderate",
+          "took_hit": false,
+          "symptoms": [],
+          "red_flags": []
+        }
+      ],
+      "landing": {
+        "result": {
+          "video_ok": true,
+          "view": "front",
+          "initial_contact_s": 1.1,
+          "items": [
+            {
+              "id": "knee_valgus_contact",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.2,
+              "confidence": 0.75,
+              "plain_language": "Your knees stay in line with your toes."
+            },
+            {
+              "id": "stiff_landing_overall",
+              "present": false,
+              "side": "none",
+              "timestamp_s": 1.3,
+              "confidence": 0.75,
+              "plain_language": "You bend your hips and knees to absorb the landing."
+            }
+          ],
+          "summary": "Clean landing. Keep landing softly with knees over toes."
+        },
+        "score": {
+          "score": 0,
+          "band": "low",
+          "knee_errors": 0,
+          "errors": [],
+          "rules_version": "2026-11-14.1"
+        },
+        "video_date": "2026-11-11"
+      },
+      "hitwatch": null,
+      "risk_today": {
+        "athlete_id": "ath_12",
+        "date": "2026-11-14",
+        "band": "low",
+        "flags": [],
+        "low_confidence": false,
+        "rules_version": "2026-11-14.1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+// Shared types for Ragnor. Framework-free; import from Next.js, Node or anywhere TS runs.
+
+export type Band = "low" | "moderate" | "high";
+export type Urgency = "routine" | "same_day" | "urgent";
+
+export interface WearableDay {
+  date: string; // YYYY-MM-DD
+  hrv_ms: number | null; // nightly HRV (RMSSD), ms
+  rhr_bpm: number | null; // resting heart rate
+  sleep_h: number | null; // hours asleep
+}
+
+export interface Baseline {
+  hrv_ms: number | null;
+  rhr_bpm: number | null;
+  sleep_h: number | null;
+  days_used: number;
+}
+
+export interface WearableComparison {
+  data_available: boolean;
+  hrv_pct_vs_baseline: number | null; // e.g. -18 means 18% below baseline
+  rhr_delta_bpm: number | null; // e.g. +6
+  sleep_h_avg_3d: number | null;
+  below_baseline: boolean;
+  reasons: string[];
+}
+
+export interface SorenessEntry {
+  area: string;
+  level: number; // 0-3
+}
+
+export interface CheckIn {
+  date: string;
+  sleep_h: number | null;
+  soreness: SorenessEntry[];
+  load_min: number | null;
+  intensity: "light" | "moderate" | "hard" | "unknown";
+  took_hit: boolean;
+  symptoms: string[];
+  red_flags: string[];
+}
+
+export interface LandingItem {
+  id: string;
+  present: boolean;
+  side: "left" | "right" | "both" | "none";
+  timestamp_s: number;
+  confidence: number;
+  plain_language: string;
+}
+
+export interface LandingResult {
+  video_ok: boolean;
+  video_issue?: string;
+  view: string;
+  initial_contact_s?: number;
+  items: LandingItem[];
+  summary: string;
+}
+
+export interface Flag {
+  rule_id: string;
+  band: Band;
+  area?: string; // body area, when the flag is area-specific
+  reason: string; // plain language, with the numbers
+}
+
+export interface RiskResult {
+  athlete_id: string;
+  date: string;
+  band: Band;
+  flags: Flag[];
+  low_confidence: boolean; // key inputs missing
+  rules_version: string;
+}
+
+export interface HitWatchDay {
+  day: number;
+  symptoms: Record<string, number>; // name -> 0..6
+  red_flags: string[];
+  worse_than_yesterday?: boolean;
+}
+
+export interface HitWatchDecision {
+  escalate: boolean;
+  urgency: Urgency;
+  reasons: string[];
+  symptom_total_today: number;
+  symptom_total_baseline: number;
+  wearable: WearableComparison;
+  rules_version: string;
+}
