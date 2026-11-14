@@ -4,7 +4,7 @@
 
 Ragnor turns the wearables athletes already own into an athletic trainer for the many high schools that don't have one. Gemini combines smartwatch heart-rate-variability and sleep data, head-impact sensor alerts and a 10-second phone video of a jump landing to flag ACL and overload risk, with a plain-language reason and a fix. When a hit is logged or a sensor detects an impact, Ragnor phones the athlete every day for a week in an ElevenLabs voice, checks symptoms against the athlete's own wearable baseline, and alerts a trainer or parent. It flags risk early, but never diagnoses or clears anyone.
 
-Built at Google DevFest 2026, competing for **Best Startup** and **Best Use of the Gemini API**.
+Built at GDG UC Santa Cruz DevFest 2026 (theme: "Build, Secure, Scale"), competing in Best Integration of Gemini or Google API, Best Startup Potential, Best Social Impact and Best UI.
 
 > Status: planning. Requirements are still being added; no app code yet.
 

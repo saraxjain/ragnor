@@ -3,15 +3,24 @@
 The living plan (problem, wearables thesis, features, architecture, team split, timeline, demo script, startup track, risks and sources) is kept in the team doc:
 https://claude.ai/artifact/6ac9Qu7ZpjQgvFdjt2vkC6
 
-## Timeline (Sat Nov 14 to Sun Nov 15, 2026)
+## Event rules (GDG UC Santa Cruz DevFest 2026)
 
-1. **Sat 10:30–12:00:** Setup: repo, API keys, Firestore, agree on shared JSON shapes.
-2. **Sat 12:00–6:00 pm:** Each person builds their own piece against mock data; film drop-jump clips.
-3. **Sat 6:00–10:00 pm:** Wire everything into one app; run the full demo once.
-4. **Sat 10:00 pm–2:00 am:** Fix and tune prompts on real clips.
-5. **Sun 8:00–11:00 am:** Polish, seed demo roster, rehearse.
-6. **Sun 11:00 am:** Code freeze; record backup demo video.
-7. **Sun 11:00 am–1:00 pm:** Devpost write-up; submit by 12:30.
+- **Submissions close Sun Nov 15 at 11:00 AM** on Devpost, with a demo video uploaded. We target 10:30.
+- Venue: Sat 11:30 AM–6:30 PM (closed overnight), Sun from 9:00 AM.
+- Judging: judges come to our table, 1–2 minute pitch.
+- Theme: "Build, Secure, Scale: Developers and Builders in the Agentic Era."
+- Tracks: Best Integration of Gemini or Google API · Best Startup Potential · Best Social Impact · Best UI.
+- Credits: g.dev/credits/devfest-santa-cruz (personal Google account; not compatible with AI Studio billing, so use Antigravity).
+
+## Timeline
+
+1. **Sat 11:30–12:30:** Setup over lunch: API keys, credits, Firestore, shared JSON shapes.
+2. **Sat 12:30–4:00:** Each person builds their piece against mock data; film drop-jump clips.
+3. **Sat 4:00–6:15:** First end-to-end integration; push before the venue closes.
+4. **Sat 7:30–11:30 pm (remote):** Fix, tune prompts, UI polish; film raw demo clips.
+5. **Sun 7:30–9:00 am (remote):** Final fixes; record and edit the demo video.
+6. **Sun 9:00–10:30 am (venue):** Upload video, finish Devpost. **Submit by 10:30.**
+7. **Sun 10:30–11:30:** Rehearse the 90-second table pitch. Judging at 11:30.
 
 ## Shared JSON shapes (draft)
 
