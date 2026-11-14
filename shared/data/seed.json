@@ -1,17 +1,8 @@
 {
   "generated_for": "2026-11-14",
-  "rules_version": "2026-11-14.1",
+  "rules_version": "2026-11-14.3",
   "team": "Westbrook High (fictional)",
   "roster_summary": [
-    {
-      "id": "ath_01",
-      "name": "Maya Torres",
-      "band": "high",
-      "reasons": [
-        "HitWatch: Symptom score is 8, up 7 from their preseason 1; New or stronger symptoms: headache (3/6); Worse than yesterday (2 to 8); Body not back to baseline yet: HRV is 22.5% below this athlete's normal over the last 3 nights; Resting heart rate is 5.8 bpm above normal",
-        "HRV is 22.5% below this athlete's normal over the last 3 nights; Resting heart rate is 5.8 bpm above normal"
-      ]
-    },
     {
       "id": "ath_03",
       "name": "Priya Nair",
@@ -27,6 +18,14 @@
       "band": "high",
       "reasons": [
         "Right knee soreness is severe today (3 of 3)"
+      ]
+    },
+    {
+      "id": "ath_01",
+      "name": "Maya Torres",
+      "band": "moderate",
+      "reasons": [
+        "HRV is 22.5% below this athlete's normal over the last 3 nights; Resting heart rate is 5.8 bpm above normal"
       ]
     },
     {
@@ -96,9 +95,7 @@
     "athletes_enrolled": 12,
     "landing_screens_completed": 12,
     "athletes_flagged_for_landing_work": 2,
-    "hits_followed_up": 1,
-    "hitwatch_calls_completed": 3,
-    "alerts_drafted": 1,
+    "alerts_drafted": 0,
     "alerts_approved_by_staff": 0,
     "avg_checkin_completion_pct": 86,
     "est_staff_hours_saved": 14,
@@ -110,7 +107,7 @@
       "name": "Maya Torres",
       "sport": "Girls Soccer",
       "grade": 11,
-      "scenario": "hitwatch",
+      "scenario": "wearable_dip",
       "device": "Pixel Watch",
       "wearable": {
         "baseline": {
@@ -379,7 +376,7 @@
           "soreness": [],
           "load_min": 86,
           "intensity": "moderate",
-          "took_hit": true,
+          "took_hit": false,
           "symptoms": [],
           "red_flags": []
         },
@@ -434,98 +431,15 @@
           "band": "low",
           "knee_errors": 0,
           "errors": [],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
-      },
-      "hitwatch": {
-        "hit_id": "hit_001",
-        "hit_date": "2026-11-12",
-        "hit_description": "in Thursday's game against Harbor High (header collision)",
-        "source": "mouthguard_impact (simulated)",
-        "impact_g": 68,
-        "baseline_symptoms": {
-          "fatigue": 1
-        },
-        "calls": [
-          {
-            "day": 0,
-            "symptoms": {
-              "headache": 1
-            },
-            "red_flags": [],
-            "date": "2026-11-12",
-            "call_completed": true
-          },
-          {
-            "day": 1,
-            "symptoms": {
-              "headache": 1,
-              "fatigue": 1
-            },
-            "red_flags": [],
-            "date": "2026-11-13",
-            "call_completed": true
-          },
-          {
-            "day": 2,
-            "symptoms": {
-              "headache": 3,
-              "light_sensitivity": 2,
-              "feeling_in_a_fog": 2,
-              "fatigue": 1
-            },
-            "red_flags": [],
-            "worse_than_yesterday": true,
-            "date": "2026-11-14",
-            "call_completed": true
-          }
-        ],
-        "today_decision": {
-          "escalate": true,
-          "urgency": "same_day",
-          "reasons": [
-            "Symptom score is 8, up 7 from their preseason 1",
-            "New or stronger symptoms: headache (3/6)",
-            "Worse than yesterday (2 to 8)",
-            "Body not back to baseline yet: HRV is 22.5% below this athlete's normal over the last 3 nights; Resting heart rate is 5.8 bpm above normal"
-          ],
-          "symptom_total_today": 8,
-          "symptom_total_baseline": 1,
-          "wearable": {
-            "data_available": true,
-            "hrv_pct_vs_baseline": -22.5,
-            "rhr_delta_bpm": 5.8,
-            "sleep_h_avg_3d": 6.3,
-            "below_baseline": true,
-            "reasons": [
-              "HRV is 22.5% below this athlete's normal over the last 3 nights",
-              "Resting heart rate is 5.8 bpm above normal"
-            ]
-          },
-          "rules_version": "2026-11-14.1"
-        },
-        "alert_draft": {
-          "status": "pending_approval",
-          "urgency": "same_day",
-          "summary": "Maya reported a stronger headache and light sensitivity on day 2 after Thursday's hit, and her overnight HRV is below her normal. Please review and contact a parent or clinician today.",
-          "recipients_suggested": [
-            "coach",
-            "parent"
-          ]
-        }
       },
       "risk_today": {
         "athlete_id": "ath_01",
         "date": "2026-11-14",
-        "band": "high",
+        "band": "moderate",
         "flags": [
-          {
-            "rule_id": "R7_hitwatch",
-            "band": "high",
-            "area": "head",
-            "reason": "HitWatch: Symptom score is 8, up 7 from their preseason 1; New or stronger symptoms: headache (3/6); Worse than yesterday (2 to 8); Body not back to baseline yet: HRV is 22.5% below this athlete's normal over the last 3 nights; Resting heart rate is 5.8 bpm above normal"
-          },
           {
             "rule_id": "R5_wearable_below_baseline",
             "band": "moderate",
@@ -533,7 +447,7 @@
           }
         ],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     },
     {
@@ -893,11 +807,10 @@
             "knee_valgus_max",
             "stiff_landing_overall"
           ],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
       },
-      "hitwatch": null,
       "risk_today": {
         "athlete_id": "ath_02",
         "date": "2026-11-14",
@@ -911,7 +824,7 @@
           }
         ],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     },
     {
@@ -1243,11 +1156,10 @@
           "band": "low",
           "knee_errors": 0,
           "errors": [],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
       },
-      "hitwatch": null,
       "risk_today": {
         "athlete_id": "ath_03",
         "date": "2026-11-14",
@@ -1265,7 +1177,7 @@
           }
         ],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     },
     {
@@ -1597,18 +1509,17 @@
           "band": "low",
           "knee_errors": 0,
           "errors": [],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
       },
-      "hitwatch": null,
       "risk_today": {
         "athlete_id": "ath_04",
         "date": "2026-11-14",
         "band": "low",
         "flags": [],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     },
     {
@@ -1955,11 +1866,10 @@
           "band": "low",
           "knee_errors": 0,
           "errors": [],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
       },
-      "hitwatch": null,
       "risk_today": {
         "athlete_id": "ath_05",
         "date": "2026-11-14",
@@ -1973,7 +1883,7 @@
           }
         ],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     },
     {
@@ -2305,18 +2215,17 @@
           "band": "low",
           "knee_errors": 0,
           "errors": [],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
       },
-      "hitwatch": null,
       "risk_today": {
         "athlete_id": "ath_06",
         "date": "2026-11-14",
         "band": "low",
         "flags": [],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     },
     {
@@ -2653,11 +2562,10 @@
           "band": "low",
           "knee_errors": 0,
           "errors": [],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
       },
-      "hitwatch": null,
       "risk_today": {
         "athlete_id": "ath_07",
         "date": "2026-11-14",
@@ -2671,7 +2579,7 @@
           }
         ],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     },
     {
@@ -3003,18 +2911,17 @@
           "band": "low",
           "knee_errors": 0,
           "errors": [],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
       },
-      "hitwatch": null,
       "risk_today": {
         "athlete_id": "ath_08",
         "date": "2026-11-14",
         "band": "low",
         "flags": [],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     },
     {
@@ -3346,18 +3253,17 @@
           "band": "low",
           "knee_errors": 0,
           "errors": [],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
       },
-      "hitwatch": null,
       "risk_today": {
         "athlete_id": "ath_09",
         "date": "2026-11-14",
         "band": "low",
         "flags": [],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     },
     {
@@ -3549,18 +3455,17 @@
           "band": "low",
           "knee_errors": 0,
           "errors": [],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
       },
-      "hitwatch": null,
       "risk_today": {
         "athlete_id": "ath_10",
         "date": "2026-11-14",
         "band": "low",
         "flags": [],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     },
     {
@@ -3920,11 +3825,10 @@
             "knee_valgus_max",
             "stiff_landing_overall"
           ],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
       },
-      "hitwatch": null,
       "risk_today": {
         "athlete_id": "ath_11",
         "date": "2026-11-14",
@@ -3938,7 +3842,7 @@
           }
         ],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     },
     {
@@ -4270,18 +4174,17 @@
           "band": "low",
           "knee_errors": 0,
           "errors": [],
-          "rules_version": "2026-11-14.1"
+          "rules_version": "2026-11-14.3"
         },
         "video_date": "2026-11-11"
       },
-      "hitwatch": null,
       "risk_today": {
         "athlete_id": "ath_12",
         "date": "2026-11-14",
         "band": "low",
         "flags": [],
         "low_confidence": false,
-        "rules_version": "2026-11-14.1"
+        "rules_version": "2026-11-14.3"
       }
     }
   ]

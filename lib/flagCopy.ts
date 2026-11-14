@@ -32,8 +32,6 @@ export function flagCopy(f: Flag): FlagCopy {
       return { title: `Recovery: ${band}`, cause: "Watch data below your normal", causeKind: "wearable", doThis: "Lighter session today and an early night.", athleteAction: "Your body isn't back to its normal yet. Take it easier today and sleep early." };
     case "R6_landing":
       return { title: `${where ?? "Knee"}: ${band}`, cause: "Risky landing mechanics", causeKind: "landing", doThis: "Add the FixPlan warm-up and re-film a landing next week.", athleteAction: "Do your 10-minute FixPlan warm-up before practice." };
-    case "R7_hitwatch":
-      return { title: `After your hit: ${band}`, cause: "Symptoms changed since the hit", causeKind: "head", doThis: "Review the HitWatch alert and contact a clinician or parent.", athleteAction: "Your coach has been asked to follow up with you today. Tell an adult if anything gets worse." };
     case "R8_red_flag":
       return { title: "Get medical care now", cause: "Emergency sign reported", causeKind: "head", doThis: "Contact a parent now and make sure the athlete gets medical care today.", athleteAction: "Tell a parent or adult right now and get medical care. In an emergency, call 911." };
     case "R9_fuel":

@@ -6,7 +6,7 @@ import { useApi, ErrorBanner, LoadingCard, BandChip, InfoBanner, prettyArea } fr
 import { Ring, Sparkline, TrendChart } from "@/components/charts.tsx";
 import { BodyMap } from "@/components/BodyMap.tsx";
 import { AthleteNav, AthletePicker } from "@/components/AthleteShell.tsx";
-import { IconWave, IconHeart, IconMoon, IconMic, IconVideo, IconPhone, IconWatch, IconChevron, IconSpark, IconLock } from "@/components/icons.tsx";
+import { IconWave, IconHeart, IconMoon, IconMic, IconVideo, IconWatch, IconChevron, IconSpark, IconLock } from "@/components/icons.tsx";
 
 interface Resp {
   athlete: Athlete;
@@ -66,7 +66,7 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
                     <li key={f.rule_id + (f.area ?? "")}>
                       <Link href={`/athlete/flag?id=${id}&rule=${f.rule_id}${f.area ? `&area=${f.area}` : ""}`} className="row" style={{ alignItems: "flex-start", gap: 10, background: "var(--surface-1)", borderRadius: 14, padding: "10px 12px", color: "inherit", textDecoration: "none" }}>
                         <span className={`band band-${f.band}`} style={{ height: 22, fontSize: 11, flex: "none" }}>{f.band === "high" ? "High" : f.band === "moderate" ? "Mod" : "Low"}</span>
-                        <span className="small" style={{ flex: 1 }}>{f.reason.replace(/^HitWatch: /, "")}</span>
+                        <span className="small" style={{ flex: 1 }}>{f.reason}</span>
                         <IconChevron size={16} />
                       </Link>
                     </li>
@@ -75,21 +75,6 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
               )}
               {a.risk_today.low_confidence && <p className="tiny muted">Some of today's data is missing, so this is a rough read. A quick check-in helps.</p>}
             </section>
-
-            {a.hitwatch?.status === "active" && (
-              <Link href={`/athlete/hitwatch?id=${id}`} className="card" style={{ background: "var(--high-container)", color: "#410e0b", boxShadow: "none", textDecoration: "none" }}>
-                <div className="row spread">
-                  <div className="row">
-                    <span className="icon-bubble" style={{ background: "var(--high)", color: "#fff", width: 40, height: 40 }}><IconPhone size={20} /></span>
-                    <div>
-                      <strong>HitWatch · next check-in: day {Math.min(7, (a.hitwatch.calls.length ? Math.max(...a.hitwatch.calls.map((c) => c.day)) : -1) + 1)} of 7</strong>
-                      <div className="small">Daily check-in calls after your hit {a.hitwatch.hit_description}.</div>
-                    </div>
-                  </div>
-                  <IconChevron />
-                </div>
-              </Link>
-            )}
 
             <TodayBodyAndLoad a={a} />
 

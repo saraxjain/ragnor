@@ -42,8 +42,6 @@ function fallback(): Briefing {
       const action =
         top?.rule_id === "R8_red_flag"
           ? "Contact a parent now and make sure the athlete gets medical care today."
-          : top?.rule_id === "R7_hitwatch"
-          ? "Review the HitWatch alert and contact a clinician or parent."
           : top?.rule_id === "R6_landing"
             ? "Add the FixPlan warm-up and re-film a landing next week."
             : top?.rule_id === "R4_severe_soreness"

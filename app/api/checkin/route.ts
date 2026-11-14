@@ -1,6 +1,6 @@
 import { ok, fail, errorMessage } from "@/lib/http.ts";
 import { generateStructured, loadPrompt, live, friendlyGeminiError } from "@/lib/gemini.ts";
-import { addCheckin, createHit, getAthlete, TODAY } from "@/lib/store.ts";
+import { addCheckin, getAthlete, TODAY } from "@/lib/store.ts";
 import { sanitizeDeep, RED_FLAG_MESSAGE, type CheckIn } from "@/shared/lib/index.ts";
 import checkinSchema from "@/shared/schemas/checkin.schema.json";
 
@@ -122,17 +122,11 @@ export async function POST(req: Request) {
       activities: extras.activities,
     };
     const risk = addCheckin(athleteId, checkin);
-    let hitStarted = false;
-    if (checkin.took_hit && a.hitwatch?.status !== "active") {
-      createHit(athleteId, { description: "reported in today's check-in", source: "athlete_checkin" });
-      hitStarted = true;
-    }
     return ok({
       mode,
       checkin,
       summary: clean.transcript_summary,
       risk,
-      hitwatch_started: hitStarted,
       red_flag_message: checkin.red_flags.length ? RED_FLAG_MESSAGE : null,
     });
   } catch (e) {

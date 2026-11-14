@@ -72,7 +72,7 @@ export function FlagDetail({ id, rule, area }: { id: string; rule: string; area?
                 <span className="row" style={{ gap: 4, color: "var(--primary)" }}>{CAUSE_ICONS[copy.causeKind]}</span>
                 <strong>{copy.cause}</strong>
               </div>
-              <p className="small muted">{flag.reason.replace(/^HitWatch: /, "")}</p>
+              <p className="small muted">{flag.reason}</p>
             </section>
 
             <section className="card stack" style={{ "--gap": "10px" } as React.CSSProperties}>

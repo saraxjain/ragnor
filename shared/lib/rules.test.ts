@@ -4,7 +4,6 @@ import {
   computeBaseline,
   compareToBaseline,
   dailyRisk,
-  evaluateHitWatch,
   scoreLanding,
   sanitize,
   sanitizeDeep,
@@ -130,56 +129,6 @@ test("daily: one meal on a hard day -> moderate (R9)", () => {
   assert.equal(r.band, "moderate");
   assert.equal(r.flags[0].rule_id, "R9_fuel");
   assert.equal(r.flags[0].reason, "Only 1 meal logged on a hard practice day");
-});
-
-// ---------- HitWatch ----------
-
-test("hitwatch: any red flag is urgent", () => {
-  const d = evaluateHitWatch({
-    today: { day: 2, symptoms: { headache: 1 }, red_flags: ["repeated_vomiting"] },
-    baseline_symptoms: {},
-  });
-  assert.equal(d.escalate, true);
-  assert.equal(d.urgency, "urgent");
-});
-
-test("hitwatch: delayed headache + HRV below baseline -> same-day escalation with both reasons", () => {
-  const b = computeBaseline(baselineDays);
-  const d = evaluateHitWatch({
-    today: { day: 2, symptoms: { headache: 3, light_sensitivity: 2, feeling_in_a_fog: 1 }, red_flags: [] },
-    yesterday: { day: 1, symptoms: { headache: 1 }, red_flags: [] },
-    baseline_symptoms: { fatigue: 1 },
-    wearable_recent: [day("2026-11-13", 58, 58, 6.5), day("2026-11-14", 56, 58, 6.2)],
-    wearable_baseline: b,
-  });
-  assert.equal(d.escalate, true);
-  assert.equal(d.urgency, "same_day");
-  assert.equal(d.symptom_total_today, 6);
-  assert.ok(d.reasons.some((r) => r.startsWith("Symptom score is 6, up 5")));
-  assert.ok(d.reasons.some((r) => r.includes("headache (3/6)")));
-  assert.ok(d.reasons.some((r) => r.startsWith("Worse than yesterday (1 to 6)")));
-  assert.ok(d.reasons.some((r) => r.startsWith("Body not back to baseline yet")));
-});
-
-test("hitwatch: no change from baseline -> no escalation", () => {
-  const d = evaluateHitWatch({
-    today: { day: 3, symptoms: { fatigue: 1 }, red_flags: [] },
-    baseline_symptoms: { fatigue: 1 },
-  });
-  assert.equal(d.escalate, false);
-  assert.equal(d.reasons.length, 0);
-});
-
-test("hitwatch: wearable-only change asks for a routine human look, never urgent", () => {
-  const b = computeBaseline(baselineDays);
-  const d = evaluateHitWatch({
-    today: { day: 4, symptoms: {}, red_flags: [] },
-    baseline_symptoms: {},
-    wearable_recent: [day("2026-11-14", 50, 55, 8)],
-    wearable_baseline: b,
-  });
-  assert.equal(d.escalate, true);
-  assert.equal(d.urgency, "routine");
 });
 
 // ---------- guardrails ----------

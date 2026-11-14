@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SignupForm } from "@/components/SignupForm.tsx";
 import { LogoMark } from "@/components/Logo.tsx";
-import { IconPhone, IconVideo, IconUsers, IconWatch, IconShield, IconReport, IconSpark, IconWave, IconAlert } from "@/components/icons.tsx";
+import { IconVideo, IconUsers, IconWatch, IconShield, IconReport, IconSpark, IconWave, IconAlert } from "@/components/icons.tsx";
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
               <span style={{ color: "var(--primary)" }}>Ragnor turns it into a decision.</span>
             </h1>
             <p className="lead">
-              An AI agent that turns the Fitbits and Pixel Watches athletes already wear into an athletic trainer: daily follow-up calls after every hit, ACL landing screens from a phone video, and one clear list for the coach.
+              An AI agent that turns the Fitbits and Pixel Watches athletes already wear into an athletic trainer: daily check-ins, ACL landing screens from a phone video, and one clear list for the coach.
             </p>
             <div className="row wrap mt-24">
               <Link href="/coach" className="btn btn-filled btn-lg">See the coach view</Link>
@@ -59,12 +59,11 @@ export default function Home() {
           </div>
         </div>
         <div className="grid grid-3">
-          <Feature icon={<IconPhone />} tone="var(--high-container)" ink="var(--high)" title="HitWatch" body="After a hit is logged, or a mouthguard sensor reports a hard impact, Ragnor phones the athlete every day for a week, asks graded symptom questions and compares them to the athlete's own normal." />
           <Feature icon={<IconWatch />} tone="var(--teal-container)" ink="var(--teal-ink)" title="Your normal, from your watch" body="Overnight HRV, resting heart rate and sleep from Fitbit and Pixel Watch, through the Google Health API. Ragnor only ever asks one question: is this athlete back to their own baseline?" />
           <Feature icon={<IconVideo />} tone="var(--primary-container)" ink="var(--primary)" title="LandingCheck" body="A 10-second phone video of a drop jump. Gemini flags the landing errors linked to ACL tears, like a knee caving inward, with the exact moment it happens." />
           <Feature icon={<IconSpark />} tone="#e8def8" ink="#5b3f9a" title="FixPlan" body="A 10-minute warm-up built for the errors found, and a weekly re-film so athletes can see the change." />
           <Feature icon={<IconUsers />} tone="var(--mod-container)" ink="var(--mod)" title="Coach view" body="One list: who to look at today and why, in plain words. Every alert waits for a person to approve it before anyone is contacted." />
-          <Feature icon={<IconReport />} tone="var(--low-container)" ink="var(--low)" title="Season report" body="For athletic directors: athletes screened, hits followed up, alerts handled and staff hours saved, with an audit trail behind every flag." />
+          <Feature icon={<IconReport />} tone="var(--low-container)" ink="var(--low)" title="Season report" body="For athletic directors: athletes screened, alerts handled and staff hours saved, with an audit trail behind every flag." />
         </div>
       </section>
 
@@ -74,10 +73,9 @@ export default function Home() {
             <div>
               <span className="eyebrow">Why Ragnor</span>
               <h2 id="diff" className="mt-8">Others screen once or alert once. Ragnor follows through.</h2>
-              <p className="muted mt-16">Screening apps check a jump on one day. Wellness coaches read one person's watch. Impact sensors flash at the moment of a hit. None of them follow up over the next week for a whole team that doesn't have a trainer, which is exactly when late concussion symptoms show up.</p>
+              <p className="muted mt-16">Screening apps check a jump on one day. Wellness coaches read one person's watch. None of them keep watching a whole team that doesn't have a trainer, day after day, and tell the coach who to look at today.</p>
             </div>
             <ul className="check-list">
-              <li>Starts at the hit, before anyone has opened a concussion case</li>
               <li>Uses hardware schools and athletes already own</li>
               <li>A rules engine decides every risk level; AI only reads and explains</li>
               <li>Every flag stores its inputs, rule version and reason</li>
@@ -96,7 +94,6 @@ export default function Home() {
         </div>
         <div className="grid grid-4">
           <Tech name="Gemini video understanding" body="Scores landing videos with structured output: one field per landing error, with timestamp and confidence." />
-          <Tech name="Gemini function calling" body="The HitWatch agent logs symptoms, compares to baseline and drafts alerts through four tools." />
           <Tech name="Google Health API" body="Fitbit and Pixel Watch HRV, resting heart rate and sleep for personal baselines." />
           <Tech name="Firebase" body="Athletes, check-ins, the alert approval queue and the audit log." />
         </div>
@@ -122,11 +119,11 @@ export default function Home() {
           </div>
         </div>
         <div className="grid grid-3">
-          <Plan featured name="High schools" price="$20" sub="per athlete, per season" items={["Free for athletes", "Coach and trainer view, weekly report", "HitWatch follow-up calls", "LandingCheck + FixPlan", "Fitbit / Pixel Watch baselines"]} />
-          <Plan name="Universities & park districts" price="$40" sub="per athlete, per season" items={["Everything in High schools", "Multi-team admin view", "Mouthguard sensor integrations", "Compliance reporting"]} />
+          <Plan featured name="High schools" price="$20" sub="per athlete, per season" items={["Free for athletes", "Coach and trainer view, weekly report", "LandingCheck + FixPlan", "Fitbit / Pixel Watch baselines"]} />
+          <Plan name="Universities & park districts" price="$40" sub="per athlete, per season" items={["Everything in High schools", "Multi-team admin view", "Compliance reporting"]} />
           <Plan name="Pro teams" price="Custom" sub="custom contract" items={["Integrations with existing staff tools", "Custom risk rules with your medical staff", "Priority support"]} />
         </div>
-        <p className="tiny muted mt-8">Institutions pay; athletes never do. Why schools pay: it saves trainers hours of tracking, and a documented follow-up trail for concussion protocols lowers liability. Our $20–$40 sits between student tools (training logs, ~$900–1,400/yr) and pro load trackers (~$28K per team).</p>
+        <p className="tiny muted mt-8">Institutions pay; athletes never do. Why schools pay: it saves trainers hours of tracking, and a documented trail of flags and staff approvals lowers liability. Our $20–$40 sits between student tools (training logs, ~$900–1,400/yr) and pro load trackers (~$28K per team).</p>
       </section>
 
       <section className="container mt-40" aria-labelledby="pilot">
@@ -191,7 +188,7 @@ function Plan({ name, price, sub, items, featured }: { name: string; price: stri
   );
 }
 
-/** Static product preview for the hero: a phone with HitWatch and a coach card. */
+/** Static product preview for the hero: a phone check-in and a coach card. */
 function HeroMock() {
   return (
     <div className="hero-mock" style={{ position: "relative", minHeight: 460 }} aria-hidden="true">
@@ -202,7 +199,7 @@ function HeroMock() {
         </div>
         <hr className="divider" />
         {[
-          ["Maya T.", "HitWatch day 2: headache up, HRV 22% below normal", "high"],
+          ["Maya T.", "HRV 22% below normal for 3 nights, resting heart rate up", "high"],
           ["Priya N.", "Under 6 h sleep for 3 nights, load up 32%", "high"],
           ["Jordan L.", "Left knee caves inward on landing", "moderate"],
         ].map(([n, r, b]) => (
@@ -218,21 +215,18 @@ function HeroMock() {
       </div>
       <div style={{ position: "absolute", left: 0, top: 60, width: 230, zIndex: 2, borderRadius: 36, background: "#1f1f1f", padding: 9, boxShadow: "0 18px 40px rgba(31,31,31,0.22)" }}>
         <div style={{ background: "var(--surface)", borderRadius: 28, padding: 16, minHeight: 330 }}>
-          <div className="tiny muted">Incoming call</div>
+          <div className="tiny muted">Daily check-in</div>
           <div className="row mt-8" style={{ gap: 10 }}>
             <LogoMark size={36} />
             <div>
-              <div className="strong">Ragnor HitWatch</div>
-              <div className="tiny muted">Day 2 check-in</div>
+              <div className="strong">Ragnor</div>
+              <div className="tiny muted">60-second check-in</div>
             </div>
           </div>
           <div className="stack mt-16" style={{ gap: 8 }}>
-            <div className="bubble agent" style={{ fontSize: 12 }}>Any headache today? From zero to six?</div>
-            <div className="bubble athlete" style={{ fontSize: 12 }}>Worse than yesterday. Maybe a three.</div>
-            <div className="bubble agent" style={{ fontSize: 12 }}>Thanks. I'm letting your coach know so a person can follow up today.</div>
-          </div>
-          <div className="row mt-16" style={{ justifyContent: "center", gap: 18 }}>
-            <span style={{ width: 44, height: 44, borderRadius: 99, background: "var(--high)", display: "grid", placeItems: "center", color: "#fff" }}><IconPhone size={20} /></span>
+            <div className="bubble agent" style={{ fontSize: 12 }}>How'd you sleep last night?</div>
+            <div className="bubble athlete" style={{ fontSize: 12 }}>About five and a half hours.</div>
+            <div className="bubble agent" style={{ fontSize: 12 }}>Thanks. Anything sore or tight today?</div>
           </div>
         </div>
       </div>

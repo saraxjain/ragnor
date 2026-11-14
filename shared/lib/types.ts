@@ -78,20 +78,3 @@ export interface RiskResult {
   low_confidence: boolean; // key inputs missing
   rules_version: string;
 }
-
-export interface HitWatchDay {
-  day: number;
-  symptoms: Record<string, number>; // name -> 0..6
-  red_flags: string[];
-  worse_than_yesterday?: boolean;
-}
-
-export interface HitWatchDecision {
-  escalate: boolean;
-  urgency: Urgency;
-  reasons: string[];
-  symptom_total_today: number;
-  symptom_total_baseline: number;
-  wearable: WearableComparison;
-  rules_version: string;
-}

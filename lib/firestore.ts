@@ -1,5 +1,5 @@
 // Optional Firestore mirror. When Firebase credentials are set, every write in the store is
-// mirrored to Firestore (alerts, hitwatch logs, check-ins, landing screens, signups, audit log).
+// mirrored to Firestore (alerts, check-ins, landing screens, signups, audit log).
 // Without credentials this is a no-op and the in-memory store is the source of truth.
 import { config, live } from "./config.ts";
 

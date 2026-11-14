@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AthleteNav, AthletePicker } from "@/components/AthleteShell.tsx";
 import { BandChip, ErrorBanner, prettyArea, prettySymptom } from "@/components/ui.tsx";
 import { BodyMap } from "@/components/BodyMap.tsx";
-import { IconMic, IconStop, IconAlert, IconCheck, IconMoon, IconClock, IconPhone } from "@/components/icons.tsx";
+import { IconMic, IconStop, IconAlert, IconCheck, IconMoon, IconClock } from "@/components/icons.tsx";
 import type { CheckIn, RiskResult } from "@/shared/lib/index.ts";
 
 interface Result {
@@ -12,12 +12,11 @@ interface Result {
   checkin: CheckIn;
   summary: string;
   risk: RiskResult;
-  hitwatch_started: boolean;
   red_flag_message: string | null;
 }
 
-const PROMPTS = ["How'd you sleep last night, roughly how many hours?", "Anything sore or tight? Where, and how bad, 0 to 3?", "How long and how hard was practice? Any hits?"];
-const EXAMPLE = "Slept about five and a half hours. My left hamstring's pretty tight, maybe a two. Practice was two hours and brutal, lots of sprints. No hits.";
+const PROMPTS = ["How'd you sleep last night, roughly how many hours?", "Anything sore or tight? Where, and how bad, 0 to 3?", "How long and how hard was practice?"];
+const EXAMPLE = "Slept about five and a half hours. My left hamstring's pretty tight, maybe a two. Practice was two hours and brutal, lots of sprints.";
 
 export function CheckinClient({ id }: { id: string }) {
   const [recording, setRecording] = useState(false);
@@ -34,8 +33,6 @@ export function CheckinClient({ id }: { id: string }) {
   const [effort, setEffort] = useState(6);
   const [acts, setActs] = useState<string[]>([]);
   const [meals, setMeals] = useState<boolean[]>([true, true, false]);
-  const [hit, setHit] = useState(false);
-  const [hitSymptoms, setHitSymptoms] = useState<string[]>([]);
   const recRef = useRef<MediaRecorder | null>(null);
   const chunks = useRef<Blob[]>([]);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -79,7 +76,7 @@ export function CheckinClient({ id }: { id: string }) {
     try {
       const f = new FormData();
       f.set("athlete_id", id);
-      f.set("structured", JSON.stringify({ sleep_h: sleepH, soreness: sore, load_min: minutes, effort, activities: acts, meals: meals.filter(Boolean).length, took_hit: hit, symptoms: hit ? hitSymptoms : [] }));
+      f.set("structured", JSON.stringify({ sleep_h: sleepH, soreness: sore, load_min: minutes, effort, activities: acts, meals: meals.filter(Boolean).length, took_hit: false, symptoms: [] }));
       const res = await fetch("/api/checkin", { method: "POST", body: f });
       const body = await res.json();
       if (!res.ok) throw new Error(body.error ?? "Check-in failed");
@@ -169,27 +166,6 @@ export function CheckinClient({ id }: { id: string }) {
               </div>
             </section>
 
-            <section className="card stack" style={{ "--gap": "10px" } as React.CSSProperties} aria-labelledby="hi">
-              <div className="row spread">
-                <strong id="hi">Any hit to the head today?</strong>
-                <div className="seg" role="group" aria-label="Hit to the head">
-                  <button aria-pressed={!hit} onClick={() => setHit(false)}>No</button>
-                  <button aria-pressed={hit} onClick={() => setHit(true)}>Yes</button>
-                </div>
-              </div>
-              {hit && (
-                <>
-                  <span className="small muted">Anything you're feeling? (tap all that apply)</span>
-                  <div className="row wrap" style={{ gap: 6 }}>
-                    {["headache", "dizziness", "nausea", "light_sensitivity", "feeling_in_a_fog", "blurred_vision"].map((sy) => (
-                      <button key={sy} className="toggle-chip" aria-pressed={hitSymptoms.includes(sy)} onClick={() => setHitSymptoms((x) => x.includes(sy) ? x.filter((y) => y !== sy) : [...x, sy])}>{prettySymptom(sy)}</button>
-                    ))}
-                  </div>
-                  <p className="tiny muted">HitWatch will check in with you daily for a week. Symptoms can show up a day or two later.</p>
-                </>
-              )}
-            </section>
-
             <button className="btn btn-green btn-lg btn-block" onClick={submitTap} disabled={busy}>{busy ? <span className="spinner" /> : null} Submit</button>
           </>
         )}
@@ -270,11 +246,8 @@ export function CheckinClient({ id }: { id: string }) {
                 <span className="small">Today's status</span>
                 <BandChip band={result.risk.band} />
               </div>
-              {result.risk.flags.slice(0, 3).map((f) => <Link key={f.rule_id + (f.area ?? "")} href={`/athlete/flag?id=${id}&rule=${f.rule_id}${f.area ? `&area=${f.area}` : ""}`} className="small" style={{ display: "block" }}>• {f.reason.replace(/^HitWatch: /, "")} →</Link>)}
+              {result.risk.flags.slice(0, 3).map((f) => <Link key={f.rule_id + (f.area ?? "")} href={`/athlete/flag?id=${id}&rule=${f.rule_id}${f.area ? `&area=${f.area}` : ""}`} className="small" style={{ display: "block" }}>• {f.reason} →</Link>)}
             </section>
-            {result.hitwatch_started && (
-              <div className="banner banner-info" role="status"><IconPhone size={20} /><div>You mentioned a hit, so HitWatch is on: we'll call you once a day for a week to check how you feel. <Link href={`/athlete/hitwatch?id=${id}`}>See HitWatch</Link></div></div>
-            )}
             <div className="row">
               <Link href={`/athlete?id=${id}`} className="btn btn-filled"><IconCheck size={18} /> Done</Link>
               <button className="btn btn-text" onClick={() => { setResult(null); setAudio(null); setText(""); }}>New check-in</button>

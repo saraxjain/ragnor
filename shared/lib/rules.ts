@@ -8,15 +8,12 @@ import type {
   Baseline,
   CheckIn,
   Flag,
-  HitWatchDay,
-  HitWatchDecision,
   LandingResult,
   RiskResult,
-  Urgency,
   WearableDay,
 } from "./types.ts";
 
-export const RULES_VERSION = "2026-11-14.2";
+export const RULES_VERSION = "2026-11-14.3";
 
 const BAND_ORDER: Band[] = ["low", "moderate", "high"];
 const maxBand = (a: Band, b: Band): Band => (BAND_ORDER.indexOf(a) >= BAND_ORDER.indexOf(b) ? a : b);
@@ -55,7 +52,6 @@ export interface DailyRiskInput {
   wearable_recent?: WearableDay[];
   wearable_baseline?: Baseline;
   latest_landing?: LandingScore;
-  active_hitwatch?: HitWatchDecision | null;
 }
 
 const sum = (xs: number[]) => xs.reduce((a, b) => a + b, 0);
@@ -127,16 +123,6 @@ export function dailyRisk(input: DailyRiskInput): RiskResult {
     });
   }
 
-  // R7: active HitWatch escalation always surfaces
-  if (input.active_hitwatch?.escalate) {
-    flags.push({
-      rule_id: "R7_hitwatch",
-      band: input.active_hitwatch.urgency === "routine" ? "moderate" : "high",
-      area: "head",
-      reason: `HitWatch: ${input.active_hitwatch.reasons.join("; ")}`,
-    });
-  }
-
   // R9: under-fueled on a hard day (meals come from the tap check-in)
   if (today && today.meals != null && today.meals <= 1 && (today.intensity === "hard" || (today.effort ?? 0) >= 8 || (today.load_min ?? 0) >= 90)) {
     flags.push({ rule_id: "R9_fuel", band: "moderate", reason: `Only ${today.meals} meal${today.meals === 1 ? "" : "s"} logged on a hard practice day` });
@@ -156,77 +142,6 @@ export function dailyRisk(input: DailyRiskInput): RiskResult {
 
   const low_confidence = !today || (today.sleep_h == null && today.load_min == null && !input.wearable_recent?.length);
   return { athlete_id: input.athlete_id, date: input.date, band, flags, low_confidence, rules_version: RULES_VERSION };
-}
-
-// ---------- HitWatch ----------
-
-export const SYMPTOM_RISE_THRESHOLD = 3; // total rise over the athlete's own baseline
-export const NEW_SYMPTOM_SEVERITY = 3; // any one symptom >= 3 that wasn't there at baseline
-
-export function evaluateHitWatch(args: {
-  today: HitWatchDay;
-  yesterday?: HitWatchDay;
-  baseline_symptoms: Record<string, number>; // preseason symptom checklist (0-6 each)
-  wearable_recent?: WearableDay[];
-  wearable_baseline?: Baseline;
-}): HitWatchDecision {
-  const { today, yesterday, baseline_symptoms } = args;
-  const totalToday = sum(Object.values(today.symptoms));
-  const totalBase = sum(Object.values(baseline_symptoms));
-  const reasons: string[] = [];
-  let urgency: Urgency = "routine";
-  let escalate = false;
-
-  const raise = (u: Urgency) => {
-    escalate = true;
-    if (["routine", "same_day", "urgent"].indexOf(u) > ["routine", "same_day", "urgent"].indexOf(urgency)) urgency = u;
-  };
-
-  if (today.red_flags.length > 0) {
-    reasons.push(`Emergency sign reported: ${today.red_flags.map((r) => r.replaceAll("_", " ")).join(", ")}`);
-    raise("urgent");
-  }
-
-  const rise = totalToday - totalBase;
-  if (rise >= SYMPTOM_RISE_THRESHOLD) {
-    reasons.push(`Symptom score is ${totalToday}, up ${rise} from their preseason ${totalBase}`);
-    raise("same_day");
-  }
-
-  const newOnes = Object.entries(today.symptoms)
-    .filter(([name, sev]) => sev >= NEW_SYMPTOM_SEVERITY && (baseline_symptoms[name] ?? 0) < NEW_SYMPTOM_SEVERITY)
-    .map(([name, sev]) => `${name.replaceAll("_", " ")} (${sev}/6)`);
-  if (newOnes.length) {
-    reasons.push(`New or stronger symptoms: ${newOnes.join(", ")}`);
-    raise("same_day");
-  }
-
-  const yTotal = yesterday ? sum(Object.values(yesterday.symptoms)) : null;
-  const scoreRose = yTotal != null && totalToday > yTotal;
-  if (scoreRose || today.worse_than_yesterday) {
-    reasons.push(scoreRose ? `Worse than yesterday (${yTotal} to ${totalToday})` : "Athlete says it's worse than yesterday");
-    raise("same_day");
-  }
-
-  const wearable =
-    args.wearable_recent && args.wearable_baseline
-      ? compareToBaseline(args.wearable_recent, args.wearable_baseline)
-      : { data_available: false, hrv_pct_vs_baseline: null, rhr_delta_bpm: null, sleep_h_avg_3d: null, below_baseline: false, reasons: [] };
-
-  if (wearable.below_baseline) {
-    reasons.push(`Body not back to baseline yet: ${wearable.reasons.join("; ")}`);
-    raise("routine"); // wearable alone never jumps the queue; it asks a human to look
-  }
-
-  return {
-    escalate,
-    urgency: escalate ? urgency : "routine",
-    reasons,
-    symptom_total_today: totalToday,
-    symptom_total_baseline: totalBase,
-    wearable,
-    rules_version: RULES_VERSION,
-  };
 }
 
 function prettyArea(area: string): string {

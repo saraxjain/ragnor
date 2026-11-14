@@ -2,8 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useApi, postJson, ErrorBanner, LoadingCard, BandChip, Avatar, ModePill, useToast, timeAgo, type Band } from "@/components/ui.tsx";
-import { HitWatchCall } from "@/components/HitWatchCall.tsx";
-import { IconAlert, IconCheck, IconPhone, IconBolt, IconRefresh, IconSpark, IconChevron, IconUsers, IconShield } from "@/components/icons.tsx";
+import { IconAlert, IconCheck, IconRefresh, IconSpark, IconChevron, IconUsers, IconShield } from "@/components/icons.tsx";
 import type { Alert } from "@/lib/store.ts";
 import type { Flag } from "@/shared/lib/index.ts";
 
@@ -17,7 +16,6 @@ interface RosterRow {
   flags: Flag[];
   low_confidence: boolean;
   landing_band: Band | null;
-  hitwatch: null | { hit_id: string; day: number; calls: number; status: string; escalate: boolean; urgency: string | null; hit_date: string; description: string; next_call?: string };
 }
 
 interface StateResp {
@@ -25,7 +23,7 @@ interface StateResp {
   athletes: RosterRow[];
   alerts: Alert[];
   report: { bands: { high: number; moderate: number; low: number } };
-  integrations: { gemini: boolean; elevenlabs_phone: boolean; elevenlabs_web: boolean; google_health: boolean; firestore: boolean; model: string };
+  integrations: { gemini: boolean; google_health: boolean; firestore: boolean; model: string };
 }
 
 interface Briefing {
@@ -37,10 +35,9 @@ export function CoachDashboard() {
   const { data, error, loading, reload } = useApi<StateResp>("/api/state");
   const brief = useApi<Briefing>("/api/briefing");
   const toast = useToast();
-  const [callFor, setCallFor] = useState<string>("ath_01");
   const [filter, setFilter] = useState<"all" | "flagged">("flagged");
 
-  // Light polling so phone-call results and new alerts show up without a refresh.
+  // Light polling so new alerts show up without a refresh.
   useEffect(() => {
     const t = setInterval(() => void reload(), 8000);
     return () => clearInterval(t);
@@ -49,7 +46,6 @@ export function CoachDashboard() {
   const pending = data?.alerts.filter((a) => a.status === "pending_approval") ?? [];
   const decided = data?.alerts.filter((a) => a.status !== "pending_approval").slice(0, 3) ?? [];
   const byId = new Map(data?.athletes.map((a) => [a.id, a]) ?? []);
-  const active = data?.athletes.filter((a) => a.hitwatch?.status === "active") ?? [];
   const roster = (data?.athletes ?? []).filter((a) => filter === "all" || a.band !== "low");
 
   async function decide(alert: Alert, decision: "approved" | "dismissed") {
@@ -80,7 +76,6 @@ export function CoachDashboard() {
             {data && (
               <>
                 <ModePill live={data.integrations.gemini} label={data.integrations.gemini ? "Gemini live" : "Gemini: demo"} />
-                <ModePill live={data.integrations.elevenlabs_phone || data.integrations.elevenlabs_web} label={data.integrations.elevenlabs_phone ? "Calls: phone" : data.integrations.elevenlabs_web ? "Calls: browser" : "Calls: demo"} />
                 <ModePill live={data.integrations.google_health} label={data.integrations.google_health ? "Google Health live" : "Watch data: sample"} />
               </>
             )}
@@ -107,7 +102,7 @@ export function CoachDashboard() {
                     <h3 id="alerts">Alerts waiting for you</h3>
                     <span className="small muted">Nothing is sent until you approve</span>
                   </div>
-                  {pending.length === 0 && <p className="small muted">No alerts right now. When a HitWatch call finds a change, the draft lands here first.</p>}
+                  {pending.length === 0 && <p className="small muted">No alerts right now. When an athlete asks for a check-in, the draft lands here first.</p>}
                   <div className="stack" style={{ "--gap": "12px" } as React.CSSProperties}>
                     {pending.map((al) => {
                       const ath = byId.get(al.athlete_id);
@@ -118,7 +113,7 @@ export function CoachDashboard() {
                               <Avatar name={ath?.name ?? "?"} />
                               <div>
                                 <strong>{ath?.name}</strong>
-                                <div className="small muted">{al.hit_id ? "HitWatch" : "Athlete asked for a check-in"} · {timeAgo(al.created_at)}</div>
+                                <div className="small muted">Athlete asked for a check-in · {timeAgo(al.created_at)}</div>
                               </div>
                             </div>
                             <span className={`band ${al.urgency === "urgent" ? "band-high" : "band-moderate"}`}>{al.urgency === "urgent" ? "Urgent" : al.urgency === "same_day" ? "Same day" : "Routine"}</span>
@@ -162,10 +157,9 @@ export function CoachDashboard() {
                           <div className="row wrap" style={{ gap: 8 }}>
                             <strong>{a.name}</strong>
                             <span className="small muted">{a.sport} · Gr {a.grade}</span>
-                            {a.hitwatch?.status === "active" && <span className="pill" style={{ background: "var(--high-container)", color: "var(--high)" }}><IconPhone size={12} /> HitWatch</span>}
                           </div>
                           <div className="small muted" style={{ marginTop: 2 }}>
-                            {a.flags[0] ? a.flags[0].reason.replace(/^HitWatch: /, "HitWatch: ") : "No concerns from today's data"}
+                            {a.flags[0] ? a.flags[0].reason : "No concerns from today's data"}
                             {a.flags.length > 1 ? ` · +${a.flags.length - 1} more` : ""}
                           </div>
                         </div>
@@ -199,33 +193,6 @@ export function CoachDashboard() {
                     </>
                   )}
                 </section>
-
-                <section className="card" aria-labelledby="hw">
-                  <div className="card-header">
-                    <h3 id="hw" className="row" style={{ gap: 8 }}><IconPhone size={18} /> HitWatch</h3>
-                    <span className="small muted">{active.length} active</span>
-                  </div>
-                  {active.length > 0 ? (
-                    <>
-                      <label className="field">
-                        <span className="small muted">Athlete</span>
-                        <select className="select" value={callFor} onChange={(e) => setCallFor(e.target.value)}>
-                          {active.map((a) => <option key={a.id} value={a.id}>{a.name} · {a.hitwatch!.calls} calls so far</option>)}
-                        </select>
-                      </label>
-                      {byId.get(callFor)?.hitwatch && (
-                        <p className="small muted mt-8">Hit {byId.get(callFor)!.hitwatch!.description}. Next: day {Math.min(7, byId.get(callFor)!.hitwatch!.calls ? byId.get(callFor)!.hitwatch!.day + 1 : 0)} of 7.</p>
-                      )}
-                      <div className="mt-16">
-                        {byId.get(callFor) && <HitWatchCall key={callFor} athleteId={callFor} athleteName={byId.get(callFor)!.name} onDone={reload} />}
-                      </div>
-                    </>
-                  ) : (
-                    <p className="small muted">No active cases.</p>
-                  )}
-                </section>
-
-                <ImpactSimulator athletes={data.athletes} onStarted={(id, name) => { setCallFor(id); toast.show(`Impact logged for ${name}. HitWatch started.`); void reload(); }} />
               </aside>
             </div>
           </>
@@ -246,47 +213,5 @@ function Kpi({ label, value, icon, tone, ink }: { label: string; value: number; 
       </div>
       <div className="metric-value mt-8">{value}</div>
     </div>
-  );
-}
-
-function ImpactSimulator({ athletes, onStarted }: { athletes: RosterRow[]; onStarted: (id: string, name: string) => void }) {
-  const candidates = athletes.filter((a) => a.hitwatch?.status !== "active");
-  const [id, setId] = useState(candidates[0]?.id ?? "");
-  const [g, setG] = useState(72);
-  const [busy, setBusy] = useState(false);
-  const [msg, setMsg] = useState<string | null>(null);
-  if (!candidates.length) return null;
-  async function fire() {
-    setBusy(true);
-    setMsg(null);
-    try {
-      const r = await postJson<{ started: boolean; reason?: string }>("/api/hitwatch/impact", { athlete_id: id, impact_g: g, description: "in today's practice (simulated sensor)" });
-      if (r.started) onStarted(id, athletes.find((a) => a.id === id)?.name ?? "");
-      else setMsg(r.reason ?? "Logged only.");
-    } catch (e) {
-      setMsg(e instanceof Error ? e.message : "Failed");
-    } finally {
-      setBusy(false);
-    }
-  }
-  return (
-    <section className="card flat" aria-labelledby="sim">
-      <h4 id="sim" className="row" style={{ gap: 8 }}><IconBolt size={18} /> Mouthguard impact feed <span className="pill demo">simulated</span></h4>
-      <p className="small muted mt-8">Sensor mouthguards report hard hits. Above 60 g, Ragnor starts HitWatch automatically, with no self-report needed.</p>
-      <div className="grid grid-2 mt-16" style={{ "--gap": "10px" } as React.CSSProperties}>
-        <label className="field">
-          <span className="small muted">Athlete</span>
-          <select className="select" value={id} onChange={(e) => setId(e.target.value)}>
-            {candidates.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}
-          </select>
-        </label>
-        <label className="field">
-          <span className="small muted">Impact: {g} g</span>
-          <input type="range" min={20} max={110} value={g} onChange={(e) => setG(Number(e.target.value))} aria-label="Impact in g" />
-        </label>
-      </div>
-      <button className="btn btn-tonal mt-16" onClick={fire} disabled={busy || !id}>{busy ? <span className="spinner" /> : <IconBolt size={16} />} Send impact event</button>
-      {msg && <p className="small muted mt-8">{msg}</p>}
-    </section>
   );
 }

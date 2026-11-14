@@ -1,5 +1,5 @@
 // Generates shared/data/seed.json: a fictional 12-athlete roster with wearable history, check-ins,
-// landing screens and one active HitWatch case, plus the rules-engine output for "today".
+// landing screens, plus the rules-engine output for "today".
 // Run: node shared/scripts/make-seed.ts
 // All names and data are invented for the demo.
 
@@ -9,11 +9,9 @@ import { fileURLToPath } from "node:url";
 import {
   computeBaseline,
   dailyRisk,
-  evaluateHitWatch,
   scoreLanding,
   RULES_VERSION,
   type CheckIn,
-  type HitWatchDay,
   type LandingResult,
   type WearableDay,
 } from "../lib/index.ts";
@@ -31,10 +29,10 @@ const dateMinus = (n: number) => {
   return d.toISOString().slice(0, 10);
 };
 
-type Scenario = "normal" | "sleep_load" | "sore_hamstring" | "landing_risk" | "hitwatch" | "severe_knee";
+type Scenario = "normal" | "sleep_load" | "sore_hamstring" | "landing_risk" | "wearable_dip" | "severe_knee";
 
 const roster: { id: string; name: string; sport: string; grade: number; scenario: Scenario; device: string }[] = [
-  { id: "ath_01", name: "Maya Torres", sport: "Girls Soccer", grade: 11, scenario: "hitwatch", device: "Pixel Watch" },
+  { id: "ath_01", name: "Maya Torres", sport: "Girls Soccer", grade: 11, scenario: "wearable_dip", device: "Pixel Watch" },
   { id: "ath_02", name: "Jordan Lee", sport: "Girls Soccer", grade: 12, scenario: "landing_risk", device: "Fitbit Charge" },
   { id: "ath_03", name: "Priya Nair", sport: "Girls Basketball", grade: 10, scenario: "sleep_load", device: "Fitbit Sense" },
   { id: "ath_04", name: "Ava Johnson", sport: "Girls Basketball", grade: 11, scenario: "normal", device: "Pixel Watch" },
@@ -57,7 +55,7 @@ function wearableHistory(scenario: Scenario, device: string): { baseline_days: W
   const recent: WearableDay[] = [];
   for (let i = 6; i >= 0; i--) {
     let hrv = jitter(hrv0, 4), rhr = jitter(rhr0, 1.5), sleep = jitter(7.9, 0.6);
-    if (scenario === "hitwatch" && i <= 2) { hrv = jitter(hrv0 * 0.78, 2); rhr = jitter(rhr0 + 5.5, 1); sleep = jitter(6.3, 0.3); }
+    if (scenario === "wearable_dip" && i <= 2) { hrv = jitter(hrv0 * 0.78, 2); rhr = jitter(rhr0 + 5.5, 1); sleep = jitter(6.3, 0.3); }
     if (scenario === "sleep_load" && i <= 2) sleep = jitter(5.3, 0.3);
     recent.push({ date: dateMinus(i), hrv_ms: hrv, rhr_bpm: rhr, sleep_h: sleep });
   }
@@ -82,7 +80,7 @@ function checkins(scenario: Scenario, recent: WearableDay[]): CheckIn[] {
       soreness,
       load_min: load,
       intensity: load > 110 ? "hard" : "moderate",
-      took_hit: scenario === "hitwatch" && i === 2,
+      took_hit: false,
       symptoms: [],
       red_flags: [],
     });
@@ -124,41 +122,6 @@ const athletes = roster.map((a) => {
   const landingResult = landing(a.scenario);
   const landingScore = scoreLanding(landingResult);
 
-  let hitwatch = null;
-  if (a.scenario === "hitwatch") {
-    const baseline_symptoms = { fatigue: 1 };
-    const days: HitWatchDay[] = [
-      { day: 0, symptoms: { headache: 1 }, red_flags: [] as string[] },
-      { day: 1, symptoms: { headache: 1, fatigue: 1 }, red_flags: [] as string[] },
-      { day: 2, symptoms: { headache: 3, light_sensitivity: 2, feeling_in_a_fog: 2, fatigue: 1 }, red_flags: [] as string[], worse_than_yesterday: true },
-    ];
-    const decision = evaluateHitWatch({
-      today: days[2],
-      yesterday: days[1],
-      baseline_symptoms,
-      wearable_recent: recent,
-      wearable_baseline: baseline,
-    });
-    hitwatch = {
-      hit_id: "hit_001",
-      hit_date: dateMinus(2),
-      hit_description: "in Thursday's game against Harbor High (header collision)",
-      source: "mouthguard_impact (simulated)",
-      impact_g: 68,
-      baseline_symptoms,
-      calls: days.map((d, i) => ({ ...d, date: dateMinus(2 - i), call_completed: true })),
-      today_decision: decision,
-      alert_draft: decision.escalate
-        ? {
-            status: "pending_approval",
-            urgency: decision.urgency,
-            summary: `Maya reported a stronger headache and light sensitivity on day 2 after Thursday's hit, and her overnight HRV is below her normal. Please review and contact a parent or clinician today.`,
-            recipients_suggested: ["coach", "parent"],
-          }
-        : null,
-    };
-  }
-
   const risk = dailyRisk({
     athlete_id: a.id,
     date: TODAY,
@@ -166,10 +129,9 @@ const athletes = roster.map((a) => {
     wearable_recent: recent.length ? recent : undefined,
     wearable_baseline: recent.length ? baseline : undefined,
     latest_landing: landingScore,
-    active_hitwatch: hitwatch?.today_decision ?? null,
   });
 
-  return { ...a, wearable: { baseline, baseline_days, recent }, checkins: cis, landing: { result: landingResult, score: landingScore, video_date: dateMinus(3) }, hitwatch, risk_today: risk };
+  return { ...a, wearable: { baseline, baseline_days, recent }, checkins: cis, landing: { result: landingResult, score: landingScore, video_date: dateMinus(3) }, risk_today: risk };
 });
 
 const order = { high: 0, moderate: 1, low: 2 } as const;
@@ -183,9 +145,7 @@ const seasonReport = {
   athletes_enrolled: athletes.length,
   landing_screens_completed: athletes.length,
   athletes_flagged_for_landing_work: athletes.filter((a) => a.landing.score.band !== "low").length,
-  hits_followed_up: 1,
-  hitwatch_calls_completed: 3,
-  alerts_drafted: athletes.filter((a) => a.hitwatch?.alert_draft).length,
+  alerts_drafted: 0,
   alerts_approved_by_staff: 0,
   avg_checkin_completion_pct: 86,
   est_staff_hours_saved: 14,

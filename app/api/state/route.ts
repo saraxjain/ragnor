@@ -15,19 +15,6 @@ export async function GET() {
     flags: a.risk_today.flags,
     low_confidence: a.risk_today.low_confidence,
     landing_band: a.landing?.score.band ?? null,
-    hitwatch: a.hitwatch
-      ? {
-          hit_id: a.hitwatch.hit_id,
-          day: Math.max(0, ...a.hitwatch.calls.map((c) => c.day)),
-          calls: a.hitwatch.calls.length,
-          status: a.hitwatch.status,
-          escalate: a.hitwatch.today_decision?.escalate ?? false,
-          urgency: a.hitwatch.today_decision?.urgency ?? null,
-          hit_date: a.hitwatch.hit_date,
-          description: a.hitwatch.hit_description,
-          next_call: a.hitwatch.next_call,
-        }
-      : null,
     wearable: {
       hrv_pct: null as number | null,
       source: a.wearable.source,

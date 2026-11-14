@@ -18,7 +18,6 @@ export function AthleteNav({ id }: { id: string }) {
     { href: `/athlete?id=${id}`, label: "Today", icon: <IconHome size={20} />, active: path === "/athlete" },
     { href: `/athlete/checkin?id=${id}`, label: "Check-in", icon: <IconMic size={20} />, active: path === "/athlete/checkin" },
     { href: `/athlete/landing?id=${id}`, label: "Landing", icon: <IconVideo size={20} />, active: path === "/athlete/landing" },
-    { href: `/athlete/hitwatch?id=${id}`, label: "HitWatch", icon: <IconPhone size={20} />, active: path === "/athlete/hitwatch" },
   ];
   return (
     <nav className="bottom-nav" aria-label="Athlete">

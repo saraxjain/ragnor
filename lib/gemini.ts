@@ -18,12 +18,6 @@ export function loadPrompt(name: string): string {
   return idx >= 0 ? raw.slice(idx + 5).trim() : raw;
 }
 
-export function loadAgentPrompt(): string {
-  const raw = readFileSync(join(process.cwd(), "shared", "agent", "hitwatch_system_prompt.md"), "utf8");
-  const idx = raw.indexOf("\n---\n");
-  return idx >= 0 ? raw.slice(idx + 5).trim() : raw;
-}
-
 type JsonSchema = Record<string, unknown>;
 
 /** Models to try in order: GEMINI_MODEL, then any in GEMINI_FALLBACK_MODELS (comma-separated). */

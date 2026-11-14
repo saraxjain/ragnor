@@ -2,7 +2,7 @@
 import { useApi, ErrorBanner, LoadingCard } from "@/components/ui.tsx";
 import { Ring } from "@/components/charts.tsx";
 import { LogoMark } from "@/components/Logo.tsx";
-import { IconReport, IconPhone, IconVideo, IconShield, IconClock, IconUsers } from "@/components/icons.tsx";
+import { IconReport, IconVideo, IconShield, IconClock, IconUsers } from "@/components/icons.tsx";
 
 interface Report {
   season: string;
@@ -10,8 +10,6 @@ interface Report {
   athletes_enrolled: number;
   landing_screens_completed: number;
   athletes_flagged_for_landing_work: number;
-  hits_followed_up: number;
-  hitwatch_calls_completed: number;
   alerts_drafted: number;
   alerts_approved_by_staff: number;
   avg_checkin_completion_pct: number;
@@ -50,7 +48,7 @@ export function ReportClient() {
                 </Ring>
                 <div>
                   <span className="eyebrow">{r.season}</span>
-                  <h3 className="mt-8">Ragnor followed up on every hit and screened every athlete this season.</h3>
+                  <h3 className="mt-8">Ragnor screened every athlete this season and kept staff in the loop.</h3>
                   <p className="small muted mt-8">The follow-through an athletic trainer would provide, documented for your records. Every number below links back to an audit trail.</p>
                 </div>
               </div>
@@ -58,7 +56,6 @@ export function ReportClient() {
             <section className="grid grid-3">
               <Stat icon={<IconUsers size={18} />} label="Athletes enrolled" value={r.athletes_enrolled} />
               <Stat icon={<IconVideo size={18} />} label="Landing screens" value={r.landing_screens_completed} sub={`${r.athletes_flagged_for_landing_work} given a FixPlan focus`} />
-              <Stat icon={<IconPhone size={18} />} label="Hits followed up" value={r.hits_followed_up} sub={`${r.hitwatch_calls_completed} HitWatch calls completed`} />
               <Stat icon={<IconShield size={18} />} label="Alerts to staff" value={r.alerts_drafted} sub={`${r.alerts_approved_by_staff} approved and sent`} />
               <Stat icon={<IconClock size={18} />} label="Staff hours saved (est.)" value={r.est_staff_hours_saved} sub="vs manual check-ins and screens" />
               <Stat icon={<IconReport size={18} />} label="Today's risk mix" value={`${r.bands.high} / ${r.bands.moderate} / ${r.bands.low}`} sub="high / moderate / low" />
@@ -66,7 +63,6 @@ export function ReportClient() {
             <section className="card flat">
               <h3>What this means for your program</h3>
               <ul className="check-list">
-                <li>Every reported or sensor-detected hit got 7 days of documented follow-up, which supports your state's youth concussion protocol.</li>
                 <li>Athletes with risky landing mechanics got a targeted warm-up and a re-screen date.</li>
                 <li>No alert reached a parent or clinician without a staff member approving it.</li>
                 <li>Ragnor never made a diagnosis or a return-to-play decision; those stayed with licensed clinicians.</li>

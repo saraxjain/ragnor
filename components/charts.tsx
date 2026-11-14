@@ -159,33 +159,3 @@ export function Sparkline({ values, color, width = 96, height = 30 }: { values: 
     </svg>
   );
 }
-
-/** Daily symptom totals across the HitWatch week, with the preseason baseline as a line. */
-export function SymptomBars({ days, baseline }: { days: { day: number; total: number; escalated?: boolean }[]; baseline: number }) {
-  const w = 320, h = 120, padB = 22, padT = 10;
-  const slots = 8;
-  const max = Math.max(6, baseline + 2, ...days.map((d) => d.total));
-  const bw = (w / slots) * 0.56;
-  const y = (v: number) => padT + (1 - v / max) * (h - padT - padB);
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} width="100%" style={{ height: "auto" }} role="img" aria-label={`Symptom totals by day: ${days.map((d) => `day ${d.day} ${d.total}`).join(", ")}. Preseason baseline ${baseline}.`}>
-      {Array.from({ length: slots }, (_, i) => {
-        const d = days.find((x) => x.day === i);
-        const cx = (i + 0.5) * (w / slots);
-        return (
-          <g key={i}>
-            {d ? (
-              <rect x={cx - bw / 2} y={y(d.total)} width={bw} height={h - padB - y(d.total)} rx="5" fill={d.escalated ? "var(--high)" : "var(--teal)"} />
-            ) : (
-              <rect x={cx - bw / 2} y={h - padB - 3} width={bw} height="3" rx="1.5" fill="var(--surface-3)" />
-            )}
-            {d && <text x={cx} y={y(d.total) - 4} textAnchor="middle" fontSize="11" fontWeight="600" fill="var(--ink-2)">{d.total}</text>}
-            <text x={cx} y={h - 6} textAnchor="middle" fontSize="10.5" fill="var(--ink-3)">D{i}</text>
-          </g>
-        );
-      })}
-      <line x1="0" x2={w} y1={y(baseline)} y2={y(baseline)} stroke="var(--low)" strokeDasharray="5 4" />
-      <text x={w - 2} y={y(baseline) - 4} textAnchor="end" fontSize="10.5" fill="var(--low)">Preseason</text>
-    </svg>
-  );
-}
