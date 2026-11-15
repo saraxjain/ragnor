@@ -1,15 +1,14 @@
 "use client";
-// Judge-facing walkthrough: follow one athlete through the pipeline, see the risk model's wiring,
-// and watch the agents review the case. Everything shown is read from the live app, nothing is scripted here.
+// "Look closer" half of the Behind the scenes page: the risk model's wiring, the coach-side agent review,
+// and who decides what. Follows whichever athlete is selected in the live pipeline above.
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { DEMO_ATHLETES } from "@/components/AthleteShell.tsx";
-import { BandChip, ErrorBanner, useApi } from "@/components/ui.tsx";
+import { ErrorBanner, useApi } from "@/components/ui.tsx";
 import type { Athlete } from "@/lib/store.ts";
 import type { ModelScore } from "@/lib/risk.ts";
 import type { CaseReview, Finding } from "@/lib/caseConference.ts";
 
-interface ModelInfo {
+export interface ModelInfo {
   version: string;
   features: { name: string; label: string; weight: number; mean: number; std: number }[];
   threshold: number;
@@ -32,87 +31,63 @@ const STATUS: Record<Finding["status"], { label: string; band: "high" | "moderat
 const pct = (p: number) => `${(p * 100).toFixed(1)}%`;
 const round = (n: number) => Math.round(n * 100) / 100;
 
-export function HowItWorks({ model, geminiLive, geminiModel }: { model: ModelInfo; geminiLive: boolean; geminiModel: string }) {
-  const [id, setId] = useState(DEMO_ATHLETES[0].id);
-  const { data, error } = useApi<{ athlete: Athlete; model: ModelScore }>(`/api/athletes/${id}`);
+export function EngineDeeper({ id, model, geminiLive, geminiModel }: { id: string; model: ModelInfo; geminiLive: boolean; geminiModel: string }) {
+  // Scored on trusted readings only, so the number matches step 3 of the pipeline above.
+  const { data, error } = useApi<{ athlete: Pick<Athlete, "id" | "name">; risk: { raw: ModelScore; trusted: ModelScore } }>(`/api/trust/${id}`);
   const a = data?.athlete.id === id ? data.athlete : null;
-  const score = data?.athlete.id === id ? data.model : null;
+  const score = data?.athlete.id === id ? data.risk.trusted : null;
   const first = a?.name.split(" ")[0] ?? "the athlete";
 
   return (
-    <div className="page">
-      <div className="container stack" style={{ "--gap": "28px" } as React.CSSProperties}>
-        <header className="stack" style={{ "--gap": "10px" } as React.CSSProperties}>
-          <span className="eyebrow">Under the hood</span>
-          <h1 style={{ fontSize: "clamp(28px, 3.6vw, 42px)" }}>How Ragnor reaches a decision</h1>
-          <p className="muted" style={{ maxWidth: 760, fontSize: 17 }}>Pick an athlete and follow them through the system: the data that comes in, the rules that set the risk level, the model that scores it, the AI agents that review the case, and the person who signs off.</p>
-          <label className="row" style={{ gap: 10, marginTop: 6 }}>
-            <span className="strong">Follow</span>
-            <select className="select" style={{ width: "auto", minWidth: 220 }} value={id} onChange={(e) => setId(e.target.value)} aria-label="Athlete to follow">
-              {DEMO_ATHLETES.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}
-            </select>
-            {a && <BandChip band={a.risk_today.band} />}
-          </label>
-        </header>
+    <div className="stack" style={{ "--gap": "28px", marginTop: 12 } as React.CSSProperties}>
+      <header>
+        <div className="eyebrow">Look closer</div>
+        <h2 style={{ marginTop: 4 }}>How each decision is made</h2>
+        <p className="muted" style={{ marginTop: 4, maxWidth: 760 }}>The same athlete as above{a ? ` (${a.name})` : ""}, with the lid off: the risk model's wiring, the agents that write the coach's plan, and who is allowed to decide what.</p>
+      </header>
+      {error && <ErrorBanner message={error} />}
 
-        {error && <ErrorBanner message={error} />}
-
-        {/* 1. Pipeline */}
-        <section aria-labelledby="hw-pipe" className="stack" style={{ "--gap": "12px" } as React.CSSProperties}>
-          <SectionTitle n={1} id="hw-pipe" title="The pipeline" sub="Five steps, in order. Each step has one job, and only one of them is allowed to set the risk level." />
-          <div className="hw-pipe">
-            <Step n="1" title="Data comes in" who="Athlete + watch" body="A 60-second check-in, overnight watch data, and a landing video." live={a ? `${a.checkins.length} check-ins · ${a.wearable.recent.length ? "watch data" : "no watch"} · ${a.landing ? "landing screened" : "no landing video"}` : "…"} />
-            <Step n="2" title="Rules set the risk level" who="Fixed rules, no AI" body="Nine written rules compare today with this athlete's own normal. This is the only step that sets low, moderate or high." live={a ? `${a.risk_today.band.toUpperCase()} · ${a.risk_today.flags.length} rule${a.risk_today.flags.length === 1 ? "" : "s"} fired` : "…"} decides />
-            <Step n="3" title="Model adds a probability" who="Risk model" body="Ten numbers go in, one probability of injury in the next 7 days comes out, with the reasons." live={score ? `${pct(score.risk_7d)} over 7 days · ${score.tier}` : "…"} />
-            <Step n="4" title="Agents review the case" who="5 AI agents" body="Three specialists, a lead and a safety reviewer explain the case and propose a plan. They cannot change the risk level." live="Run it in section 3" />
-            <Step n="5" title="A person signs off" who="Coach or trainer" body="Nothing reaches an athlete or parent until a human accepts the plan. Every step is logged." live="Always required" decides />
+      <section aria-labelledby="hw-model" className="stack" style={{ "--gap": "12px" } as React.CSSProperties}>
+        <SectionTitle n="A" id="hw-model" title="The risk model's wiring" sub={`How ${first}'s ten inputs combine into one probability. Line thickness shows how much each input matters for ${first} today. Uses trusted watch readings only.`} />
+        <div className="card">
+          {score ? <Network model={model} score={score} /> : <div className="muted small">Loading…</div>}
+          <div className="row wrap small" style={{ gap: 18, marginTop: 8 }}>
+            <span className="row" style={{ gap: 6 }}><i className="hw-key" style={{ background: "var(--high)" }} /> pushes risk up</span>
+            <span className="row" style={{ gap: 6 }}><i className="hw-key" style={{ background: "var(--low-fill)" }} /> pulls risk down</span>
+            <span className="row" style={{ gap: 6 }}><i className="hw-key" style={{ background: "var(--outline)" }} /> close to typical, little effect</span>
           </div>
-        </section>
+        </div>
+        <div className="grid grid-3">
+          <Fact title="What kind of network is this?" body="The simplest kind: one layer, one output (a logistic regression). We chose it over a deep neural network on purpose, so every prediction can be traced to named inputs a coach or clinician understands." />
+          <Fact title="How good is it?" body={`On athletes it never saw in training it caught ${Math.round(model.sensitivity * 100)}% of injuries, against ${Math.round(model.baselineSensitivity * 100)}% for the rules alone (AUROC ${model.auroc}). It flags an athlete at ${pct(model.threshold)} or above.`} />
+          <Fact title="What it was trained on" body="A simulated season of 420 athletes, not real injury records. The numbers show the method works; real pilot data is needed before anyone should trust them." warn />
+        </div>
+      </section>
 
-        {/* 2. Risk model */}
-        <section aria-labelledby="hw-model" className="stack" style={{ "--gap": "12px" } as React.CSSProperties}>
-          <SectionTitle n={2} id="hw-model" title="The risk model's wiring" sub={`How ${first}'s ten inputs combine into one probability. Line thickness shows how much each input matters for ${first} today.`} />
-          <div className="card">
-            {score ? <Network model={model} score={score} /> : <div className="muted small">Loading…</div>}
-            <div className="row wrap small" style={{ gap: 18, marginTop: 8 }}>
-              <span className="row" style={{ gap: 6 }}><i className="hw-key" style={{ background: "var(--high)" }} /> pushes risk up</span>
-              <span className="row" style={{ gap: 6 }}><i className="hw-key" style={{ background: "var(--low-fill)" }} /> pulls risk down</span>
-              <span className="row" style={{ gap: 6 }}><i className="hw-key" style={{ background: "var(--outline)" }} /> close to typical, little effect</span>
-            </div>
-          </div>
-          <div className="grid grid-3">
-            <Fact title="What kind of network is this?" body="The simplest kind: one layer, one output (a logistic regression). We chose it over a deep neural network on purpose, so every prediction can be traced to named inputs a coach understands." />
-            <Fact title="How good is it?" body={`On athletes it never saw in training it caught ${Math.round(model.sensitivity * 100)}% of injuries, against ${Math.round(model.baselineSensitivity * 100)}% for the rules alone (AUROC ${model.auroc}). It flags an athlete at ${pct(model.threshold)} or above.`} />
-            <Fact title="What it was trained on" body="A simulated season of 420 athletes, not real injury records. The numbers show the method works; real pilot data is needed before anyone should trust them." warn />
-          </div>
-        </section>
+      <AgentRun id={id} first={first} geminiLive={geminiLive} geminiModel={geminiModel} />
 
-        {/* 3. Agents */}
-        <AgentRun id={id} first={first} geminiLive={geminiLive} geminiModel={geminiModel} />
-
-        {/* 4. Who decides */}
-        <section aria-labelledby="hw-who" className="stack" style={{ "--gap": "12px" } as React.CSSProperties}>
-          <SectionTitle n={4} id="hw-who" title="Who decides what" sub="The short version to remember." />
-          <div className="card" style={{ padding: 0, overflow: "hidden" }}>
-            <table className="hw-table">
-              <thead><tr><th>Decision</th><th>Made by</th><th>Why</th></tr></thead>
-              <tbody>
-                <tr><td>Risk level (low, moderate, high)</td><td><strong>Written rules</strong></td><td>Same input always gives the same answer, and it can be audited.</td></tr>
-                <tr><td>Emergency signs ("get medical care now")</td><td><strong>Written rules</strong></td><td>Never left to an AI. Shown instantly.</td></tr>
-                <tr><td>Probability of injury</td><td><strong>Risk model</strong></td><td>Adds a graded number on top of the rules; it cannot lower the risk level.</td></tr>
-                <tr><td>Explanation and suggested plan</td><td><strong>AI agents</strong></td><td>They read the evidence, disagree in the open, and vote. A safety agent checks the wording.</td></tr>
-                <tr><td>Whether anyone is contacted</td><td><strong>A person</strong></td><td>A coach or trainer accepts or rejects every plan.</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p className="small muted">Ragnor never diagnoses and never clears an athlete to play. A filter removes that language from every AI output before it is shown.</p>
-        </section>
-      </div>
+      <section aria-labelledby="hw-who" className="stack" style={{ "--gap": "12px" } as React.CSSProperties}>
+        <SectionTitle n="C" id="hw-who" title="Who decides what" sub="The short version to remember." />
+        <div className="card" style={{ padding: 0, overflow: "hidden" }}>
+          <table className="hw-table">
+            <thead><tr><th>Decision</th><th>Made by</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td>Which watch readings count</td><td><strong>Trust layer (code)</strong></td><td>A reading from a watch worn for three hours is left out before any model or agent sees it.</td></tr>
+              <tr><td>Risk level (low, moderate, high)</td><td><strong>Written rules</strong></td><td>Same input always gives the same answer, and it can be audited.</td></tr>
+              <tr><td>Emergency signs ("get medical care now")</td><td><strong>Written rules</strong></td><td>Never left to an AI. Shown instantly.</td></tr>
+              <tr><td>Probability of injury</td><td><strong>Risk model</strong></td><td>Adds a graded number on top of the rules; it cannot lower the risk level.</td></tr>
+              <tr><td>Explanation, brief and suggested plan</td><td><strong>AI agents</strong></td><td>They read the evidence, argue in the open, and a skeptic tries to knock each finding down. Code checks the wording.</td></tr>
+              <tr><td>What reaches the chart, an athlete or a parent</td><td><strong>A person</strong></td><td>A clinician signs every brief; a coach or trainer accepts or rejects every plan.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="small muted">Ragnor never diagnoses and never clears an athlete to play. A filter removes that language from every AI output before it is shown.</p>
+      </section>
     </div>
   );
 }
 
-function SectionTitle({ n, id, title, sub }: { n: number; id: string; title: string; sub: string }) {
+function SectionTitle({ n, id, title, sub }: { n: number | string; id: string; title: string; sub: string }) {
   return (
     <div className="row" style={{ alignItems: "flex-start", gap: 14 }}>
       <span className="hw-num" aria-hidden>{n}</span>
@@ -120,18 +95,6 @@ function SectionTitle({ n, id, title, sub }: { n: number; id: string; title: str
         <h2 id={id}>{title}</h2>
         <p className="muted" style={{ marginTop: 4 }}>{sub}</p>
       </div>
-    </div>
-  );
-}
-
-function Step({ n, title, who, body, live, decides }: { n: string; title: string; who: string; body: string; live: string; decides?: boolean }) {
-  return (
-    <div className={`hw-step ${decides ? "decides" : ""}`}>
-      <div className="row spread"><span className="hw-step-n">{n}</span><span className="pill">{who}</span></div>
-      <h3 style={{ marginTop: 10 }}>{title}</h3>
-      <p className="small muted" style={{ marginTop: 6, flex: 1 }}>{body}</p>
-      <div className="hw-live">{live}</div>
-      {decides && <div className="tiny strong" style={{ color: "var(--primary)", marginTop: 6 }}>Makes a decision</div>}
     </div>
   );
 }
@@ -225,7 +188,7 @@ function AgentRun({ id, first, geminiLive, geminiModel }: { id: string; first: s
 
   return (
     <section aria-labelledby="hw-agents" className="stack" style={{ "--gap": "12px" } as React.CSSProperties}>
-      <SectionTitle n={3} id="hw-agents" title="The agents working together" sub={`Run a real review of ${first}'s case and watch each agent's part.`} />
+      <SectionTitle n="B" id="hw-agents" title="The coach-side agents" sub={`A second agent team writes a plan for the coach. Run a real review of ${first}'s case and watch each agent's part.`} />
       <div className="card stack">
         <div className="row spread wrap">
           <div className="small muted" style={{ maxWidth: 620 }}>
