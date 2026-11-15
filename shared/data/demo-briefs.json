@@ -1,0 +1,380 @@
+{
+  "ath_04": {
+    "athlete_id": "ath_04",
+    "created_at": "2026-11-15T00:28:10.600Z",
+    "engine": "adk",
+    "period": {
+      "from": "2026-11-08",
+      "to": "2026-11-14"
+    },
+    "headline": "Ava: nothing to act on; 2 false alarms filtered out",
+    "findings": [
+      {
+        "id": "hrv",
+        "title": "Overnight HRV below personal baseline",
+        "status": "noise",
+        "summary": "The candidate finding for overnight HRV relies entirely on unverified data from November 13 and November 14 due to low wear time and motion artifact.",
+        "next_step": "Discard unverified readings and rely on trusted baseline trends.",
+        "confidence": "high",
+        "evidence": [
+          {
+            "kind": "data",
+            "ref": "hrv Nov 13",
+            "detail": "41.8 ms vs baseline 63.3 ms (unverified)",
+            "trust": 15
+          },
+          {
+            "kind": "data",
+            "ref": "hrv Nov 14",
+            "detail": "39.2 ms vs baseline 63.3 ms (unverified)",
+            "trust": 18
+          },
+          {
+            "kind": "literature",
+            "ref": "E5",
+            "detail": "Tracking HRV against an athlete's own rolling baseline reflects fatigue and adaptation better than single readings; sustained drops suggest incomplete recovery."
+          }
+        ],
+        "skeptic": {
+          "challenge": "This finding rests entirely on unverified data from November 13 and November 14 with short wear times and 31 percent motion artifact, and unverified data must be dropped.",
+          "resolution": "Dropped due to unverified underlying data.",
+          "outcome": "dropped"
+        }
+      },
+      {
+        "id": "rhr",
+        "title": "Resting heart rate above personal baseline",
+        "status": "noise",
+        "summary": "The candidate finding for resting heart rate rests on unverified data from November 13 and November 14 with excessive motion artifact.",
+        "next_step": "Review only trusted recent resting heart rate data.",
+        "confidence": "high",
+        "evidence": [
+          {
+            "kind": "data",
+            "ref": "rhr Nov 13",
+            "detail": "61.9 bpm vs baseline 53.4 bpm (unverified)",
+            "trust": 22
+          },
+          {
+            "kind": "data",
+            "ref": "rhr Nov 14",
+            "detail": "61.9 bpm vs baseline 53.4 bpm (unverified)",
+            "trust": 22
+          }
+        ],
+        "skeptic": {
+          "challenge": "This finding rests entirely on unverified data from November 13 and November 14, and unverified readings cannot be used as evidence.",
+          "resolution": "Dropped because findings resting on unverified data must be dropped.",
+          "outcome": "dropped"
+        }
+      }
+    ],
+    "data_quality": {
+      "pct_usable": 71,
+      "excluded": [
+        "Nov 13 Overnight HRV: Watch worn 3.7 h of the night",
+        "Nov 13 Resting heart rate: Watch worn 3.7 h of the night",
+        "Nov 13 Sleep: Watch worn 3.7 h of the night",
+        "Nov 14 Overnight HRV: Watch worn 3.5 h of the night",
+        "Nov 14 Resting heart rate: Watch worn 3.5 h of the night",
+        "Nov 14 Sleep: Watch worn 3.5 h of the night"
+      ],
+      "coverage": [
+        {
+          "metric": "hrv_ms",
+          "label": "Overnight HRV",
+          "level": "unknown",
+          "note": "Overnight HRV from wrist PPG has little published validation in adolescents; trends vs the athlete's own baseline are more meaningful than absolute values."
+        },
+        {
+          "metric": "rhr_bpm",
+          "label": "Resting heart rate",
+          "level": "limited",
+          "note": "Resting HR is well validated in adults; fewer studies include teens."
+        },
+        {
+          "metric": "sleep_h",
+          "label": "Sleep",
+          "level": "limited",
+          "note": "Total sleep time is reasonable; wrist devices tend to overestimate sleep and stages are less reliable."
+        }
+      ]
+    },
+    "risk": {
+      "raw": 0.04,
+      "trusted": 0.017
+    },
+    "debate": [
+      {
+        "agent": "signal",
+        "text": "Readings from November 13 and November 14 are unverified due to low wear time of 3.5 to 3.7 hours, 31 percent motion artifact, and reported sleep exceeding wear time. Validation coverage means that resting heart rate and sleep have limited adolescent validation, while overnight HRV lacks published adolescent validation entirely. Unverified readings must not be used as evidence."
+      },
+      {
+        "agent": "baseline",
+        "text": "Ava's trusted recent readings show overnight HRV at 63 ms compared to a baseline of 63.3 ms, whereas raw recent data indicates 56.6 ms. Trusted resting heart rate recent is 53.8 bpm versus a 53.4 bpm baseline, while raw data shows 56.1 bpm. Trusted sleep recent averages 8 hours compared to a 7.8-hour baseline, whereas raw data shows 7.1 hours."
+      },
+      {
+        "agent": "clinical",
+        "text": "The candidate findings for overnight HRV and resting heart rate rely entirely on unverified data from November 13 and November 14 due to motion artifact and short wear time. Therefore, no trusted clinical actions can be proposed from those unverified metrics."
+      },
+      {
+        "agent": "skeptic",
+        "text": "Overnight HRV below personal baseline: This finding rests entirely on unverified data from November 13 and November 14 with short wear times and 31 percent motion artifact, and unverified data must be dropped."
+      },
+      {
+        "agent": "lead",
+        "text": "Dropped due to unverified underlying data."
+      },
+      {
+        "agent": "skeptic",
+        "text": "Resting heart rate above personal baseline: This finding rests entirely on unverified data from November 13 and November 14, and unverified readings cannot be used as evidence."
+      },
+      {
+        "agent": "lead",
+        "text": "Dropped because findings resting on unverified data must be dropped."
+      },
+      {
+        "agent": "lead",
+        "text": "There are zero findings to discuss, zero findings to watch, and two findings ruled out as noise."
+      }
+    ],
+    "safety": [
+      {
+        "name": "No diagnosis or clearance language",
+        "passed": true,
+        "note": "Clean"
+      },
+      {
+        "name": "No finding rests only on unverified readings",
+        "passed": true,
+        "note": "Every kept finding has trusted or self-reported support"
+      },
+      {
+        "name": "Validation limits disclosed",
+        "passed": true,
+        "note": "Overnight HRV: unknown · Resting heart rate: limited · Sleep: limited"
+      },
+      {
+        "name": "Clinician signs before anything reaches the record",
+        "passed": true,
+        "note": "Enforced"
+      }
+    ]
+  },
+  "ath_01": {
+    "athlete_id": "ath_01",
+    "created_at": "2026-11-15T00:29:51.959Z",
+    "engine": "adk",
+    "period": {
+      "from": "2026-11-08",
+      "to": "2026-11-14"
+    },
+    "headline": "Maya: 3 items worth discussing",
+    "findings": [
+      {
+        "id": "hrv",
+        "title": "Overnight HRV below personal baseline",
+        "status": "discuss",
+        "summary": "Maya's trusted overnight HRV dropped to 44.7 ms on November 12 and 42.2 ms on November 13 compared to her 55.5 ms baseline.",
+        "next_step": "Ask about illness symptoms, stress and recent training load; repeat the comparison after 5-7 nights of full wear.",
+        "confidence": "moderate",
+        "evidence": [
+          {
+            "kind": "data",
+            "ref": "hrv Nov 12",
+            "detail": "44.7 ms vs baseline 55.5 ms (trusted)",
+            "trust": 75
+          },
+          {
+            "kind": "data",
+            "ref": "hrv Nov 13",
+            "detail": "42.2 ms vs baseline 55.5 ms (trusted)",
+            "trust": 75
+          },
+          {
+            "kind": "data",
+            "ref": "hrv Nov 14",
+            "detail": "42.1 ms vs baseline 55.5 ms (unverified)",
+            "trust": 15
+          },
+          {
+            "kind": "literature",
+            "ref": "E5",
+            "detail": "Tracking HRV against an athlete's own rolling baseline reflects fatigue and adaptation better than single readings; sustained drops suggest incomplete recovery."
+          }
+        ],
+        "skeptic": {
+          "challenge": "Overnight HRV has limited adolescent validation, relies on wrist PPG, and can fluctuate due to common in-season stressors rather than true pathology.",
+          "resolution": "Although validation is limited and in-season fluctuations occur, the drop is present across multiple verified nights and warrants discussion.",
+          "outcome": "kept"
+        }
+      },
+      {
+        "id": "rhr",
+        "title": "Resting heart rate above personal baseline",
+        "status": "discuss",
+        "summary": "Maya's trusted resting heart rate rose to 61.1 bpm on November 12 and 62 bpm on November 13 compared to her 56.1 bpm baseline.",
+        "next_step": "Elevated resting HR alongside low HRV can reflect illness, under-recovery or dehydration; consider asking about each.",
+        "confidence": "moderate",
+        "evidence": [
+          {
+            "kind": "data",
+            "ref": "rhr Nov 12",
+            "detail": "61.1 bpm vs baseline 56.1 bpm (trusted)",
+            "trust": 88
+          },
+          {
+            "kind": "data",
+            "ref": "rhr Nov 13",
+            "detail": "62 bpm vs baseline 56.1 bpm (trusted)",
+            "trust": 88
+          },
+          {
+            "kind": "data",
+            "ref": "rhr Nov 14",
+            "detail": "62.7 bpm vs baseline 56.1 bpm (unverified)",
+            "trust": 23
+          }
+        ],
+        "skeptic": {
+          "challenge": "Resting heart rate tracking has limited teen validation and can be noisy during active soccer seasons due to standard training adaptations.",
+          "resolution": "Despite limited adolescent validation, the concurrent elevation alongside the HRV drop across verified nights supports keeping it for discussion.",
+          "outcome": "kept"
+        }
+      },
+      {
+        "id": "sleep",
+        "title": "Sleep below 8 hours on most recent nights",
+        "status": "discuss",
+        "summary": "Trusted watch sleep fell to 6.5 hours on November 12 and 6.2 hours on November 13, remaining below her 8-hour baseline.",
+        "next_step": "Talk through sleep timing (school, practice, screens); adolescents need 8-10 hours.",
+        "confidence": "moderate",
+        "evidence": [
+          {
+            "kind": "data",
+            "ref": "check-ins",
+            "detail": "Self-reported 5.1 h short of 8 h over the last 3 nights"
+          },
+          {
+            "kind": "data",
+            "ref": "sleep Nov 12",
+            "detail": "6.5 h on watch (trusted)",
+            "trust": 88
+          },
+          {
+            "kind": "data",
+            "ref": "sleep Nov 13",
+            "detail": "6.2 h on watch (trusted)",
+            "trust": 88
+          },
+          {
+            "kind": "literature",
+            "ref": "E8",
+            "detail": "Adolescent athletes who slept less than 8 hours a night had a higher rate of injury than those sleeping 8 or more."
+          }
+        ],
+        "skeptic": {
+          "challenge": "Wearable sleep tracking relies partly on self-reporting and consumer wrist devices have limited validation for accurate sleep stage and duration tracking in teens.",
+          "resolution": "While wrist sleep tracking has limitations, the multi-night pattern of reduced sleep duration is clinically relevant to discuss.",
+          "outcome": "kept"
+        }
+      }
+    ],
+    "data_quality": {
+      "pct_usable": 86,
+      "excluded": [
+        "Nov 14 Overnight HRV: Watch worn 3.4 h of the night",
+        "Nov 14 Resting heart rate: Watch worn 3.4 h of the night",
+        "Nov 14 Sleep: Watch worn 3.4 h of the night"
+      ],
+      "coverage": [
+        {
+          "metric": "hrv_ms",
+          "label": "Overnight HRV",
+          "level": "unknown",
+          "note": "Overnight HRV from wrist PPG has little published validation in adolescents; trends vs the athlete's own baseline are more meaningful than absolute values."
+        },
+        {
+          "metric": "rhr_bpm",
+          "label": "Resting heart rate",
+          "level": "limited",
+          "note": "Resting HR is well validated in adults; fewer studies include teens."
+        },
+        {
+          "metric": "sleep_h",
+          "label": "Sleep",
+          "level": "limited",
+          "note": "Total sleep time is reasonable; wrist devices tend to overestimate sleep and stages are less reliable."
+        }
+      ]
+    },
+    "risk": {
+      "raw": 0.094,
+      "trusted": 0.091
+    },
+    "debate": [
+      {
+        "agent": "signal",
+        "text": "The readings on November 14, 2026, for overnight HRV, resting heart rate, and sleep are unverified due to low wear time (3.4 hours), high motion artifact (27%), and secondary source disagreement. Validation coverage for Maya means that resting heart rate has limited teen validation, sleep duration is reasonable but stage tracking is less reliable, and overnight HRV has little published adolescent validation so trends against personal baseline are most meaningful."
+      },
+      {
+        "agent": "baseline",
+        "text": "Maya's trusted recent HRV average is 51.4 ms compared to her 55.5 ms baseline, whereas her raw recent average is 50.1 ms. Her trusted resting heart rate recent average is 57.9 bpm against a 56.1 bpm baseline, while the raw average is 58.6 bpm. Trusted recent sleep averages 7.5 hours against an 8-hour baseline, compared to the raw recent average of 7.3 hours."
+      },
+      {
+        "agent": "clinical",
+        "text": "On November 12 and 13, Maya's trusted overnight HRV dropped to 44.7 ms and 42.2 ms compared to her 55.5 ms baseline. Her trusted resting heart rate rose to 61.1 bpm and 62 bpm against her 56.1 bpm baseline over the same dates. Additionally, her trusted sleep fell to 6.5 hours and 6.2 hours on November 12 and 13, remaining below the recommended 8 hours."
+      },
+      {
+        "agent": "skeptic",
+        "text": "Overnight HRV below personal baseline: Overnight HRV has limited adolescent validation, relies on wrist PPG, and can fluctuate due to common in-season stressors rather than true pathology."
+      },
+      {
+        "agent": "lead",
+        "text": "Although validation is limited and in-season fluctuations occur, the drop is present across multiple verified nights and warrants discussion."
+      },
+      {
+        "agent": "skeptic",
+        "text": "Resting heart rate above personal baseline: Resting heart rate tracking has limited teen validation and can be noisy during active soccer seasons due to standard training adaptations."
+      },
+      {
+        "agent": "lead",
+        "text": "Despite limited adolescent validation, the concurrent elevation alongside the HRV drop across verified nights supports keeping it for discussion."
+      },
+      {
+        "agent": "skeptic",
+        "text": "Sleep below 8 hours on most recent nights: Wearable sleep tracking relies partly on self-reporting and consumer wrist devices have limited validation for accurate sleep stage and duration tracking in teens."
+      },
+      {
+        "agent": "lead",
+        "text": "While wrist sleep tracking has limitations, the multi-night pattern of reduced sleep duration is clinically relevant to discuss."
+      },
+      {
+        "agent": "lead",
+        "text": "We have 3 findings to discuss, 0 findings to watch, and 0 findings ruled out as noise."
+      }
+    ],
+    "safety": [
+      {
+        "name": "No diagnosis or clearance language",
+        "passed": true,
+        "note": "Clean"
+      },
+      {
+        "name": "No finding rests only on unverified readings",
+        "passed": true,
+        "note": "Every kept finding has trusted or self-reported support"
+      },
+      {
+        "name": "Validation limits disclosed",
+        "passed": true,
+        "note": "Overnight HRV: unknown · Resting heart rate: limited · Sleep: limited"
+      },
+      {
+        "name": "Clinician signs before anything reaches the record",
+        "passed": true,
+        "note": "Enforced"
+      }
+    ]
+  }
+}
