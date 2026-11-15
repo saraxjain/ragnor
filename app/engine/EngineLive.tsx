@@ -82,7 +82,7 @@ export function EngineLive() {
       <header>
         <div className="eyebrow">Behind the scenes</div>
         <h1 style={{ margin: "4px 0" }}>What happens between the watch and the doctor</h1>
-        <p className="muted" style={{ margin: 0, maxWidth: 780 }}>97% of physicians say they would review wearable data, but no more than 6% have it in their workflow (AMA, 2026). Ragnor is the layer in between: it decides which readings to trust, lets AI agents argue about what matters, and hands the clinician a short brief they can sign into the chart.</p>
+        <p className="muted" style={{ margin: 0, maxWidth: 780 }}>97% of physicians say they would review wearable data, but no more than 6% have it in their workflow (AMA, 2026). Ragnor is the layer in between: it decides which readings to trust, lets AI agents argue about what matters, and hands the clinician a short brief they can sign into the chart. (For how a daily check-in becomes a coach decision, see <Link href="/how-it-works">How it works</Link>.)</p>
       </header>
 
       <section className="card">
