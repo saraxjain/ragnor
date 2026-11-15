@@ -59,7 +59,7 @@ export function evidencePack(a: Athlete) {
     features: m.features,
     rules_flags: a.risk_today.flags.map((f) => `${f.rule_id}: ${f.reason}`),
     wearable: a.wearable.recent.length ? compareToBaseline(a.wearable.recent, a.wearable.baseline) : null,
-    today_checkin: today ? { sleep_h: today.sleep_h, load_min: today.load_min, intensity: today.intensity, soreness: today.soreness, meals: today.meals, symptoms: today.symptoms, red_flags: today.red_flags } : null,
+    today_checkin: today ? { sleep_h: today.sleep_h, load_min: today.load_min, intensity: today.intensity, soreness: today.soreness, meals: today.meals, symptoms: today.symptoms, red_flags: today.red_flags, photo_note: today.photo?.note ?? null, followup_answers: (today.followups ?? []).map((f) => `${f.question} ${f.answer}`) } : null,
     landing: a.landing ? { errors: a.landing.result.items.filter((i) => i.present && i.confidence >= 0.5).map((i) => `${i.id} (${i.side}, ${i.timestamp_s}s)`), band: a.landing.score.band } : null,
   };
 }

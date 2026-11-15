@@ -5,6 +5,8 @@ import { sanitizeDeep, RED_FLAG_MESSAGE, type CheckIn } from "@/shared/lib/index
 import { withTimeout } from "@/lib/checkinResult.ts";
 import checkinSchema from "@/shared/schemas/checkin.schema.json";
 import { parseCheckinText as roughParse, type Extracted } from "@/shared/lib/extract.ts";
+import { readPhoto, PHOTO_MAX_BYTES, UNREAD_NOTE } from "@/lib/checkinPhoto.ts";
+import { followupQuestions } from "@/lib/followups.ts";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -120,10 +122,28 @@ export async function POST(req: Request) {
     // Emergency signs can be added but never removed by a later edit of the same day's check-in.
     const prior = a.checkins.find((c) => c.date === TODAY);
     if (prior?.red_flags.length) checkin.red_flags = [...new Set([...prior.red_flags, ...checkin.red_flags])];
+    // Optional photo of a sore spot. Gemini describes what is visible; the image itself is not kept.
+    const photo = form.get("photo");
+    if (photo instanceof File && photo.size > 0) {
+      if (!photo.type.startsWith("image/")) return fail("That file is not a photo. Attach a JPG or PNG.", 400);
+      if (photo.size > PHOTO_MAX_BYTES) return fail("That photo is too large. Try a smaller one.", 400);
+      try {
+        checkin.photo = await withTimeout(readPhoto(photo, checkin.soreness.map((s) => s.area)), GEMINI_TIMEOUT_MS);
+      } catch (e) {
+        console.warn("[checkin] photo could not be read:", friendlyGeminiError(e));
+        checkin.photo = { read: false, area: null, signs: [], note: UNREAD_NOTE };
+      }
+    } else if (form.get("keep_extras") === "1" && prior) {
+      // "Update my check-in" on the result screen: keep the photo note and follow-up answers already given today.
+      checkin.photo = prior.photo;
+      checkin.followups = prior.followups;
+    }
     const risk = addCheckin(athleteId, checkin);
     return ok({
       mode,
       checkin,
+      // Fixed-code follow-up questions for this check-in; empty for an ordinary day or an edit.
+      questions: form.get("keep_extras") === "1" ? [] : followupQuestions(checkin),
       summary: clean.transcript_summary,
       risk,
       red_flag_message: checkin.red_flags.length ? RED_FLAG_MESSAGE : null,

@@ -60,6 +60,7 @@ export function CheckinResult({ id, result, onNew }: { id: string; result: Check
       const f = new FormData();
       f.set("athlete_id", id);
       f.set("structured", JSON.stringify(buildStructured(edit, current.checkin)));
+      f.set("keep_extras", "1");
       const res = await fetch("/api/checkin", { method: "POST", body: f });
       const body = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(body.error ?? `Request failed (${res.status})`);
@@ -98,6 +99,28 @@ export function CheckinResult({ id, result, onNew }: { id: string; result: Check
         </blockquote>
         <p className="small muted" style={{ margin: 0 }}>Something wrong? Fix it in the next section. Blank answers are things you didn't mention.</p>
       </section>
+
+      {(c.photo || (c.followups?.length ?? 0) > 0) && (
+        <section className="card stack" style={gap(12)} aria-labelledby="more">
+          <h3 id="more">What you added</h3>
+          {c.photo && (
+            <div className="stack" style={gap(6)}>
+              <div className="row wrap" style={{ gap: 6 }}>
+                <span className="pill teal">{c.photo.read ? "Photo read by Gemini" : "Photo attached"}</span>
+                {c.photo.area && <span className="pill">{prettyArea(c.photo.area)}</span>}
+                {c.photo.signs.map((s) => <span key={s} className="pill">{prettySymptom(s)}</span>)}
+              </div>
+              <p style={{ margin: 0 }}>{c.photo.note}</p>
+              <p className="tiny muted" style={{ margin: 0 }}>A description of what is visible, not a diagnosis. The photo itself is not stored.</p>
+            </div>
+          )}
+          {(c.followups?.length ?? 0) > 0 && (
+            <dl className="fu-list">
+              {c.followups!.map((f) => <div key={f.id}><dt>{f.question}</dt><dd>{f.answer}</dd></div>)}
+            </dl>
+          )}
+        </section>
+      )}
 
       {/* 2. Confirm and correct */}
       <section className="card stack" style={gap(18)} aria-labelledby="fix">

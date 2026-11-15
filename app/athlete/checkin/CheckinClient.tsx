@@ -4,7 +4,9 @@ import { AthleteNav, AthletePicker } from "@/components/AthleteShell.tsx";
 import { prettyArea, prettySymptom } from "@/components/ui.tsx";
 import { CheckinError, CheckinResult } from "./CheckinResult.tsx";
 import { BodyMap } from "@/components/BodyMap.tsx";
-import { IconMic, IconStop } from "@/components/icons.tsx";
+import { IconMic, IconStop, IconCamera } from "@/components/icons.tsx";
+import type { FollowupQuestion } from "@/lib/followups.ts";
+import { PhotoCamera, photoCameraSupported } from "@/components/PhotoCamera.tsx";
 import type { CheckIn, RiskResult } from "@/shared/lib/index.ts";
 
 interface Result {
@@ -13,6 +15,23 @@ interface Result {
   summary: string;
   risk: RiskResult;
   red_flag_message: string | null;
+  questions?: FollowupQuestion[];
+}
+
+/** Shrinks a phone photo before upload (long side 1280px, JPEG), so it sends quickly. Falls back to the original file. */
+async function shrink(file: File): Promise<File> {
+  try {
+    const img = await createImageBitmap(file);
+    const k = Math.min(1, 1280 / Math.max(img.width, img.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(img.width * k);
+    canvas.height = Math.round(img.height * k);
+    canvas.getContext("2d")!.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/jpeg", 0.85));
+    return blob ? new File([blob], "checkin.jpg", { type: "image/jpeg" }) : file;
+  } catch {
+    return file;
+  }
 }
 
 const PROMPTS = ["How'd you sleep last night, roughly how many hours?", "Anything sore or tight? Where, and how bad, 0 to 3?", "How long and how hard was practice?"];
@@ -35,6 +54,14 @@ export function CheckinClient({ id }: { id: string }) {
   const [effort, setEffort] = useState(6);
   const [acts, setActs] = useState<string[]>([]);
   const [meals, setMeals] = useState<boolean[]>([true, true, false]);
+  const [photo, setPhoto] = useState<File | null>(null);
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [pending, setPending] = useState<Result | null>(null); // saved, waiting on the follow-up questions
+  const [picked, setPicked] = useState<Record<string, string>>({});
+  const fileRef = useRef<HTMLInputElement | null>(null);
+  const [camera, setCamera] = useState(false);
+  const [canCamera, setCanCamera] = useState(false);
+  useEffect(() => setCanCamera(photoCameraSupported()), []);
   const recRef = useRef<MediaRecorder | null>(null);
   const chunks = useRef<Blob[]>([]);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -72,6 +99,48 @@ export function CheckinClient({ id }: { id: string }) {
     setRecording(false);
   }
 
+  async function choosePhoto(file: File | undefined) {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) { setError("That file is not a photo. Pick a JPG or PNG."); return; }
+    setError(null);
+    const small = await shrink(file);
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    setPhoto(small);
+    setPhotoUrl(URL.createObjectURL(small));
+  }
+  function clearPhoto() {
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    setPhoto(null);
+    setPhotoUrl(null);
+    setCamera(false);
+    if (fileRef.current) fileRef.current.value = "";
+  }
+
+  /** The check-in is saved. If there are follow-up questions, show those first; otherwise go straight to the result. */
+  function saved(body: Result) {
+    if (body.questions?.length) { setPicked({}); setPending(body); window.scrollTo({ top: 0, behavior: "smooth" }); }
+    else setResult(body);
+  }
+
+  /** Sends the follow-up answers (or none, on Skip) and moves on to the result. */
+  async function answerQuestions(skip: boolean) {
+    if (!pending) return;
+    if (skip || !Object.keys(picked).length) { setResult(pending); setPending(null); return; }
+    setBusy(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/checkin/followup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ athlete_id: id, answers: picked }) });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body.error ?? "Could not save your answers");
+      setResult({ ...pending, ...body });
+      setPending(null);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Could not save your answers");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function submitTap() {
     setBusy(true);
     setError(null);
@@ -79,10 +148,11 @@ export function CheckinClient({ id }: { id: string }) {
       const f = new FormData();
       f.set("athlete_id", id);
       f.set("structured", JSON.stringify({ sleep_h: sleepH, soreness: sore, load_min: minutes, effort, activities: acts, meals: meals.filter(Boolean).length, took_hit: false, symptoms: [] }));
+      if (photo) f.set("photo", photo);
       const res = await fetch("/api/checkin", { method: "POST", body: f });
       const body = await res.json();
       if (!res.ok) throw new Error(body.error ?? "Check-in failed");
-      setResult(body);
+      saved(body);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Check-in failed");
     } finally {
@@ -99,6 +169,7 @@ export function CheckinClient({ id }: { id: string }) {
       f.set("athlete_id", id);
       if (useAudio && audio) f.set("audio", new File([audio], "checkin.webm", { type: audio.type }));
       else f.set("text", text);
+      if (photo) f.set("photo", photo);
       if (reply !== undefined && followup) {
         f.set("followup_done", "1");
         f.set("followup_question", followup.question);
@@ -113,13 +184,44 @@ export function CheckinClient({ id }: { id: string }) {
         return;
       }
       setFollowup(null);
-      setResult(body);
+      saved(body);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Check-in failed");
     } finally {
       setBusy(false);
     }
   }
+
+  const photoCard = (
+    <section className="card stack" style={{ "--gap": "10px" } as React.CSSProperties} aria-labelledby="ph">
+      <div className="row spread"><strong id="ph">Photo</strong><span className="small muted">Optional</span></div>
+      <input ref={fileRef} type="file" accept="image/*" className="sr-only" id="ci-photo" onChange={(e) => void choosePhoto(e.target.files?.[0])} />
+      {camera ? (
+        <PhotoCamera onDone={(f) => { setCamera(false); void choosePhoto(f); }} onCancel={() => setCamera(false)} />
+      ) : photoUrl ? (
+        <div className="ci-photo">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={photoUrl} alt="The photo you attached" />
+          <div className="stack" style={{ "--gap": "6px" } as React.CSSProperties}>
+            <span className="small">Attached. It is looked at once to pick better questions, and is not stored.</span>
+            <div className="row" style={{ gap: 6 }}>
+              {canCamera && <button className="btn btn-outlined btn-sm" onClick={() => setCamera(true)}>Retake</button>}
+              <button className="btn btn-outlined btn-sm" onClick={() => fileRef.current?.click()}>Upload another</button>
+              <button className="btn btn-text btn-sm" onClick={clearPhoto}>Remove</button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="stack" style={{ "--gap": "10px" } as React.CSSProperties}>
+          <p className="small muted" style={{ margin: 0 }}>Show a sore spot: swelling, a bruise, a taped ankle. It helps us ask the right questions.</p>
+          <div className="row wrap" style={{ gap: 8 }}>
+            {canCamera && <button className="btn btn-filled" onClick={() => { setError(null); setCamera(true); }}><IconCamera size={18} /> Take a picture</button>}
+            <button className="btn btn-outlined" onClick={() => fileRef.current?.click()}>Upload a photo</button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
 
   return (
     <div className="page">
@@ -132,14 +234,14 @@ export function CheckinClient({ id }: { id: string }) {
           <AthletePicker id={id} />
         </div>
 
-        {!result && (
+        {!result && !pending && (
           <div className="seg" role="group" aria-label="Check-in style" style={{ alignSelf: "flex-start" }}>
             <button aria-pressed={tab === "tap"} onClick={() => setTab("tap")}>Tap</button>
             <button aria-pressed={tab === "talk"} onClick={() => setTab("talk")}>Talk (Gemini)</button>
           </div>
         )}
 
-        {!result && tab === "tap" && (
+        {!result && !pending && tab === "tap" && (
           <>
             <section className="card stack" style={{ "--gap": "8px" } as React.CSSProperties} aria-labelledby="sl">
               <div className="row spread"><strong id="sl">Sleep</strong><span className="strong">{sleepH} hrs</span></div>
@@ -180,11 +282,13 @@ export function CheckinClient({ id }: { id: string }) {
               </div>
             </section>
 
+            {photoCard}
+
             <button className="btn btn-green btn-lg btn-block" onClick={submitTap} disabled={busy}>{busy ? <span className="spinner" /> : null} Submit</button>
           </>
         )}
 
-        {!result && tab === "talk" && (
+        {!result && !pending && tab === "talk" && (
           <>
             <section className="card stack center" style={{ alignItems: "center", paddingBlock: 28 }} aria-labelledby="voice">
               <h3 id="voice">Talk for about 20 seconds</h3>
@@ -210,6 +314,8 @@ export function CheckinClient({ id }: { id: string }) {
                 </div>
               )}
             </section>
+
+            {photoCard}
 
             <section className="card flat stack" aria-labelledby="typed">
               <div className="row spread">
@@ -239,10 +345,43 @@ export function CheckinClient({ id }: { id: string }) {
           </>
         )}
 
-        {busy && <div className="row small muted" role="status"><span className="spinner" /> Gemini is reading your check-in…</div>}
+        {pending && !result && (
+          <section className="card stack" style={{ "--gap": "18px", gridColumn: "1 / -1" } as React.CSSProperties} aria-labelledby="fq" aria-live="polite">
+            <div>
+              <span className="pill teal">Saved. {pending.questions!.length === 1 ? "One quick question" : `${pending.questions!.length} quick questions`}</span>
+              <h3 id="fq" style={{ marginTop: 8 }}>Tell us a bit more</h3>
+              <p className="small muted" style={{ margin: "4px 0 0" }}>Your answers go to your coach with this check-in. Tap one for each, or skip.</p>
+            </div>
+            {pending.checkin.photo && (
+              <div className="ci-photo">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {photoUrl && <img src={photoUrl} alt="The photo you attached" />}
+                <div className="stack" style={{ "--gap": "4px" } as React.CSSProperties}>
+                  <span className="tiny muted">{pending.checkin.photo.read ? "What the photo shows" : "Your photo"}</span>
+                  <span>{pending.checkin.photo.note}</span>
+                </div>
+              </div>
+            )}
+            {pending.questions!.map((q, n) => (
+              <fieldset key={q.id} className="ci-q">
+                <legend><span className="ci-q-n" aria-hidden="true">{n + 1}</span>{q.text}</legend>
+                <div className="row wrap" style={{ gap: 6 }}>
+                  {q.options.map((o) => <button key={o.id} type="button" className="toggle-chip" style={{ minHeight: 44 }} aria-pressed={picked[q.id] === o.id} onClick={() => setPicked((p) => ({ ...p, [q.id]: o.id }))}>{o.label}</button>)}
+                </div>
+              </fieldset>
+            ))}
+            <div className="row wrap" style={{ gap: 8 }}>
+              <button className="btn btn-green btn-lg" onClick={() => void answerQuestions(false)} disabled={busy || !Object.keys(picked).length}>{busy ? <span className="spinner" /> : null} Save answers</button>
+              <button className="btn btn-text" onClick={() => void answerQuestions(true)} disabled={busy}>Skip</button>
+            </div>
+            <p className="tiny muted" style={{ margin: 0 }}>The questions are picked by fixed rules, not AI. They never diagnose anything.</p>
+          </section>
+        )}
+
+        {busy && !pending && <div className="row small muted" role="status"><span className="spinner" /> {photo ? "Reading your check-in and photo…" : "Reading your check-in…"}</div>}
         {error && <CheckinError message={error} />}
 
-        {result && <CheckinResult id={id} result={result} onNew={() => { setResult(null); setAudio(null); setText(""); setFollowup(null); }} />}
+        {result && <CheckinResult id={id} result={result} onNew={() => { setResult(null); setPending(null); setAudio(null); setText(""); setFollowup(null); clearPhoto(); }} />}
       </div>
       <AthleteNav id={id} />
     </div>

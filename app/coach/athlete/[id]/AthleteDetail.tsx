@@ -142,6 +142,16 @@ export function AthleteDetail({ id }: { id: string }) {
                       </tbody>
                     </table>
                   </div>
+                  {(() => {
+                    const latest = [...a.checkins].sort((x, y) => y.date.localeCompare(x.date)).find((c) => c.photo || c.followups?.length);
+                    return latest && (
+                      <div className="stack mt-8" style={{ "--gap": "8px" } as React.CSSProperties}>
+                        <h4 style={{ margin: 0 }}>In their words · {fmtDate(latest.date)}</h4>
+                        {latest.photo && <p className="small" style={{ margin: 0 }}><strong>Photo:</strong> {latest.photo.note} <span className="muted">(a description, not a diagnosis)</span></p>}
+                        {(latest.followups?.length ?? 0) > 0 && <dl className="fu-list">{latest.followups!.map((f) => <div key={f.id}><dt>{f.question}</dt><dd>{f.answer}</dd></div>)}</dl>}
+                      </div>
+                    );
+                  })()}
                 </section>
               </div>
             </div>

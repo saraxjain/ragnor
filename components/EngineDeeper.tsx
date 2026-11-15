@@ -1,5 +1,5 @@
 "use client";
-// "Look closer" half of the Behind the scenes page: the risk model's wiring, the coach-side agent review,
+// "Look closer" half of the Behind the scenes page: the coach-side agent review,
 // and who decides what. Follows whichever athlete is selected in the live pipeline above.
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -7,16 +7,9 @@ import { ErrorBanner, useApi } from "@/components/ui.tsx";
 import type { Athlete } from "@/lib/store.ts";
 import type { ModelScore } from "@/lib/risk.ts";
 import type { CaseReview, Finding } from "@/lib/caseConference.ts";
+import type { ModelInfo } from "@/components/ModelAnatomy.tsx";
 
-export interface ModelInfo {
-  version: string;
-  features: { name: string; label: string; weight: number; mean: number; std: number }[];
-  threshold: number;
-  auroc: number;
-  sensitivity: number;
-  baselineSensitivity: number;
-  source: string;
-}
+export type { ModelInfo } from "@/components/ModelAnatomy.tsx";
 
 const AGENT: Record<Finding["agent"], { name: string; looksAt: string }> = {
   load: { name: "Training-load agent", looksAt: "minutes, intensity, week-on-week spikes" },
@@ -35,39 +28,21 @@ export function EngineDeeper({ id, model, geminiLive, geminiModel }: { id: strin
   // Scored on trusted readings only, so the number matches step 3 of the pipeline above.
   const { data, error } = useApi<{ athlete: Pick<Athlete, "id" | "name">; risk: { raw: ModelScore; trusted: ModelScore } }>(`/api/trust/${id}`);
   const a = data?.athlete.id === id ? data.athlete : null;
-  const score = data?.athlete.id === id ? data.risk.trusted : null;
-  const first = a?.name.split(" ")[0] ?? "the athlete";
+    const first = a?.name.split(" ")[0] ?? "the athlete";
 
   return (
     <div className="stack" style={{ "--gap": "28px", marginTop: 12 } as React.CSSProperties}>
       <header>
         <div className="eyebrow">Look closer</div>
         <h2 style={{ marginTop: 4 }}>How each decision is made</h2>
-        <p className="muted" style={{ marginTop: 4, maxWidth: 760 }}>The same athlete as above{a ? ` (${a.name})` : ""}, with the lid off: the risk model's wiring, the agents that write the coach's plan, and who is allowed to decide what.</p>
+        <p className="muted" style={{ marginTop: 4, maxWidth: 760 }}>The same athlete as above{a ? ` (${a.name})` : ""}, with the lid off: the agents that write the coach's plan, and who is allowed to decide what.</p>
       </header>
       {error && <ErrorBanner message={error} />}
-
-      <section aria-labelledby="hw-model" className="stack" style={{ "--gap": "12px" } as React.CSSProperties}>
-        <SectionTitle n="A" id="hw-model" title="The risk model's wiring" sub={`How ${first}'s ten inputs combine into one probability. Line thickness shows how much each input matters for ${first} today. Uses trusted watch readings only.`} />
-        <div className="card">
-          {score ? <Network model={model} score={score} /> : <div className="muted small">Loading…</div>}
-          <div className="row wrap small" style={{ gap: 18, marginTop: 8 }}>
-            <span className="row" style={{ gap: 6 }}><i className="hw-key" style={{ background: "var(--high)" }} /> pushes risk up</span>
-            <span className="row" style={{ gap: 6 }}><i className="hw-key" style={{ background: "var(--low-fill)" }} /> pulls risk down</span>
-            <span className="row" style={{ gap: 6 }}><i className="hw-key" style={{ background: "var(--outline)" }} /> close to typical, little effect</span>
-          </div>
-        </div>
-        <div className="grid grid-3">
-          <Fact title="What kind of network is this?" body="The simplest kind: one layer, one output (a logistic regression). We chose it over a deep neural network on purpose, so every prediction can be traced to named inputs a coach or clinician understands." />
-          <Fact title="How good is it?" body={`On athletes it never saw in training it caught ${Math.round(model.sensitivity * 100)}% of injuries, against ${Math.round(model.baselineSensitivity * 100)}% for the rules alone (AUROC ${model.auroc}). It flags an athlete at ${pct(model.threshold)} or above.`} />
-          <Fact title="What it was trained on" body="A simulated season of 420 athletes, not real injury records. The numbers show the method works; real pilot data is needed before anyone should trust them." warn />
-        </div>
-      </section>
 
       <AgentRun id={id} first={first} geminiLive={geminiLive} geminiModel={geminiModel} />
 
       <section aria-labelledby="hw-who" className="stack" style={{ "--gap": "12px" } as React.CSSProperties}>
-        <SectionTitle n="C" id="hw-who" title="Who decides what" sub="The short version to remember." />
+        <SectionTitle n="B" id="hw-who" title="Who decides what" sub="The short version to remember." />
         <div className="card" style={{ padding: 0, overflow: "hidden" }}>
           <table className="hw-table">
             <thead><tr><th>Decision</th><th>Made by</th><th>Why</th></tr></thead>
@@ -105,41 +80,6 @@ function Fact({ title, body, warn }: { title: string; body: string; warn?: boole
       <h4>{title}</h4>
       <p className="small mt-8" style={{ color: warn ? "#6b4000" : "var(--ink-2)" }}>{body}</p>
     </div>
-  );
-}
-
-/** One-layer network: 10 inputs, weighted, into a single output. Contribution = standardized value x weight. */
-function Network({ model, score }: { model: ModelInfo; score: ModelScore }) {
-  const W = 820, rowH = 40, top = 24, H = top * 2 + rowH * (model.features.length - 1) + 16;
-  const inX = 330, outX = 620, outY = H / 2;
-  const rows = model.features.map((f, i) => {
-    const value = (score.features as unknown as Record<string, number>)[f.name] ?? 0;
-    const contribution = ((value - f.mean) / (f.std || 1)) * f.weight;
-    return { ...f, value, contribution, y: top + i * rowH };
-  });
-  const flagged = score.risk_7d >= model.threshold;
-  return (
-    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Risk model diagram. Output: ${pct(score.risk_7d)} chance of injury in 7 days.`} style={{ width: "100%", height: "auto" }}>
-      <text x={inX} y={12} textAnchor="end" fontSize="11" fontWeight="700" fill="var(--ink-3)" letterSpacing="1">INPUTS (TODAY)</text>
-      <text x={outX} y={12} textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--ink-3)" letterSpacing="1">OUTPUT</text>
-      {rows.map((r) => {
-        const strong = Math.abs(r.contribution) >= 0.08;
-        const color = !strong ? "var(--outline)" : r.contribution > 0 ? "var(--high)" : "var(--low-fill)";
-        return (
-          <g key={r.name}>
-            <line x1={inX + 10} y1={r.y} x2={outX - 46} y2={outY} stroke={color} strokeWidth={1.2 + Math.min(9, Math.abs(r.contribution) * 9)} strokeLinecap="round" opacity={strong ? 0.85 : 0.55} />
-            <circle cx={inX} cy={r.y} r={9} fill="var(--surface)" stroke={color} strokeWidth={2.5} />
-            <text x={inX - 62} y={r.y + 4} textAnchor="end" fontSize="13" fill="var(--ink)">{r.label}</text>
-            <text x={inX - 18} y={r.y + 4} textAnchor="end" fontSize="13" fontWeight="700" fill="var(--ink)">{round(r.value)}</text>
-          </g>
-        );
-      })}
-      <circle cx={outX} cy={outY} r={46} fill={flagged ? "var(--high-container)" : "var(--low-container)"} stroke={flagged ? "var(--high)" : "var(--low-fill)"} strokeWidth={3} />
-      <text x={outX} y={outY + 2} textAnchor="middle" fontSize="21" fontWeight="800" fill="var(--ink)">{pct(score.risk_7d)}</text>
-      <text x={outX} y={outY + 19} textAnchor="middle" fontSize="10.5" fill="var(--ink-2)">in 7 days</text>
-      <text x={outX + 62} y={outY - 6} fontSize="13" fontWeight="700" fill="var(--ink)">{flagged ? "Above the flag line" : "Below the flag line"}</text>
-      <text x={outX + 62} y={outY + 12} fontSize="12" fill="var(--ink-3)">flag line: {pct(model.threshold)}</text>
-    </svg>
   );
 }
 
@@ -188,7 +128,7 @@ function AgentRun({ id, first, geminiLive, geminiModel }: { id: string; first: s
 
   return (
     <section aria-labelledby="hw-agents" className="stack" style={{ "--gap": "12px" } as React.CSSProperties}>
-      <SectionTitle n="B" id="hw-agents" title="The coach-side agents" sub={`A second agent team writes a plan for the coach. Run a real review of ${first}'s case and watch each agent's part.`} />
+      <SectionTitle n="A" id="hw-agents" title="The coach-side agents" sub={`A second agent team writes a plan for the coach. Run a real review of ${first}'s case and watch each agent's part.`} />
       <div className="card stack">
         <div className="row spread wrap">
           <div className="small muted" style={{ maxWidth: 620 }}>

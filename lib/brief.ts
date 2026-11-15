@@ -6,6 +6,7 @@
 // Then a lead agent writes the brief, a code-level safety check runs, and a clinician signs before it goes to the EHR.
 // Engine: Google ADK (ParallelAgent analysts -> skeptic -> lead) on Gemini, with a deterministic offline engine.
 import library from "../shared/evidence/library.json" with { type: "json" };
+import savedBriefs from "../shared/data/demo-briefs.json" with { type: "json" };
 import { sanitizeDeep, findViolations } from "../shared/lib/index.ts";
 import { config, live } from "./config.ts";
 import { audit, getAthlete, type Athlete } from "./store.ts";
@@ -37,6 +38,8 @@ export interface Brief {
   debate: DebateMsg[];
   safety: { name: string; passed: boolean; note: string }[];
   signoff?: { by: string; at: string; decision: "sent" | "returned"; note?: string };
+  /** True when this is a recorded Gemini run replayed from shared/data/demo-briefs.json (see savedBrief). */
+  saved?: boolean;
 }
 
 const g = globalThis as unknown as { __ragnorBriefs?: Map<string, Brief> };
@@ -295,6 +298,28 @@ export async function runBrief(athleteId: string): Promise<Brief> {
   };
   briefs().set(a.id, brief);
   audit(engine === "adk" ? "brief_agents_adk" : "brief_agents", "brief_created", brief.headline, a.id);
+  return brief;
+}
+
+/**
+ * A recorded Google ADK + Gemini run for the two demo athletes, so the live demo does not wait on (or run out of)
+ * the Gemini quota. Only used while the athlete's data still matches the recording; otherwise returns null and the
+ * caller runs the agents for real.
+ */
+export function savedBrief(athleteId: string): Brief | null {
+  const rec = (savedBriefs as unknown as Record<string, Brief>)[athleteId];
+  const a = getAthlete(athleteId);
+  if (!rec || !a) return null;
+  const t = trustReport(a);
+  const same = rec.data_quality.pct_usable === t.summary.pct_usable
+    && rec.risk.raw === scoreAthlete(a).risk_7d
+    && rec.risk.trusted === scoreAthlete(trustedOnly(a, t)).risk_7d
+    && rec.period.to === (a.wearable.recent.at(-1)?.date ?? a.risk_today.date);
+  if (!same) return null;
+  const brief: Brief = { ...structuredClone(rec), saved: true };
+  delete brief.signoff;
+  briefs().set(a.id, brief);
+  audit("brief_agents_adk", "brief_replayed", `Recorded run: ${brief.headline}`, a.id);
   return brief;
 }
 
