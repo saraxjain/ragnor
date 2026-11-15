@@ -72,7 +72,10 @@ export function CoachDashboard() {
       <div className="container stack" style={{ "--gap": "20px" } as React.CSSProperties}>
         <header>
           <div className="small muted">{new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })} · Westbrook High</div>
-          <h2>Good morning, Coach</h2>
+          <div className="row spread wrap" style={{ gap: 12 }}>
+            <h2>Good morning, Coach</h2>
+            <Link href="/report" className="btn btn-outlined btn-sm">Season report: 14-day view of every athlete</Link>
+          </div>
           {data && (
             <p className="muted" style={{ marginTop: 6, fontSize: 17 }}>
               {needAttention.length === 0
@@ -166,7 +169,6 @@ export function CoachDashboard() {
                       </Link>
                     ))}
                   </div>
-                  <div className="mt-16"><Link href="/report" className="small">See the weekly report →</Link></div>
                 </section>
               </div>
 
