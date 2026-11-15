@@ -5,11 +5,11 @@ import { LogoMark } from "@/components/Logo.tsx";
 import { IconWave, IconShield, IconSpark, IconReport, IconUsers, IconAlert, IconBolt, IconWatch, IconSchool } from "@/components/icons.tsx";
 
 const STEPS = [
-  { title: "Trust-score every reading", body: "Data arrives from Fitbit and Pixel Watch through the Google Health API. Before anything else sees it, each night gets a trust score: was the watch actually worn, was there motion artifact, do two sources agree, and has this metric been validated for someone like this person? Unverified readings are set aside, not silently used." },
+  { title: "Trust-score every reading", body: "Data arrives from Fitbit and Pixel Watch through the Google Health API. Before anything else sees it, each night gets a trust score: was the watch actually worn, was there motion artifact, do two sources agree, and has this metric been validated for someone like this person? Unverified readings are set aside, not silently used, and the reason is shown." },
   { title: "Compare to your own normal", body: "Overnight HRV, resting heart rate and sleep are compared with each person's own baseline, alongside 20-second check-ins and a phone-video landing screen. A validated risk model and a versioned rules engine run on trusted data only." },
-  { title: "AI agents argue about what matters", body: "Built with Google's Agent Development Kit on Gemini. Signal-quality, baseline and clinical-relevance agents work in parallel; a skeptic agent argues every finding is noise. Only what survives reaches a person." },
-  { title: "A brief the doctor can sign", body: "The clinician gets one page before the visit: what to discuss, what to watch, and what was ruled out as noise, with evidence. One click files it into the health record as FHIR, with a trust score on every reading." },
-  { title: "Useful for athletes and coaches too", body: "Athletes see plain-language feedback (\"your watch was loose Saturday, wear it snug\") and choose what to share. Coaches get one list of who to look at today. Nothing is sent without a person approving it." },
+  { title: "AI agents argue about what matters", body: "Built with Google's Agent Development Kit on Gemini. Signal-quality, baseline and clinical-relevance agents work in parallel; a skeptic agent argues every finding is noise. Only what survives moves on. Safety rules written in code, not prompts, then check the result: they can raise a concern or block words like \"cleared\" or \"safe to play\" to avoid outright diagnosis." },
+  { title: "A brief the doctor can sign", body: "The clinician gets one page before the visit: what to discuss, what to watch, and what was ruled out as noise, with evidence. Once signed, it is filed into the health record as a standard FHIR DiagnosticReport, with a trust score on every reading." },
+  { title: "Useful for athletes and coaches too", body: "Athletes see plain-language feedback (\"your watch was loose Saturday, wear it snug\") and choose what to share. Coaches get one list of who to look at today. Alerts and briefs wait in an approval queue, and nothing leaves Ragnor until a person signs off." },
 ];
 
 const SUGGESTIONS = [
@@ -20,14 +20,6 @@ const SUGGESTIONS = [
   { href: "/report", label: "Season report" },
   { href: "#pricing", label: "Pricing" },
   { href: "#pilot", label: "Join the pilot" },
-];
-
-const SAFEGUARDS = [
-  { title: "Trust score on every reading, with the reason", body: "Each night is checked for how long the watch was worn, motion artifact, whether two sources agree, and whether the metric is validated for someone like this athlete. Low-trust nights are set aside and the reason is shown." },
-  { title: "A skeptic agent challenges every finding", body: "While analyst agents look for real changes, a skeptic agent argues each one is noise. A finding reaches a person only if it survives that challenge." },
-  { title: "Safety checks that only make output more cautious", body: "Rules written in code, not prompts, sit after the AI. They can raise a concern or block wording like \"cleared\" or \"safe to play\", but they can never make a result sound safer." },
-  { title: "FHIR output for existing health records", body: "A signed brief is filed as a standard FHIR DiagnosticReport, so it drops into the clinic's record system with a trust score attached to each reading." },
-  { title: "Nothing filed or sent without a human signing", body: "Alerts to coaches and briefs to doctors wait in an approval queue. A person reviews and signs before anything leaves Ragnor." },
 ];
 
 const STEP_TAGS = ["Trust", "Baseline", "Agents", "Clinician", "Athletes & coaches"];
@@ -48,24 +40,6 @@ export default function Home() {
           <div className="fd-pills">
             {SUGGESTIONS.map((x) => <Link key={x.href} href={x.href} className="fd-pill">{x.label}</Link>)}
           </div>
-        </div>
-      </section>
-
-      <section className="container fd-feature" aria-labelledby="diff">
-        <div className="fd-feature-media">
-          <ul className="fd-feature-list">
-            {SAFEGUARDS.map((g) => (
-              <li key={g.title}>
-                <strong>{g.title}</strong>
-                <span>{g.body}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="fd-feature-card">
-          <h2 id="diff" className="fd-h2">Everyone else shows more data. We show less, and it&apos;s right.</h2>
-          <p className="mt-16">Wearable apps give people dashboards. Remote-monitoring tools give doctors alert queues that never reach zero. Ragnor filters first: a false alarm from a loose watch never reaches the doctor, and what does arrive comes with evidence and a trust score.</p>
-          <Link href="/engine" className="fd-pill mt-24">Watch the pipeline run live</Link>
         </div>
       </section>
 
@@ -92,7 +66,14 @@ export default function Home() {
 
       <section className="container fd-section" aria-labelledby="how">
         <h2 id="how" className="fd-section-title"><IconBolt size={26} /> How it works</h2>
-        <p className="fd-intro">From a noisy watch to a decision a doctor will sign, in five steps.</p>
+        <div className="fd-how-intro">
+          <h3 className="fd-h2">Everyone else shows more data. We cut out the noise.</h3>
+          <div>
+            <p>Wearable apps give people dashboards. Remote-monitoring tools give doctors alert queues that never reach zero. Ragnor filters first: a false alarm from a loose watch never reaches the doctor, and what does arrive comes with evidence and a trust score.</p>
+            <Link href="/engine" className="fd-pill mt-16">Watch the pipeline run live</Link>
+          </div>
+        </div>
+        <p className="fd-intro">From scrambled data to a concise report, in five steps.</p>
         <ol className="fd-articles">
           {STEPS.map((st, i) => {
             const Icon = STEP_ICON[i];
@@ -144,7 +125,6 @@ export default function Home() {
       <section className="fd-band" aria-labelledby="pricing">
         <div className="container">
           <h2 id="pricing" className="fd-section-title"><IconReport size={26} /> Pricing (planned)</h2>
-          <p className="fd-intro">Free for athletes. Paid by the people who act on it.</p>
           <div className="fd-plans"><Pricing /></div>
         </div>
       </section>
@@ -154,7 +134,7 @@ export default function Home() {
         <div className="fd-pilot">
           <div>
             <h3 className="fd-h3">Pilot Ragnor with your team or clinic</h3>
-            <p className="mt-16">We&apos;re starting with high school and club programs and the sports-medicine clinics that see their athletes, beginning with girls&apos; soccer, basketball and volleyball, where injury risk is highest.</p>
+            <p className="mt-16">We&apos;re starting with high school and club programs and the sports-medicine clinics that see their athletes.</p>
           </div>
           <div className="fd-card"><SignupForm /></div>
         </div>
