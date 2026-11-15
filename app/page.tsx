@@ -5,21 +5,11 @@ import { LogoMark } from "@/components/Logo.tsx";
 import { IconWave, IconShield, IconSpark, IconReport, IconUsers, IconAlert, IconBolt, IconWatch, IconSchool } from "@/components/icons.tsx";
 
 const STEPS = [
-  { title: "Trust-score every reading", body: "Data arrives from Fitbit and Pixel Watch through the Google Health API. Before anything else sees it, each night gets a trust score: was the watch actually worn, was there motion artifact, do two sources agree, and has this metric been validated for someone like this person? Unverified readings are set aside, not silently used, and the reason is shown." },
-  { title: "Compare to your own normal", body: "Overnight HRV, resting heart rate and sleep are compared with each person's own baseline, alongside 20-second check-ins and a phone-video landing screen. A validated risk model and a versioned rules engine run on trusted data only." },
-  { title: "AI agents argue about what matters", body: "Built with Google's Agent Development Kit on Gemini. Signal-quality, baseline and clinical-relevance agents work in parallel; a skeptic agent argues every finding is noise. Only what survives moves on. Safety rules written in code, not prompts, then check the result: they can raise a concern or block words like \"cleared\" or \"safe to play\" to avoid outright diagnosis." },
-  { title: "A brief the doctor can sign", body: "The clinician gets one page before the visit: what to discuss, what to watch, and what was ruled out as noise, with evidence. Once signed, it is filed into the health record as a standard FHIR DiagnosticReport, with a trust score on every reading." },
-  { title: "Useful for athletes and coaches too", body: "Athletes see plain-language feedback (\"your watch was loose Saturday, wear it snug\") and choose what to share. Coaches get one list of who to look at today. Alerts and briefs wait in an approval queue, and nothing leaves Ragnor until a person signs off." },
-];
-
-const SUGGESTIONS = [
-  { href: "/athlete", label: "Athlete app" },
-  { href: "/coach", label: "Coach view" },
-  { href: "/clinician", label: "Clinician brief" },
-  { href: "/engine", label: "Behind the scenes" },
-  { href: "/report", label: "Season report" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#pilot", label: "Join the pilot" },
+  { title: "Trust-score every reading", points: ["Fitbit and Pixel Watch data via the Google Health API", "Each night is scored: worn? motion artifact? sources agree?", "Unverified readings are set aside, with the reason shown"] },
+  { title: "Compare to your own normal", points: ["HRV, resting heart rate and sleep vs. your own baseline", "Daily 20-second check-ins", "Model runs on trusted data only"] },
+  { title: "AI agents argue about what matters", points: ["Gemini agents (Google ADK) review in parallel", "A skeptic agent argues every finding is noise", "Code safety rules block words like \"cleared\" or \"safe to play\""] },
+  { title: "A brief the doctor can sign", points: ["One page: what to discuss, watch, and rule out", "Evidence and a trust score on every reading", "Signed briefs filed as a FHIR DiagnosticReport"] },
+  { title: "Useful for athletes and coaches too", points: ["Athletes get plain-language tips and choose what to share", "Coaches get one list of who to look at today", "Nothing leaves Ragnor until a person approves it"] },
 ];
 
 const STEP_TAGS = ["Trust", "Baseline", "Agents", "Clinician", "Athletes & coaches"];
@@ -29,21 +19,7 @@ const STEP_ICON = [IconShield, IconWave, IconSpark, IconReport, IconUsers];
 export default function Home() {
   return (
     <div className="fd">
-      <section className="container fd-hero" aria-labelledby="hero-title">
-        <div className="fd-hero-media">
-          <HeroMock />
-        </div>
-        <div className="fd-hero-card">
-          <h1 id="hero-title" className="fd-h1">Wearable data doctors can actually trust.</h1>
-          <p className="fd-lead">Ragnor scores every reading for trust, lets AI agents argue about what matters, and hands the doctor a short brief they can sign. We start with student athletes.</p>
-          <h2 className="fd-suggest-title">Where would you like to start?</h2>
-          <div className="fd-pills">
-            {SUGGESTIONS.map((x) => <Link key={x.href} href={x.href} className="fd-pill">{x.label}</Link>)}
-          </div>
-        </div>
-      </section>
-
-      <section className="fd-band" aria-labelledby="problem">
+      <section className="fd-band fd-band-first" aria-labelledby="problem">
         <div className="container">
           <h2 id="problem" className="fd-section-title"><IconAlert size={26} /> The problem in numbers</h2>
           <div className="fd-cards-3">
@@ -61,6 +37,20 @@ export default function Home() {
             </div>
           </div>
           <p className="tiny muted mt-16">Sources: NATA / Korey Stringer Institute ATLAS study (the 65% is our calculation from its figures: about 35% of all U.S. schools with athletics had a full-time trainer); Register-Mihalik et al. 2013; NFHS 2024–25 participation survey.</p>
+        </div>
+      </section>
+
+      <section className="container fd-section" aria-labelledby="solution">
+        <h2 id="solution" className="fd-section-title"><IconShield size={26} /> Our Solution</h2>
+        <div className="fd-promo">
+          <div className="fd-promo-art" aria-hidden="true">
+            <PromoArt />
+          </div>
+          <div className="fd-promo-card">
+            <h1 className="fd-h1">Wearable data doctors can actually trust.</h1>
+            <p className="fd-lead">Ragnor scores every reading for trust, lets AI agents argue about what matters, and hands the doctor a short brief they can sign. We start with student athletes.</p>
+            <Link href="/clinician" className="fd-pill mt-16">See a clinician brief</Link>
+          </div>
         </div>
       </section>
 
@@ -86,7 +76,7 @@ export default function Home() {
                 <div className="fd-article-body">
                   <span className="fd-tag">{STEP_TAGS[i]}</span>
                   <h3>{st.title}</h3>
-                  <p>{st.body}</p>
+                  <ul>{st.points.map((pt) => <li key={pt}>{pt}</li>)}</ul>
                 </div>
               </li>
             );
@@ -174,6 +164,26 @@ export default function Home() {
   );
 }
 
+/** Decorative panel for the solution promo: noisy readings on the left, one trusted brief on the right. */
+function PromoArt() {
+  return (
+    <svg viewBox="0 0 320 200" className="fd-promo-svg">
+      {[30, 62, 94, 126, 158].map((y, i) => (
+        <rect key={y} x={24} y={y} width={[96, 70, 110, 58, 88][i]} height={14} rx={7} fill={i % 2 ? "#f9b27c" : "#9ec0ea"} opacity={0.85} />
+      ))}
+      <path d="M154 100 H190" stroke="#0b1f4d" strokeWidth={3} strokeLinecap="round" />
+      <path d="M162 90 L150 100 L162 110" fill="none" stroke="#0b1f4d" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
+      <rect x={204} y={46} width={96} height={108} rx={12} fill="#fff" stroke="#0b1f4d" strokeWidth={2} />
+      <rect x={218} y={62} width={50} height={8} rx={4} fill="#0b1f4d" />
+      <rect x={218} y={82} width={68} height={7} rx={3.5} fill="#c9d3e6" />
+      <rect x={218} y={98} width={60} height={7} rx={3.5} fill="#c9d3e6" />
+      <rect x={218} y={114} width={66} height={7} rx={3.5} fill="#c9d3e6" />
+      <circle cx={280} cy={138} r={9} fill="#0a5fa8" />
+      <path d="M276 138 L279 141 L285 134" fill="none" stroke="#fff" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function ArtShield() {
   return (
     <svg className="fd-art" viewBox="0 0 120 120" aria-hidden="true">
@@ -206,52 +216,3 @@ function Tech({ name, body }: { name: string; body: string }) {
 }
 
 /** Static product preview for the hero: a clinician brief and the athlete's phone. */
-function HeroMock() {
-  return (
-    <div className="hero-mock" style={{ position: "relative", minHeight: 460 }} aria-hidden="true">
-      <div className="card hero-card" style={{ position: "absolute", right: 0, top: 10, left: 196, padding: "18px 18px 18px 52px", borderRadius: 28 }}>
-        <div className="row spread">
-          <strong>Pre-visit brief · Maya T.</strong>
-          <span className="band band-low">Signed</span>
-        </div>
-        <hr className="divider" />
-        {[
-          ["Discuss", "HRV below her baseline on 2 trusted nights", "high"],
-          ["Discuss", "Sleep 5 h short over 3 nights (check-ins + watch)", "high"],
-          ["Watch", "Resting heart rate up; recheck next week", "moderate"],
-          ["Noise", "Saturday's HRV crash: watch worn 3.4 h", "low"],
-        ].map(([k, r, b]) => (
-          <div key={r} className="row" style={{ padding: "8px 0", gap: 10 }}>
-            <span className={`band band-${b}`} style={{ height: 22, fontSize: 11, minWidth: 64, justifyContent: "center" }}>{k}</span>
-            <div className="tiny" style={{ flex: 1, minWidth: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", textDecoration: b === "low" ? "line-through" : undefined }}>{r}</div>
-          </div>
-        ))}
-        <div className="tiny muted mt-8">Filed to EHR as FHIR · trust score on every reading</div>
-      </div>
-      <div style={{ position: "absolute", left: 0, top: 60, width: 230, zIndex: 2, borderRadius: 36, background: "#1f1f1f", padding: 9, boxShadow: "0 18px 40px rgba(31,31,31,0.22)" }}>
-        <div style={{ background: "var(--surface)", borderRadius: 28, padding: 16, minHeight: 330 }}>
-          <div className="tiny muted">Your watch data this week</div>
-          <div className="row mt-8" style={{ gap: 10 }}>
-            <LogoMark size={36} />
-            <div>
-              <div className="strong">86% usable</div>
-              <div className="tiny muted">1 night left out</div>
-            </div>
-          </div>
-          <div className="stack mt-16" style={{ gap: 8 }}>
-            <div className="bubble agent" style={{ fontSize: 12 }}>Your watch was loose Saturday night, so we left it out. Wear it a finger-width above your wrist bone.</div>
-            <div className="bubble athlete" style={{ fontSize: 12 }}>Share a summary with my doctor ✓</div>
-          </div>
-        </div>
-      </div>
-      <div className="card" style={{ position: "absolute", right: 18, bottom: 6, width: 220, padding: 14, borderRadius: 20, zIndex: 3 }}>
-        <div className="row" style={{ gap: 8 }}><span style={{ color: "var(--hrv)" }}><IconWave size={16} /></span><span className="small strong">Trust score</span></div>
-        <div className="row mt-8" style={{ alignItems: "baseline", gap: 6 }}>
-          <span style={{ fontFamily: "var(--font-display)", fontSize: 26, fontWeight: 500 }}>15</span><span className="small muted">/ 100</span>
-          <span className="delta bad">excluded</span>
-        </div>
-        <div className="tiny muted">Sat HRV · 27% motion artifact</div>
-      </div>
-    </div>
-  );
-}

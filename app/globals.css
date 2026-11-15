@@ -657,6 +657,7 @@ input[type="range"].green { accent-color: var(--primary); }
 .fd-tag { display: block; font-size: 12px; font-weight: 600; color: var(--link); margin-bottom: 6px; }
 .fd-article h3 { font-size: 17px; font-weight: 600; line-height: 1.3; }
 .fd-article p { font-size: 14px; color: var(--ink-2); margin-top: 10px; }
+.fd-article ul { margin: 10px 0 0; padding-left: 18px; font-size: 14px; line-height: 1.45; color: var(--ink-2); display: grid; gap: 6px; }
 
 /* two-column illustrated promo strip */
 .fd-split { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: 56px; }
@@ -698,3 +699,24 @@ input[type="range"].green { accent-color: var(--primary); }
   .fd-art { width: 80px; height: 80px; }
 }
 .fd-stat-num { font-family: var(--font-ui); font-weight: 700; font-size: clamp(36px, 4vw, 48px); line-height: 1.05; letter-spacing: -0.03em; color: var(--link); margin-bottom: 10px; }
+/* Problem-in-numbers opens the home page on white, flush under the nav. */
+.fd-band-first { margin-top: 0; padding-top: 40px; background: #fff; }
+/* Stats in one row with no boxes: a large figure over a small explanation, orange bar on the left. */
+.fd-band-first .fd-card { background: none; border: 0; border-left: 4px solid #f97316; border-radius: 0; padding: 4px 0 4px 20px; }
+.fd-band-first .fd-cards-3 { gap: 40px; }
+.fd-band-first .fd-stat-num { font-size: clamp(48px, 6vw, 80px); line-height: 1; margin-bottom: 12px; }
+.fd-band-first .fd-card p { font-size: 14px; line-height: 1.5; max-width: 300px; }
+@media (max-width: 900px) { .fd-band-first .fd-cards-3 { gap: 28px; } }
+.fd-band-first .fd-cards-3 + p { margin-top: 28px; }
+/* "Our Solution": colour panel on the right with a white card overlapping its left edge (health-portal promo). */
+.fd-promo { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; }
+.fd-promo-art { grid-column: 2; grid-row: 1; min-height: 380px; border-radius: 20px; background: linear-gradient(135deg, #dbe7f6, #e3f1ea); display: grid; place-items: center; padding: 32px 32px 32px 18%; }
+.fd-promo-svg { width: 100%; max-width: 420px; height: auto; }
+.fd-promo-card { grid-column: 1 / span 1; grid-row: 1; position: relative; z-index: 2; margin-right: -64px; background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: clamp(24px, 3.5vw, 40px); box-shadow: 0 6px 28px rgba(11,31,77,0.12); }
+.fd-promo-card .fd-lead { font-size: 17px; }
+@media (max-width: 900px) {
+  .fd-promo { grid-template-columns: 1fr; }
+  .fd-promo-art { grid-column: 1; min-height: 0; padding: 32px 24px 72px; }
+  .fd-promo-card { grid-column: 1; grid-row: 2; margin: -48px 16px 0; }
+}
+.fd-band-first + .fd-section { margin-top: 8px; }
