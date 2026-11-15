@@ -163,6 +163,7 @@ p { margin: 0; }
 .band-high { background: var(--high-container); color: var(--high); }
 .band-moderate { background: var(--mod-container); color: var(--mod); }
 .band-low { background: var(--low-container); color: var(--low); }
+.band-mod { background: var(--mod-container); color: var(--mod); }
 .pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; background: var(--surface-2); color: var(--ink-2); }
 .pill.live { background: var(--low-container); color: var(--low); }
 .pill.demo { background: var(--surface-3); color: var(--ink-2); }
@@ -430,6 +431,39 @@ input[type="range"].green { accent-color: var(--primary); }
 .trust-table td, .trust-table th { padding: 6px 8px; }
 .trust-dot { width: 12px; height: 12px; border-radius: 50%; margin: 0 auto 2px; }
 .trust-dot.inline { display: inline-block; margin: 0 4px -1px 0; width: 10px; height: 10px; }
+/* Trust grid: labeled cells, trust rings, hover breakdown */
+.trust-ring { display: inline-grid; place-items: center; border-radius: 50%; flex: none; }
+.trust-ring-core { width: 72%; height: 72%; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font-size: 11px; font-weight: 800; line-height: 1; }
+.ts-key { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; padding: 10px 12px; margin-bottom: 12px; border: 1px dashed var(--outline); border-radius: 12px; background: var(--surface-1); }
+.ts-key-cell { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 10px; background: var(--surface); box-shadow: var(--shadow-1); }
+.ts-key-notes { margin: 0; padding-left: 16px; color: var(--ink-2); display: grid; gap: 2px; flex: 1; min-width: 220px; }
+.ts-scroll { overflow-x: auto; padding-bottom: 4px; }
+.trust-table { border-collapse: separate; border-spacing: 4px; }
+.trust-table thead th { vertical-align: bottom; font-weight: 600; color: var(--ink-3); }
+.trust-table th.ts-day, .trust-table th.ts-base-h { text-align: center; white-space: nowrap; }
+.ts-day > span { display: block; }
+.ts-dow { color: var(--ink); font-weight: 700; }
+.ts-base-h { text-align: center; border-left: 1px solid var(--outline-soft); }
+.ts-metric { text-align: left; white-space: nowrap; padding-right: 14px !important; }
+.ts-cell { position: relative; text-align: center; min-width: 74px; border-radius: 10px; background: var(--surface-1); padding: 8px 6px !important; vertical-align: top; outline: none; transition: background .15s, box-shadow .15s; }
+.ts-cell:hover, .ts-cell:focus-visible { background: var(--surface); box-shadow: 0 0 0 1.5px var(--outline); }
+.ts-cell.ts-unverified { background: repeating-linear-gradient(135deg, var(--surface-1) 0 6px, var(--high-container) 6px 8px); }
+.ts-cell.ts-caution { box-shadow: inset 0 -3px 0 var(--mod-container); }
+.ts-empty { vertical-align: middle; }
+.ts-val { font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.15; }
+.ts-unit { font-size: 10.5px; font-weight: 500; color: var(--ink-3); margin-left: 2px; }
+.ts-delta { font-size: 11px; color: var(--ink-3); margin-top: 1px; font-family: var(--mono); }
+.ts-delta.ts-worse, .ts-key .ts-worse { color: var(--ink); font-weight: 800; }
+.ts-trust { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 6px; }
+.ts-trust .trust-ring-core { font-size: 9px; }
+.ts-base { text-align: center; vertical-align: middle; border-left: 1px solid var(--outline-soft); min-width: 70px; }
+.ts-base .ts-val { color: var(--ink-2); }
+.ts-tip { position: absolute; z-index: 20; width: 240px; text-align: left; background: var(--ink); color: #fff; border-radius: 10px; padding: 10px 12px; font-size: 12px; box-shadow: var(--shadow-2); pointer-events: none; }
+.ts-tip-h { font-weight: 700; margin-bottom: 6px; }
+.ts-tip-row { display: flex; justify-content: space-between; gap: 10px; padding: 1px 0; color: rgba(255,255,255,.75); }
+.ts-tip-row .mono { color: #fff; }
+.ts-tip-why { margin: 6px 0 0; padding-left: 14px; color: rgba(255,255,255,.85); }
+.ts-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin-top: 10px; }
 .strike { text-decoration: line-through; opacity: .7; }
 .finding { border-left: 5px solid var(--outline); background: var(--surface-1); border-radius: 12px; padding: 12px 14px; }
 .skeptic { background: var(--surface-2); border-radius: 10px; padding: 8px 10px; margin-top: 6px; }
