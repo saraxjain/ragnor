@@ -16,7 +16,7 @@ Before you start: open `/athlete` on one laptop tab, `/clinician` on a second ta
 
 ## 0:00 to 0:15 | Intro (CHELSI)
 
-> We're Ragnor. Most high schools don't have a full-time athletic trainer. Based on national data, about 65% don't, and many have none at all. That leaves students with a coach and a phone, and no one watching their health day to day. We're here to close that gap.
+> Wearables collect the data. Nobody reads it. Ragnor turns watch data into a short brief that a doctor can trust, and we start with student athletes.
 
 **Action:** Point at the home page headline, "Wearable data doctors can actually trust."
 
@@ -24,27 +24,13 @@ Before you start: open `/athlete` on one laptop tab, `/clinician` on a second ta
 
 ## 0:15 to 0:50 | Athlete view (HAATIM)
 
-> This is what the athlete sees. It takes about 20 seconds a day.
+> This is what the athlete sees. Ten seconds a day. Sleep, soreness, practice, and meals, with a few taps.
 
-**Action:** Open `/athlete`, tap through the sleep and soreness sliders.
+**Action:** Open `/athlete`, show the check-in sliders, and tap a few values.
 
-> Sleep, soreness, practice load, and meals. They tap, they don't type. Soreness is on a body map, so they can point to exactly where it hurts.
+> The watch data comes in through the Google Health API, from Fitbit or Pixel Watch. Every night gets a trust score, so a loose watch doesn't turn into a false alarm.
 
-**Action:** Point to the Talk tab.
-
-> They can also talk through the check-in with voice, and an agent asks one follow-up question if something needs clarifying. They can skip it.
-
-**Action:** Point to the watch connection.
-
-> If they wear a Fitbit or Pixel Watch, Ragnor reads overnight heart-rate variability, resting heart rate, and sleep through the Google Health API. Every reading gets a trust score, so a loose watch doesn't become a false alarm.
-
-**Action:** Point to the consent option.
-
-> The athlete decides whether a short summary goes to their clinician. Their answers go to their coach with the check-in.
-
-**Action:** Point to the warning text.
-
-> If something sounds serious, like numbness, weakness, or swelling, the screen tells them to see a clinician right away. Ragnor shows signals, not diagnoses.
+**Action:** Point at the trust ring on one night.
 
 ---
 
