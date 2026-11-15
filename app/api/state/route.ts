@@ -23,5 +23,8 @@ export async function GET() {
       has_data: a.wearable.recent.length > 0,
     },
   }));
+  // Anyone who reported an emergency sign today goes to the top; otherwise keep the usual order (stable sort).
+  const emergency = (x: { flags: { rule_id: string }[] }) => x.flags.some((f) => f.rule_id === "R8_red_flag");
+  athletes.sort((x, y) => Number(emergency(y)) - Number(emergency(x)));
   return ok({ today: TODAY, athletes, alerts: listAlerts(), report: seasonReport(), integrations: integrationStatus() });
 }

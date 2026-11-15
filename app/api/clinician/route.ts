@@ -12,25 +12,25 @@ export type Group = "now" | "soon" | "data" | "clear";
 /** Below this share of usable readings the wearable picture can't be trusted. */
 const UNUSABLE_PCT = 50;
 
-function triage(a: Athlete, pctUsable: number, trustedRisk: number): { group: Group; reasons: string[] } {
+function triage(a: Athlete, pctUsable: number, trustedRisk: number): { group: Group; reasons: string[]; emergency: boolean } {
   const latest = [...a.checkins].sort((x, y) => x.date.localeCompare(y.date)).at(-1);
   const redFlags = latest?.red_flags ?? [];
   const flags = a.risk_today?.flags ?? [];
   const high = flags.filter((f) => f.band === "high");
   if (redFlags.length || high.length || a.risk_today?.band === "high") {
     const reasons = [...redFlags.map((r) => `Red flag reported: ${r.replace(/_/g, " ")}`), ...(high.length ? high : flags).map((f) => f.reason)];
-    return { group: "now", reasons };
+    return { group: "now", reasons, emergency: redFlags.length > 0 };
   }
   const moderate = flags.filter((f) => f.band === "moderate");
   if (moderate.length || trustedRisk >= MODEL.threshold) {
     const reasons = moderate.map((f) => f.reason);
     if (trustedRisk >= MODEL.threshold) reasons.push(`7-day injury risk ${(trustedRisk * 100).toFixed(1)}% is above the review threshold`);
-    return { group: "soon", reasons };
+    return { group: "soon", reasons, emergency: false };
   }
   if (pctUsable < UNUSABLE_PCT) {
-    return { group: "data", reasons: [pctUsable === 0 ? "No usable wearable readings this week" : `Only ${pctUsable}% of wearable readings are usable`] };
+    return { group: "data", reasons: [pctUsable === 0 ? "No usable wearable readings this week" : `Only ${pctUsable}% of wearable readings are usable`], emergency: false };
   }
-  return { group: "clear", reasons: [] };
+  return { group: "clear", reasons: [], emergency: false };
 }
 
 /** Clinician panel: every patient who shared data, triaged, with data quality, raw vs trusted risk and brief status. */
@@ -47,6 +47,6 @@ export async function GET() {
       ...triage(a, t.summary.pct_usable, trusted),
       brief: b ? { headline: b.headline, discuss: b.findings.filter((f) => f.status === "discuss").length, signed: !!b.signoff } : null,
     };
-  }).sort((x, y) => y.risk_trusted - x.risk_trusted);
+  }).sort((x, y) => Number(y.emergency) - Number(x.emergency) || y.risk_trusted - x.risk_trusted); // emergency signs first, then by trusted risk
   return NextResponse.json({ patients });
 }
