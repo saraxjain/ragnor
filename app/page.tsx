@@ -38,21 +38,24 @@ export default function Home() {
 
       <section className="container" aria-labelledby="problem">
         <h2 id="problem" className="sr-only">The problem</h2>
-        <div className="stat-band">
-          <div className="card">
-            <div className="big-stat">97%</div>
-            <p className="muted">of physicians say they would review a patient&apos;s wearable data.</p>
+        <div className="center">
+          <span className="eyebrow">The problem in numbers</span>
+        </div>
+        <div className="stats mt-16">
+          <div className="stat">
+            <div className="stat-num">65%</div>
+            <p>of U.S. high schools do not have a full-time athletic trainer.</p>
           </div>
-          <div className="card">
-            <div className="big-stat purple">≤ 6%</div>
-            <p className="muted">have actually integrated it into their workflow. Top blockers: getting it into the health record, accuracy, and liability.</p>
+          <div className="stat">
+            <div className="stat-num">~4 in 10</div>
+            <p>possible concussions in high school athletes are never reported to a coach or medical professional.</p>
           </div>
-          <div className="card">
-            <div className="big-stat green">Unknown</div>
-            <p className="muted">is how accurate most wrist readings are for teens and darker skin tones. Manufacturers often don&apos;t report it, and validation studies under-represent these groups.</p>
+          <div className="stat">
+            <div className="stat-num">8.27M</div>
+            <p>students played high school sports in 2024–25, a record. Most of them already wear a fitness tracker or smartwatch.</p>
           </div>
         </div>
-        <p className="tiny muted mt-8">Sources: AMA / Medscape survey of 2,222 physicians (2026); Schipper et al., JMIR mHealth 2026.</p>
+        <p className="tiny muted mt-16">Sources: NATA / Korey Stringer Institute ATLAS study (the 65% is our calculation from its figures: about 35% of all U.S. schools with athletics had a full-time trainer); Register-Mihalik et al. 2013; NFHS 2024–25 participation survey.</p>
       </section>
 
       <section className="container mt-40" aria-labelledby="how">

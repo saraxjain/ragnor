@@ -597,3 +597,10 @@ input[type="range"].green { accent-color: var(--primary); }
 @keyframes pm-flow { to { stroke-dashoffset: -22; } }
 @keyframes pm-pulse { 50% { opacity: .72; } }
 @media (prefers-reduced-motion: reduce) { .pm-edge.flow, .pm-node.now { animation: none; } }
+
+/* ---- home page stats: large numbers, no boxes ---- */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.stat { border-top: 2px solid var(--ink); padding-top: 18px; }
+.stat-num { font-family: var(--font-display); font-weight: 900; font-size: clamp(44px, 6vw, 76px); line-height: 1; color: var(--primary); }
+.stat p { margin: 14px 0 0; font-size: 17px; line-height: 1.5; color: var(--ink-2); }
+@media (max-width: 720px) { .stats { grid-template-columns: 1fr; gap: 28px; } }
