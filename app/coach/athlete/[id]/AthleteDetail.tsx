@@ -18,7 +18,7 @@ interface Resp {
   model: ModelScore;
 }
 
-const TABS = [["overview","Overview"],["risk","Risk model"],["case","AI case review"],["audit","Audit"]] as const;
+const TABS = [["overview","Overview"],["risk","Injury risk estimate"],["case","AI case review"],["audit","History"]] as const;
 type Tab = typeof TABS[number][0];
 
 const LABEL: Record<string, string> = {

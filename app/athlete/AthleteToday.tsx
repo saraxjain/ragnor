@@ -6,6 +6,8 @@ import { DataTrustCard } from "@/components/DataTrustCard.tsx";
 import { useApi, ErrorBanner, LoadingCard, BandChip, InfoBanner, prettyArea } from "@/components/ui.tsx";
 import { Ring, Sparkline, TrendChart } from "@/components/charts.tsx";
 import { BodyMap } from "@/components/BodyMap.tsx";
+import { SampleWatch } from "@/components/SampleWatch.tsx";
+import { SAMPLE_SCENARIOS } from "@/lib/sampleWearable.ts";
 import { AthleteNav, AthletePicker } from "@/components/AthleteShell.tsx";
 import { IconWave, IconHeart, IconMoon, IconMic, IconVideo, IconWatch, IconChevron, IconSpark, IconLock } from "@/components/icons.tsx";
 
@@ -83,7 +85,7 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
             <section aria-labelledby="body">
               <div className="row spread" style={{ margin: "8px 0 10px" }}>
                 <h3 id="body">Your body vs your normal</h3>
-                <span className="pill teal"><IconWatch size={14} /> {a.device === "none" ? "No watch" : a.device}</span>
+                <span className="pill teal"><IconWatch size={14} /> {a.device === "none" ? "No watch" : a.device}{a.wearable.source === "sample" ? " · sample" : ""}</span>
               </div>
               {a.wearable.recent.length ? (
                 <div className="metrics-3">
@@ -130,8 +132,9 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
                   <p className="small muted mt-8">Ragnor reads only overnight HRV, resting heart rate and sleep through the Google Health API, to learn your normal. You can disconnect any time.</p>
                   <div className="row wrap mt-16">
                     <a className="btn btn-tonal btn-sm" href={`/api/health/connect?athlete_id=${id}`}>{a.wearable.source === "google_health" ? "Sync again" : "Connect with Google"}</a>
-                    {!data?.integrations.google_health && <span className="tiny muted row" style={{ gap: 4 }}><IconLock size={12} /> Using sample watch data</span>}
+                    {a.wearable.source !== "google_health" && a.wearable.recent.length > 0 && <span className="tiny muted row" style={{ gap: 4 }}><IconLock size={12} /> {a.wearable.source === "sample" ? `Sample watch data: ${SAMPLE_SCENARIOS[a.wearable.sample_scenario as keyof typeof SAMPLE_SCENARIOS]?.label ?? "loaded"}` : "Using sample watch data"}</span>}
                   </div>
+                  {a.wearable.source !== "google_health" && <SampleWatch id={id} current={a.wearable.sample_scenario} hasData={a.wearable.recent.length > 0} onChange={reload} />}
                 </div>
               </div>
             </section>

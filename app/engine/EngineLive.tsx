@@ -6,6 +6,8 @@ import { TrustStrip } from "@/components/TrustStrip.tsx";
 import { AGENT_NAME } from "@/lib/briefLabels.ts";
 import type { Brief } from "@/lib/brief.ts";
 import type { TrustReport } from "@/lib/trust.ts";
+import { EngineDeeper, type ModelInfo } from "@/components/EngineDeeper.tsx";
+import { PipelineMap, type PipelineLive } from "@/components/PipelineMap.tsx";
 
 interface TrustResp { athlete: { id: string; name: string; sport: string; grade: number; device: string }; trust: TrustReport; risk: { raw: { risk_7d: number; top_drivers: { label: string; value: number }[] }; trusted: { risk_7d: number; top_drivers: { label: string; value: number }[] } } }
 interface ModelCard { metrics: { auroc: number; sensitivity: number; brier: number }; baseline_metrics: { sensitivity: number } }
@@ -16,11 +18,10 @@ const PEOPLE = [
   { id: "ath_01", label: "Maya: a real recovery problem hiding in noisy data" },
   { id: "ath_07", label: "Hannah: clean data, one clear issue" },
 ];
-const STEPS = ["Collect", "Trust-score", "Risk model", "Agent debate", "Safety check", "Clinician signs", "Back to the athlete"];
 const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-export function EngineLive() {
+export function EngineLive({ model: modelInfo, geminiLive, geminiModel }: { model: ModelInfo; geminiLive: boolean; geminiModel: string }) {
   const [who, setWho] = useState(PEOPLE[0].id);
   const [step, setStep] = useState(-1);
   const [running, setRunning] = useState(false);
@@ -64,6 +65,19 @@ export function EngineLive() {
   const a = trust?.athlete;
   const recentDates = trust ? [...new Set(trust.trust.readings.map((r) => r.date))].slice(-7) : [];
   const sample = trust?.trust.readings.filter((r) => r.metric === "hrv_ms").at(-1);
+  // Real results shown under each stage of the diagram once the run reaches it.
+  const live: PipelineLive = {};
+  if (trust && step >= 0) live.collect = `${trust.trust.readings.length} readings`;
+  if (trust && step >= 1) { live.trust = `${trust.trust.summary.total - trust.trust.summary.unverified} of ${trust.trust.summary.total} kept`; live.excluded = `${trust.trust.summary.unverified} left out this week`; }
+  if (trust && step >= 2) live.risk = trust.risk.raw.risk_7d === trust.risk.trusted.risk_7d ? pct(trust.risk.trusted.risk_7d) : `${pct(trust.risk.raw.risk_7d)} → ${pct(trust.risk.trusted.risk_7d)}`;
+  if (brief && step >= 3) {
+    const n = (st: string) => brief.findings.filter((f) => f.status === st).length;
+    live.debate = `${n("discuss")} to discuss · ${n("watch")} to watch · ${n("noise")} ruled out as noise`;
+  }
+  if (brief && step >= 4) live.safety = `${brief.safety.filter((x) => x.passed).length} of ${brief.safety.length} passed`;
+  if (brief && step >= 5) live.clinician = fhir ? "Signed" : "Waiting";
+  if (fhir && step >= 6) live.athlete = "Notified";
+
   const box = (i: number, title: string, sub: string, body: React.ReactNode) => (
     <section ref={(el) => { refs.current[i] = el; }} className={`card engine-step ${step >= i ? "on" : ""} ${step === i ? "now" : ""}`}>
       <div className="row" style={{ gap: 12, alignItems: "flex-start" }}>
@@ -82,7 +96,7 @@ export function EngineLive() {
       <header>
         <div className="eyebrow">Behind the scenes</div>
         <h1 style={{ margin: "4px 0" }}>What happens between the watch and the doctor</h1>
-        <p className="muted" style={{ margin: 0, maxWidth: 780 }}>97% of physicians say they would review wearable data, but no more than 6% have it in their workflow (AMA, 2026). Ragnor is the layer in between: it decides which readings to trust, lets AI agents argue about what matters, and hands the clinician a short brief they can sign into the chart. (For how a daily check-in becomes a coach decision, see <Link href="/how-it-works">How it works</Link>.)</p>
+        <p className="muted" style={{ margin: 0, maxWidth: 780 }}>97% of physicians say they would review wearable data, but no more than 6% have it in their workflow (AMA, 2026). Ragnor is the layer in between: it decides which readings to trust, lets AI agents argue about what matters, and hands the clinician a short brief they can sign into the chart. The picture below is the whole system; <a href="#hw-model">how each decision is made</a> is further down.</p>
       </header>
 
       <section className="card">
@@ -92,9 +106,7 @@ export function EngineLive() {
           </select>
           <button className="btn btn-filled" onClick={run} disabled={running}>{running ? "Running…" : step >= 0 ? "Run again" : "Run the pipeline"}</button>
         </div>
-        <div className="pipeline-bar mt-16">
-          {STEPS.map((s, i) => <span key={s} className={`pipe ${step >= i ? "on" : ""} ${step === i ? "now" : ""}`}>{i + 1}. {s}</span>)}
-        </div>
+        <PipelineMap step={step} live={live} onPick={(i) => refs.current[i]?.scrollIntoView({ behavior: "smooth", block: "start" })} />
         {err && <p className="small" style={{ color: "var(--high)" }}>{err}</p>}
       </section>
 
@@ -163,6 +175,8 @@ export function EngineLive() {
           <p className="tiny muted">Dr. Patel reviewed your shared data on {new Date().toLocaleDateString()}.</p>
         </div>
       ))}
+
+      <EngineDeeper id={who} model={modelInfo} geminiLive={geminiLive} geminiModel={geminiModel} />
 
       {evals && <section className="card flat">
         <h3 style={{ marginTop: 0 }}>How we test it</h3>

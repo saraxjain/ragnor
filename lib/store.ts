@@ -26,7 +26,7 @@ export interface Athlete {
   grade: number;
   device: string;
   phone?: string;
-  wearable: { baseline: Baseline; baseline_days: WearableDay[]; recent: WearableDay[]; source: "seed" | "google_health" };
+  wearable: { baseline: Baseline; baseline_days: WearableDay[]; recent: WearableDay[]; source: "seed" | "google_health" | "sample"; sample_scenario?: string };
   checkins: CheckIn[];
   landing: { result: LandingResult; score: LandingScore; video_date: string; fixplan?: FixPlan } | null;
   risk_today: RiskResult;
@@ -244,6 +244,25 @@ export function setWearable(id: string, days: WearableDay[], baselineDays: Weara
   a.wearable = { baseline: computeBaseline(baselineDays), baseline_days: baselineDays, recent: days, source: "google_health" };
   audit("google_health", "wearable_synced", `${days.length + baselineDays.length} days synced`, id);
   recomputeRisk(id);
+}
+
+/** Load generated sample watch data (clearly labelled as sample everywhere it is shown). */
+export function setSampleWearable(id: string, scenario: string, label: string, days: WearableDay[], baselineDays: WearableDay[], device?: string) {
+  const a = getAthlete(id);
+  if (!a) throw new Error("athlete not found");
+  a.wearable = { baseline: computeBaseline(baselineDays), baseline_days: baselineDays, recent: days, source: "sample", sample_scenario: scenario };
+  if (a.device === "none" && device) a.device = device;
+  audit("athlete", "sample_watch_loaded", `Sample watch data: ${label} (${days.length + baselineDays.length} nights)`, id);
+  return recomputeRisk(id);
+}
+
+/** Remove watch data, back to check-ins only. */
+export function clearWearable(id: string) {
+  const a = getAthlete(id);
+  if (!a) throw new Error("athlete not found");
+  a.wearable = { baseline: { hrv_ms: null, rhr_bpm: null, sleep_h: null, days_used: 0 }, baseline_days: [], recent: [], source: "seed" };
+  audit("athlete", "watch_data_removed", "Watch data removed", id);
+  return recomputeRisk(id);
 }
 
 export function draftAlert(args: { athlete_id: string; urgency: Urgency; summary: string; recipients_suggested: string[]; reasons?: string[] }): Alert {
