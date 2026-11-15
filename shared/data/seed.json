@@ -1325,15 +1325,15 @@
           },
           {
             "date": "2026-11-13",
-            "hrv_ms": 65.1,
-            "rhr_bpm": 54.1,
-            "sleep_h": 7.9
+            "hrv_ms": 41.8,
+            "rhr_bpm": 61.9,
+            "sleep_h": 5.3
           },
           {
             "date": "2026-11-14",
-            "hrv_ms": 58.5,
-            "rhr_bpm": 55,
-            "sleep_h": 8
+            "hrv_ms": 39.2,
+            "rhr_bpm": 61.9,
+            "sleep_h": 4.9
           }
         ]
       },

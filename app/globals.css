@@ -426,3 +426,29 @@ a, .btn-text { color: var(--primary); }
 .plan.selected { background: color-mix(in srgb, var(--primary) 5%, var(--surface)); }
 .footer { background: var(--surface); }
 input[type="range"].green { accent-color: var(--primary); }
+
+/* ---- clinician / trust ---- */
+.trust-table td, .trust-table th { padding: 6px 8px; }
+.trust-dot { width: 12px; height: 12px; border-radius: 50%; margin: 0 auto 2px; }
+.trust-dot.inline { display: inline-block; margin: 0 4px -1px 0; width: 10px; height: 10px; }
+.strike { text-decoration: line-through; opacity: .7; }
+.finding { border-left: 5px solid var(--outline); background: var(--surface-1); border-radius: 12px; padding: 12px 14px; }
+.skeptic { background: var(--surface-2); border-radius: 10px; padding: 8px 10px; margin-top: 6px; }
+.chat-msg { border-radius: 12px; padding: 8px 12px; background: var(--surface-1); border-left: 4px solid var(--outline); }
+.agent-signal { border-left-color: #0ea5e9; } .agent-baseline { border-left-color: #6366f1; } .agent-clinical { border-left-color: #10b981; } .agent-skeptic { border-left-color: #f43f5e; } .agent-lead { border-left-color: #334155; }
+.kpi { font-size: 32px; font-weight: 800; line-height: 1.1; }
+.code { background: #0f172a; color: #e2e8f0; border-radius: 12px; padding: 14px; font-family: var(--mono); font-size: 12px; white-space: pre; }
+.tabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--outline-soft); }
+/* ---- behind the scenes ---- */
+.pipeline-bar { display: flex; flex-wrap: wrap; gap: 6px; }
+.pipe { padding: 6px 12px; border-radius: 999px; background: var(--surface-2); color: var(--ink-3); font-size: 13px; font-weight: 600; transition: all .3s; }
+.pipe.on { background: var(--primary-container); color: var(--on-primary-container); }
+.pipe.now { background: var(--primary); color: #fff; }
+.engine-step { opacity: .45; transition: opacity .4s, box-shadow .4s; scroll-margin-top: 90px; }
+.engine-step.on { opacity: 1; }
+.engine-step.now { box-shadow: 0 0 0 2px var(--primary), var(--shadow-2); }
+.step-badge { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); font-weight: 800; }
+.engine-step.on .step-badge { background: var(--primary); color: #fff; }
+.fade-in { animation: fadeIn .4s ease both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.phone-preview { max-width: 380px; border: 1px solid var(--outline-soft); border-radius: 24px; padding: 16px 18px; background: var(--surface-1); }

@@ -1,6 +1,7 @@
 // In-memory store seeded from shared/data/seed.json, mirrored to Firestore when configured.
 // Lives on globalThis so it survives hot reloads in dev.
-import seed from "../shared/data/seed.json";
+import { trustedOnly } from "./trust.ts";
+import seed from "../shared/data/seed.json" with { type: "json" };
 import {
   computeBaseline,
   dailyRisk,
@@ -144,7 +145,8 @@ export function audit(actor: string, action: string, detail: string, athlete_id?
 export function recomputeRisk(id: string): RiskResult | undefined {
   const a = getAthlete(id);
   if (!a) return;
-  const recent = a.wearable.recent;
+  // The rules engine only sees readings that passed the trust layer (lib/trust.ts).
+  const recent = trustedOnly(a).wearable.recent;
   a.risk_today = dailyRisk({
     athlete_id: a.id,
     date: TODAY,

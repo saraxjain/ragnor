@@ -2,6 +2,7 @@
 import Link from "next/link";
 import type { Athlete } from "@/lib/store.ts";
 import type { WearableComparison } from "@/shared/lib/index.ts";
+import { DataTrustCard } from "@/components/DataTrustCard.tsx";
 import { useApi, ErrorBanner, LoadingCard, BandChip, InfoBanner, prettyArea } from "@/components/ui.tsx";
 import { Ring, Sparkline, TrendChart } from "@/components/charts.tsx";
 import { BodyMap } from "@/components/BodyMap.tsx";
@@ -11,6 +12,7 @@ import { IconWave, IconHeart, IconMoon, IconMic, IconVideo, IconWatch, IconChevr
 interface Resp {
   athlete: Athlete;
   wearable_compare: WearableComparison | null;
+  trusted_recent?: { date: string; hrv_ms: number | null; rhr_bpm: number | null; sleep_h: number | null }[];
   integrations: { google_health: boolean };
 }
 
@@ -85,15 +87,17 @@ export function AthleteToday({ id, health }: { id: string; health?: string }) {
               </div>
               {a.wearable.recent.length ? (
                 <div className="metrics-3">
-                  <Metric icon={<IconWave size={18} />} color="var(--hrv)" label="HRV" unit="ms" values={a.wearable.recent.map((d) => d.hrv_ms)} baseline={a.wearable.baseline.hrv_ms} pct={data?.wearable_compare?.hrv_pct_vs_baseline ?? null} higherIsBetter />
-                  <Metric icon={<IconHeart size={18} />} color="var(--rhr)" label="Resting HR" unit="bpm" values={a.wearable.recent.map((d) => d.rhr_bpm)} baseline={a.wearable.baseline.rhr_bpm} delta={data?.wearable_compare?.rhr_delta_bpm ?? null} />
-                  <Metric icon={<IconMoon size={18} />} color="var(--sleep)" label="Sleep" unit="h" values={a.wearable.recent.map((d) => d.sleep_h)} baseline={a.wearable.baseline.sleep_h} higherIsBetter />
+                  <Metric icon={<IconWave size={18} />} color="var(--hrv)" label="HRV" unit="ms" values={(data?.trusted_recent ?? a.wearable.recent).map((d) => d.hrv_ms)} baseline={a.wearable.baseline.hrv_ms} pct={data?.wearable_compare?.hrv_pct_vs_baseline ?? null} higherIsBetter />
+                  <Metric icon={<IconHeart size={18} />} color="var(--rhr)" label="Resting HR" unit="bpm" values={(data?.trusted_recent ?? a.wearable.recent).map((d) => d.rhr_bpm)} baseline={a.wearable.baseline.rhr_bpm} delta={data?.wearable_compare?.rhr_delta_bpm ?? null} />
+                  <Metric icon={<IconMoon size={18} />} color="var(--sleep)" label="Sleep" unit="h" values={(data?.trusted_recent ?? a.wearable.recent).map((d) => d.sleep_h)} baseline={a.wearable.baseline.sleep_h} higherIsBetter />
                 </div>
               ) : (
                 <div className="card flat small muted">No watch connected yet. Connect one below to build your personal baseline.</div>
               )}
               <Link href={`/coach/athlete/${id}`} className="small" style={{ display: "inline-block", marginTop: 8 }}>See 7-day trends →</Link>
             </section>
+
+            {a.wearable.recent.length > 0 && <DataTrustCard id={id} />}
 
             <section className="stack" style={{ "--gap": "10px" } as React.CSSProperties} aria-label="Actions">
               <Link href={`/athlete/checkin?id=${id}`} className="action-tile">

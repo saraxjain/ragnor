@@ -7,6 +7,8 @@ const LINKS = [
   { href: "/", label: "Home", match: (p: string) => p === "/" },
   { href: "/athlete", label: "Athlete app", match: (p: string) => p.startsWith("/athlete") },
   { href: "/coach", label: "Coach view", match: (p: string) => p.startsWith("/coach") },
+  { href: "/clinician", label: "Clinician", match: (p: string) => p.startsWith("/clinician") },
+  { href: "/engine", label: "Behind the scenes", match: (p: string) => p.startsWith("/engine") },
   { href: "/report", label: "Season report", match: (p: string) => p.startsWith("/report") },
 ];
 

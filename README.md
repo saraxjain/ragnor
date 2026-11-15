@@ -1,8 +1,15 @@
 # Ragnor
 
-**Wearables collect the data. Ragnor turns it into a decision.**
+**The clinical intelligence layer for consumer wearables.**
 
-Ragnor turns the wearables athletes already own into an athletic trainer for the many high schools that don't have one. Gemini combines smartwatch heart-rate-variability and sleep data, daily check-ins and a 10-second phone video of a jump landing to flag ACL and overload risk, with a plain-language reason and a fix. Athletes can ask their coach for a check-in, and a trainer or parent is only alerted after a staff member approves. It flags risk early, but never diagnoses or clears anyone.
+97% of physicians say they would review wearable data, but no more than 6% have it in their workflow (AMA, 2026). The blockers are trust (is this reading real, and has it been validated for someone like this patient?), noise (too many alerts) and the EHR. Ragnor sits between the watch and the clinician:
+
+1. **Trust layer.** Every reading from the Google Health API gets a trust score (wear time, motion artifact, cross-device agreement, validation coverage for this person). Unverified readings are excluded before any model or rule sees them.
+2. **Risk model + rules.** A validated 7-day injury-risk model and a versioned rules engine run on trusted data only.
+3. **Agent debate (Google ADK + Gemini).** Signal-quality, baseline and clinical-relevance agents analyze in parallel; a skeptic agent argues every finding is noise; a lead agent writes a short pre-visit brief: discuss, watch, or ruled out as noise.
+4. **Safety + sign-off.** Code-level guardrails (no diagnosis or clearance language, nothing built on unverified data), then a clinician signs and the brief is filed as a FHIR R4 DiagnosticReport with a trust score on every Observation.
+
+Athletes are the first users (school athletes with watches, their coaches and team physicians). The app has a tab for each audience: **Athlete app**, **Coach view**, **Clinician**, and **Behind the scenes**, which runs the whole pipeline live.
 
 Built at GDG UC Santa Cruz DevFest 2026 (theme: "Build, Secure, Scale"), submitted to the **Best Startup Potential** track.
 
