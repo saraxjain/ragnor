@@ -43,6 +43,21 @@ export interface CheckIn {
   meals?: number | null; // meals eaten today (0-3), from the tap check-in
   effort?: number | null; // session effort 1-10
   activities?: string[]; // e.g. sprints, lower_body_lift
+  photo?: CheckinPhoto | null; // what a photo the athlete attached shows (the image itself is not kept)
+  followups?: FollowupAnswer[]; // answers to the follow-up questions asked after the check-in
+}
+
+export interface CheckinPhoto {
+  read: boolean; // false when no AI model was available to look at it
+  area: string | null; // a soreness area id, or null
+  signs: string[]; // swelling, bruising, redness, cut_or_scrape, tape_or_brace
+  note: string; // one neutral sentence: what is visible, never a diagnosis
+}
+
+export interface FollowupAnswer {
+  id: string;
+  question: string;
+  answer: string;
 }
 
 export interface LandingItem {
