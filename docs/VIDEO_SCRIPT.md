@@ -1,20 +1,20 @@
-# Demo video script (2:00 hard maximum)
+# Ragnor: 2-minute video script
 
-About 280 spoken words. Record screen + phone; voiceover can be one person. Target 1:50 to leave margin.
+Record at 1280×800, with the browser zoomed to 90%. Click **Reset demo** first (or restart the server). Total target: 1:55.
 
-| Time | Shot | Voiceover |
-| --- | --- | --- |
-| 0:00–0:12 | Founder on camera, or a photo of a game | "I've had five concussions. One wasn't caught until two days later, because nobody was checking." |
-| 0:12–0:25 | Text on screen: "37% of public high schools have a full-time athletic trainer" / "~4 in 10 concussions go unreported" | "Most public high schools don't have a full-time athletic trainer. Athletes already wear smartwatches, but nobody follows up on what they show." |
-| 0:25–0:32 | Ragnor logo + tagline | "Ragnor is an AI agent that turns the wearables athletes already own into an athletic trainer." |
-| 0:32–1:05 | Coach view → simulated mouthguard impact → "Day 2" → phone rings → split screen: call audio + HRV chart → alert in approval queue | "When a hit is logged, HitWatch calls the athlete every day for a week. Here it's day two. Maya mentions a stronger headache and light sensitivity, and her Pixel Watch shows her overnight HRV is about twenty percent below her normal. Gemini logs her answers, compares them to her own baseline, and drafts an alert. A coach approves it before anyone is contacted." |
-| 1:05–1:30 | Athlete does a drop jump → Gemini result with timestamps → FixPlan warm-up → before/after clip | "LandingCheck watches a ten-second phone video and flags the landing errors linked to ACL tears, like this left knee caving in at 1.4 seconds. FixPlan builds a warm-up for exactly that, and a re-film shows the change." |
-| 1:30–1:40 | Season report screen | "Athletic directors get a season report: athletes screened, hits followed up, alerts handled." |
-| 1:40–1:50 | Architecture slide (Gemini video + function calling, Google Health API, Firebase, ElevenLabs, rules engine, guardrails) | "It's built on Gemini, the Google Health API and Firebase. Ragnor never diagnoses and never clears anyone. A human makes every call." |
-| 1:50–1:58 | Pricing / market card + tagline | "Twenty dollars per athlete per season, free for athletes. Wearables collect the data. Ragnor turns it into a decision." |
+| Time | On screen | Voiceover |
+|---|---|---|
+| 0:00–0:12 | Home page hero, then scroll to the 97% / ≤6% stats | "Ninety-seven percent of doctors say they'd look at a patient's smartwatch data. Six percent actually can. The data doesn't reach the health record, and nobody knows which readings to trust." |
+| 0:12–0:20 | Chelsi on camera, or a photo with a caption | "I've had five concussions. I wore a watch through all of them. None of that ever reached a doctor in a form they could use." |
+| 0:20–0:30 | Home → "Watch it work" → Behind the scenes, select **Ava**, click Run | "Ragnor is the layer between the watch and the doctor. Here's Ava. Her numbers look alarming: HRV down eleven percent, resting heart rate up." |
+| 0:30–0:45 | Step 2: the trust strip, with red dots on Fri and Sat | "Before any AI sees it, Ragnor trust-scores every reading. On those two nights her watch was worn about three and a half hours, with heavy motion. Those readings are set aside, and we show why." |
+| 0:45–1:00 | Step 3: risk 4.0% → 1.7%; step 4: debate messages appear | "Her risk drops from four percent to under two. Then our agents, built with Google's Agent Development Kit on Gemini, argue. A skeptic agent challenges every finding, and both of Ava's get ruled out as noise. That's a false alarm a doctor never has to see." |
+| 1:00–1:20 | Switch to **Maya** → Run (or Clinician → Maya → Generate brief) | "Maya is different. Her HRV drop holds up on trusted nights, and her check-ins confirm five hours of lost sleep. It survives the skeptic: two things to discuss, one to watch." |
+| 1:20–1:35 | Clinician page → Sign & send to EHR → FHIR bundle opens | "The doctor gets one page, signs it, and it files straight into their health record as standard FHIR, with a trust score on every reading. Nothing is sent without a human signing, and Ragnor never diagnoses." |
+| 1:35–1:45 | Athlete app → "Your watch data this week" card | "Athletes get something back too: plain feedback, like wear your watch snug, and control over what they share." |
+| 1:45–1:55 | Home pricing section, then logo | "Free for athletes. Clinics pay per patient, schools per athlete, and wearable and health-record companies license the trust API. Ragnor: wearable data doctors can actually trust." |
 
-Checklist before upload:
-- [ ] Under 2:00 (Devpost rule).
-- [ ] Real app footage, not just slides; the Gemini result appears on screen.
-- [ ] No real minors' names or faces; Maya is fictional, or a teammate who's over 18.
-- [ ] Captions on (accessibility, and judges may watch muted).
+**Lines to have ready for judges:**
+- "Is it real data?" → "The athletes are fictional and the model is validated on simulated data. The pipeline, trust scoring and FHIR output are real, and pilots supply real outcomes."
+- "What if Gemini is down?" → "Every agent has a deterministic offline fallback, and the safety checks are code, not AI."
+- "How is this different from Whoop or Oura?" → "They show the person more data. We decide which data a clinician can trust, and deliver it into the clinician's own system."

@@ -64,6 +64,7 @@ export function SignupForm() {
             <option value="athletic_director">Athletic director</option>
             <option value="coach">Coach</option>
             <option value="athletic_trainer">Athletic trainer</option>
+            <option value="clinician">Clinician / sports medicine</option>
             <option value="parent">Parent / booster club</option>
             <option value="other">Other</option>
           </select>

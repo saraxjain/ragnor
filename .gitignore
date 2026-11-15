@@ -12,3 +12,4 @@ __pycache__/
 .venv/
 *.tsbuildinfo
 .screenshots/
+next-env.d.ts
