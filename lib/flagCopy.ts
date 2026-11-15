@@ -2,7 +2,7 @@
 // Shared by the athlete flag-detail screen and the coach briefing fallback.
 import type { Flag } from "../shared/lib/index.ts";
 
-const AREA: Record<string, string> = {
+export const AREA: Record<string, string> = {
   knee: "Knee", head: "Head", hamstring_l: "Left hamstring", hamstring_r: "Right hamstring", knee_l: "Left knee", knee_r: "Right knee",
   lower_back: "Lower back", calf_l: "Left calf", calf_r: "Right calf", quad_l: "Left quad", quad_r: "Right quad", ankle_l: "Left ankle", ankle_r: "Right ankle",
   hip_l: "Left hip", hip_r: "Right hip", shoulder_l: "Left shoulder", shoulder_r: "Right shoulder", neck: "Neck",

@@ -2,12 +2,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useApi, postJson, ErrorBanner, LoadingCard, Avatar, timeAgo } from "@/components/ui.tsx";
-import { TrustStrip } from "@/components/TrustStrip.tsx";
+import { TrustStrip, type SelfReport } from "@/components/TrustStrip.tsx";
 import type { Brief, BriefFinding } from "@/lib/brief.ts";
 import { AGENT_NAME } from "@/lib/briefLabels.ts";
 import type { TrustReport } from "@/lib/trust.ts";
 
-interface TrustResp { athlete: { id: string; name: string; sport: string; grade: number; device: string }; trust: TrustReport; risk: { raw: { risk_7d: number }; trusted: { risk_7d: number } } }
+interface TrustResp { athlete: { id: string; name: string; sport: string; grade: number; device: string }; trust: TrustReport; risk: { raw: { risk_7d: number }; trusted: { risk_7d: number } }; reports?: Record<string, SelfReport[]> }
 const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 const STATUS: Record<BriefFinding["status"], { label: string; cls: string }> = { discuss: { label: "Discuss at visit", cls: "high" }, watch: { label: "Watch", cls: "mod" }, noise: { label: "Ruled out: noise", cls: "low" } };
 
@@ -31,6 +31,7 @@ export function PatientBrief({ id }: { id: string }) {
   if (t.error) return <div className="page"><div className="container"><ErrorBanner message={t.error} /></div></div>;
   if (!t.data) return <div className="page"><div className="container"><LoadingCard lines={8} /></div></div>;
   const { athlete: a, trust } = t.data;
+  const reports = t.data.reports ?? {};
   const recentDates = [...new Set(trust.readings.map((r) => r.date))].slice(-7);
   const base = { hrv_ms: trust.trusted_vs_baseline.hrv_ms.baseline, rhr_bpm: trust.trusted_vs_baseline.rhr_bpm.baseline, sleep_h: trust.trusted_vs_baseline.sleep_h.baseline };
 
@@ -53,7 +54,8 @@ export function PatientBrief({ id }: { id: string }) {
         <div className="card-header">
           <div><h3>Wearable data, trust-scored</h3><p className="small muted" style={{ margin: 0 }}>{trust.summary.pct_usable}% of this week&apos;s readings are usable. {trust.summary.unverified ? `${trust.summary.unverified} were excluded.` : "None were excluded."}</p></div>
         </div>
-        <TrustStrip readings={trust.readings} dates={recentDates} baseline={base} />
+        <TrustStrip readings={trust.readings} dates={recentDates} baseline={base} reports={reports} />
+        {!recentDates.some((d) => reports[d]?.length) && <p className="tiny muted" style={{ margin: "6px 0 0" }}>{a.name.split(" ")[0]} reported no injuries or symptoms in their check-ins this week.</p>}
         <div className="list mt-16">
           {trust.coverage.map((c) => (
             <div key={c.metric} className="list-item small"><span className={`band band-${c.level === "validated" ? "low" : c.level === "limited" ? "mod" : "high"}`} style={{ minWidth: 92 }}>{c.level}</span><span><strong>{c.label}:</strong> {c.note}</span></div>

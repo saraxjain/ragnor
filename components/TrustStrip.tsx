@@ -12,7 +12,15 @@ const GLYPH: Record<TrustLabel, string> = { trusted: "✓", caution: "!", unveri
 const LABEL: Record<TrustLabel, string> = { trusted: "Trusted", caution: "Use with caution", unverified: "Excluded" };
 const METRICS: Metric[] = ["hrv_ms", "rhr_bpm", "sleep_h"];
 
-const fmtDate = (d: string, opts: Intl.DateTimeFormatOptions) => new Date(d + "T12:00:00").toLocaleDateString("en-US", opts);
+/** One thing the athlete reported in a daily check-in (sore area, hit, symptom or red flag). */
+export interface SelfReport { text: string; detail?: string; severity: "mild" | "moderate" | "severe" }
+const SEVERITY_COLOR: Record<SelfReport["severity"], { fg: string; bg: string }> = {
+  mild: { fg: "var(--low)", bg: "var(--low-container)" },
+  moderate: { fg: "var(--mod)", bg: "var(--mod-container)" },
+  severe: { fg: "var(--high)", bg: "var(--high-container)" },
+};
+
+const fmtDate =(d: string, opts: Intl.DateTimeFormatOptions) => new Date(d + "T12:00:00").toLocaleDateString("en-US", opts);
 
 function delta(m: Metric, value: number, base: number | null) {
   if (base == null || base === 0) return null;
@@ -32,7 +40,7 @@ function TrustRing({ r, size = 30 }: { r: Pick<Reading, "trust" | "label">; size
 }
 
 /** One row per metric, one column per night. Each cell: value with unit, change vs baseline, trust ring + score. Hover for the full breakdown. */
-export function TrustStrip({ readings, dates, baseline }: { readings: Reading[]; dates: string[]; baseline: Record<Metric, number | null> }) {
+export function TrustStrip({ readings, dates, baseline, reports }: { readings: Reading[]; dates: string[]; baseline: Record<Metric, number | null>; reports?: Record<string, SelfReport[]> }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [tip, setTip] = useState<{ r: Reading; x: number; y: number; above: boolean } | null>(null);
   const show = (r: Reading) => (e: React.SyntheticEvent<HTMLElement>) => {
@@ -107,6 +115,31 @@ export function TrustStrip({ readings, dates, baseline }: { readings: Reading[];
                 </td>
               </tr>
             ))}
+            {reports && (
+              <tr className="ts-reports">
+                <th scope="row" className="ts-metric">
+                  <div className="small strong">Self-reported</div>
+                  <div className="tiny muted">injuries &amp; symptoms</div>
+                </th>
+                {dates.map((d) => {
+                  const items = reports[d] ?? [];
+                  if (!items.length) return <td key={d} className="tiny muted ts-cell ts-empty" aria-label={`${fmtDate(d, { weekday: "long" })}: nothing reported`}>–</td>;
+                  return (
+                    <td key={d} className="ts-cell" style={{ textAlign: "left" }}>
+                      <div className="stack" style={{ "--gap": "4px" } as React.CSSProperties}>
+                        {items.map((it, i) => (
+                          <div key={i} style={{ background: SEVERITY_COLOR[it.severity].bg, borderRadius: 6, padding: "3px 6px", lineHeight: 1.25 }}>
+                            <div className="tiny strong" style={{ color: SEVERITY_COLOR[it.severity].fg }}>{it.text}</div>
+                            {it.detail && <div className="tiny" style={{ color: "var(--ink-2)", fontSize: 11 }}>{it.detail}</div>}
+                          </div>
+                        ))}
+                      </div>
+                    </td>
+                  );
+                })}
+                <td className="tiny muted" style={{ textAlign: "center", verticalAlign: "middle" }}>from daily check-ins</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
