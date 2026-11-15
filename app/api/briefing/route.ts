@@ -52,15 +52,24 @@ function fallback(): Briefing {
   };
 }
 
+// Cache the Gemini briefing until the flags change, so reloading the coach page doesn't spend API quota.
+const g = globalThis as unknown as { __ragnorBriefing?: { key: string; at: number; body: { mode: string; briefing: Briefing } }; __ragnorBriefingFailUntil?: number };
+
 export async function GET() {
   const flagged = listAthletes().filter((a) => a.risk_today.band !== "low");
   if (!live.gemini() || flagged.length === 0) return ok({ mode: "rules", briefing: fallback() });
+  const input = flagged.map((a) => ({ athlete_id: a.id, name: a.name, band: a.risk_today.band, reasons: a.risk_today.flags.map((f) => f.reason), rule_ids: a.risk_today.flags.map((f) => f.rule_id) }));
+  const key = JSON.stringify(input);
+  if (g.__ragnorBriefing?.key === key && Date.now() - g.__ragnorBriefing.at < 30 * 60_000) return ok(g.__ragnorBriefing.body);
+  if ((g.__ragnorBriefingFailUntil ?? 0) > Date.now()) return ok({ mode: "rules", briefing: fallback() });
   try {
-    const input = flagged.map((a) => ({ athlete_id: a.id, name: a.name, band: a.risk_today.band, reasons: a.risk_today.flags.map((f) => f.reason), rule_ids: a.risk_today.flags.map((f) => f.rule_id) }));
-    const b = await generateStructured<Briefing>({ parts: [{ text: `${loadPrompt("coach_briefing")}\n\nToday's flags:\n${JSON.stringify(input)}` }], schema });
-    return ok({ mode: "gemini", briefing: sanitizeDeep(b) });
+    const b = await generateStructured<Briefing>({ parts: [{ text: `${loadPrompt("coach_briefing")}\n\nToday's flags:\n${key}` }], schema });
+    const body = { mode: "gemini", briefing: sanitizeDeep(b) };
+    g.__ragnorBriefing = { key, at: Date.now(), body };
+    return ok(body);
   } catch (e) {
-    console.error("[briefing] gemini failed", e);
+    console.warn("[briefing] Gemini unavailable, using the rules briefing:", e instanceof Error ? e.message.slice(0, 120) : e);
+    g.__ragnorBriefingFailUntil = Date.now() + 5 * 60_000; // don't retry on every page load
     return ok({ mode: "rules", briefing: fallback() });
   }
 }
