@@ -26,7 +26,7 @@ Tagline: *Wearables collect the data. Ragnor turns it into a decision.*
 | Know how you're different | Preventative and daily, explains every flag, follows up after hits; existing tools are after-the-fact (ImPACT, ATS) or pro-priced (Catapult ~$28K/team) |
 | Plan to reach users | Founder network of athletes, trainers and coaches → free pilots → school / conference deals |
 | Evidence of demand | Published data (below) |
-| Rough business model | $20 per athlete per season (high schools), $40 (universities, park districts), custom for pro |
+| Rough business model | $20 per athlete per season (high schools), $40 (universities & clubs), custom for pro |
 
 ## The problem
 

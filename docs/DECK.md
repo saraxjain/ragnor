@@ -26,7 +26,7 @@ Diagram: Phone video / voice / watch / mouthguard → Gemini (video understandin
 - **Different:** others screen once, coach individuals or alert at the moment of impact. Ragnor follows through for a whole team without a trainer.
 - **Demand:** Hurtblocker ACL app hit 4,000 downloads in 2 months; Google launched a Gemini Fitbit coach; booster clubs already pay ~$150 per sensor mouthguard.
 - **Go-to-market:** free pilots → booster clubs and athletic directors → districts and state associations.
-- **Model:** free for athletes; $20/athlete/season (high schools), $40 (universities, park districts); $165.3M beachhead, $254.2M SAM.
+- **Model:** free for athletes; $20/athlete/season (high schools), $40 (universities & clubs); $165.3M beachhead, $254.2M SAM.
 - **Moat:** an injury-outcome dataset that grows every season.
 
 ## Backup slide: What we won't claim

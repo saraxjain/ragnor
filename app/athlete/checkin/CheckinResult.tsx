@@ -329,12 +329,39 @@ function Compare({ c, athlete, loading }: { c: CheckIn; athlete?: Athlete; loadi
   );
 }
 
+// Pick the nicest-sounding English voice the device has, instead of the browser default.
+// Order: Apple Premium/Enhanced, Microsoft "Natural", Google's online voice, then well-known clear voices; US English first.
+const PREFERRED_VOICES = ["Google US English", "Samantha", "Ava", "Allison", "Susan", "Karen", "Daniel", "Google UK English Female"];
+function pickVoice(voices: SpeechSynthesisVoice[]): SpeechSynthesisVoice | null {
+  const en = voices.filter((v) => v.lang.toLowerCase().startsWith("en"));
+  if (!en.length) return null;
+  const score = (v: SpeechSynthesisVoice) => {
+    const n = v.name.toLowerCase();
+    let s = 0;
+    if (n.includes("premium")) s += 60;
+    else if (n.includes("enhanced") || n.includes("natural")) s += 50;
+    const i = PREFERRED_VOICES.findIndex((p) => v.name.startsWith(p));
+    if (i >= 0) s += 40 - i;
+    if (v.lang.toLowerCase().replace("_", "-") === "en-us") s += 5;
+    if (v.localService === false && n.startsWith("google")) s += 3; // Chrome's online voice is clearer than its offline ones
+    return s;
+  };
+  return [...en].sort((a, b) => score(b) - score(a))[0];
+}
+
 function ReadAloud({ current }: { current: CheckinResultData }) {
   const [supported, setSupported] = useState(false);
   const [speaking, setSpeaking] = useState(false);
+  const voice = useRef<SpeechSynthesisVoice | null>(null);
   useEffect(() => {
-    setSupported(typeof window !== "undefined" && "speechSynthesis" in window);
-    return () => { if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel(); };
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    setSupported(true);
+    const s = window.speechSynthesis;
+    // Voices load asynchronously in most browsers: pick now, and again when the list arrives.
+    const load = () => { voice.current = pickVoice(s.getVoices()); };
+    load();
+    s.addEventListener("voiceschanged", load);
+    return () => { s.removeEventListener("voiceschanged", load); s.cancel(); };
   }, []);
   if (!supported) return null;
   function toggle() {
@@ -342,6 +369,8 @@ function ReadAloud({ current }: { current: CheckinResultData }) {
     if (speaking) { s.cancel(); setSpeaking(false); return; }
     const first = current.risk.flags[0];
     const u = new SpeechSynthesisUtterance(speechText({ summary: current.summary, band: current.risk.band, firstAction: first ? flagCopy(first).athleteAction : null, redFlag: current.red_flag_message }));
+    if (voice.current) { u.voice = voice.current; u.lang = voice.current.lang; }
+    u.rate = 0.95; // a touch slower than default, easier to follow
     u.onend = () => setSpeaking(false);
     u.onerror = () => setSpeaking(false);
     setSpeaking(true);
