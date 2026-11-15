@@ -12,6 +12,12 @@ export const DEMO_ATHLETES = [
   { id: "ath_05", name: "Sofia Ramirez" },
   { id: "ath_07", name: "Hannah Brooks" },
   { id: "ath_04", name: "Ava Johnson" },
+  { id: "ath_06", name: "Chloe Kim" },
+  { id: "ath_08", name: "Lena Okafor" },
+  { id: "ath_09", name: "Riley Chen" },
+  { id: "ath_10", name: "Grace Patel" },
+  { id: "ath_11", name: "Zoe Martinez" },
+  { id: "ath_12", name: "Emma Wilson" },
 ];
 
 export function AthleteNav({ id }: { id: string }) {
