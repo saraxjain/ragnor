@@ -5,9 +5,9 @@ import { useState } from "react";
 export const PLAN_EVENT = "ragnor:plan";
 
 const PLANS = [
-  { id: "high_school", name: "High schools", price: "$20", sub: "per athlete, per season", tag: "First pilots", items: ["Free for athletes", "Coach and trainer view, weekly report", "LandingCheck + FixPlan", "Fitbit / Pixel Watch baselines"] },
-  { id: "university", name: "Universities & park districts", price: "$40", sub: "per athlete, per season", tag: null, items: ["Everything in High schools", "Multi-team admin view", "Compliance reporting"] },
-  { id: "pro", name: "Pro teams", price: "Custom", sub: "custom contract", tag: null, items: ["Integrations with existing staff tools", "Custom risk rules with your medical staff", "Priority support"] },
+  { id: "high_school", name: "High schools", price: "$20", sub: "per athlete", tag: "First pilots", items: ["Free for athletes", "Coach and trainer view, weekly report", "LandingCheck + FixPlan", "Fitbit / Pixel Watch baselines"] },
+  { id: "university", name: "Universities & Clubs", price: "$40", sub: "per athlete", tag: null, items: ["Everything in High schools", "Multi-team admin view", "Compliance reporting"] },
+  { id: "pro", name: "Pro teams", price: "Custom", sub: "contact us for a quote", tag: null, items: ["Integrations with existing staff tools", "Custom risk rules with your medical staff", "Priority support"] },
 ] as const;
 
 export function Pricing() {

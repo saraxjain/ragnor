@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { SignupForm } from "@/components/SignupForm.tsx";
+import { Pricing } from "@/components/Pricing.tsx";
 import { LogoMark } from "@/components/Logo.tsx";
-import { IconWave } from "@/components/icons.tsx";
+import { IconWave, IconShield, IconSpark, IconReport, IconUsers, IconAlert, IconBolt, IconWatch, IconSchool } from "@/components/icons.tsx";
 
 const STEPS = [
   { title: "Trust-score every reading", body: "Data arrives from Fitbit and Pixel Watch through the Google Health API. Before anything else sees it, each night gets a trust score: was the watch actually worn, was there motion artifact, do two sources agree, and has this metric been validated for someone like this person? Unverified readings are set aside, not silently used." },
@@ -11,177 +12,215 @@ const STEPS = [
   { title: "Useful for athletes and coaches too", body: "Athletes see plain-language feedback (\"your watch was loose Saturday, wear it snug\") and choose what to share. Coaches get one list of who to look at today. Nothing is sent without a person approving it." },
 ];
 
+const SUGGESTIONS = [
+  { href: "/athlete", label: "Athlete app" },
+  { href: "/coach", label: "Coach view" },
+  { href: "/clinician", label: "Clinician brief" },
+  { href: "/engine", label: "Behind the scenes" },
+  { href: "/report", label: "Season report" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#pilot", label: "Join the pilot" },
+];
+
+const SAFEGUARDS = [
+  { title: "Trust score on every reading, with the reason", body: "Each night is checked for how long the watch was worn, motion artifact, whether two sources agree, and whether the metric is validated for someone like this athlete. Low-trust nights are set aside and the reason is shown." },
+  { title: "A skeptic agent challenges every finding", body: "While analyst agents look for real changes, a skeptic agent argues each one is noise. A finding reaches a person only if it survives that challenge." },
+  { title: "Safety checks that only make output more cautious", body: "Rules written in code, not prompts, sit after the AI. They can raise a concern or block wording like \"cleared\" or \"safe to play\", but they can never make a result sound safer." },
+  { title: "FHIR output for existing health records", body: "A signed brief is filed as a standard FHIR DiagnosticReport, so it drops into the clinic's record system with a trust score attached to each reading." },
+  { title: "Nothing filed or sent without a human signing", body: "Alerts to coaches and briefs to doctors wait in an approval queue. A person reviews and signs before anything leaves Ragnor." },
+];
+
+const STEP_TAGS = ["Trust", "Baseline", "Agents", "Clinician", "Athletes & coaches"];
+const STEP_ART = ["#dbe7f6", "#e3f1ea", "#ece4f7", "#fbe7dc", "#e1eef7"];
+const STEP_ICON = [IconShield, IconWave, IconSpark, IconReport, IconUsers];
+
 export default function Home() {
   return (
-    <>
-      <section className="hero">
-        <div className="container hero-grid">
-          <div>
-            <h1 className="mt-16">
-              Wearable data doctors
-              <br />
-              <span style={{ color: "var(--primary)" }}>can actually trust.</span>
-            </h1>
-            <p className="lead">
-              Ragnor is the layer between the watch and the clinician. It scores every reading for trust, lets AI agents argue about what matters, and hands the doctor a short brief they can sign into the health record. We start with student athletes.
-            </p>
-            <div className="row wrap mt-24">
-              <Link href="/engine" className="btn btn-filled btn-lg">Watch it work</Link>
-              <Link href="/clinician" className="btn btn-outlined btn-lg">Clinician view</Link>
-              <Link href="/athlete" className="btn btn-outlined btn-lg">Athlete app</Link>
-            </div>
-            <p className="small muted mt-16">Decision support, not a diagnosis. Ragnor never says anyone is cleared or safe to play; those calls stay with licensed clinicians.</p>
-          </div>
+    <div className="fd">
+      <section className="container fd-hero" aria-labelledby="hero-title">
+        <div className="fd-hero-media">
           <HeroMock />
         </div>
-      </section>
-
-      <section className="container" aria-labelledby="problem">
-        <h2 id="problem" className="sr-only">The problem</h2>
-        <div className="center">
-          <span className="eyebrow">The problem in numbers</span>
-        </div>
-        <div className="stats mt-16">
-          <div className="stat">
-            <div className="stat-num">65%</div>
-            <p>of U.S. high schools do not have a full-time athletic trainer.</p>
-          </div>
-          <div className="stat">
-            <div className="stat-num">~4 in 10</div>
-            <p>possible concussions in high school athletes are never reported to a coach or medical professional.</p>
-          </div>
-          <div className="stat">
-            <div className="stat-num">8.27M</div>
-            <p>students played high school sports in 2024–25, a record. Most of them already wear a fitness tracker or smartwatch.</p>
+        <div className="fd-hero-card">
+          <h1 id="hero-title" className="fd-h1">Wearable data doctors can actually trust.</h1>
+          <p className="fd-lead">Ragnor scores every reading for trust, lets AI agents argue about what matters, and hands the doctor a short brief they can sign. We start with student athletes.</p>
+          <h2 className="fd-suggest-title">Where would you like to start?</h2>
+          <div className="fd-pills">
+            {SUGGESTIONS.map((x) => <Link key={x.href} href={x.href} className="fd-pill">{x.label}</Link>)}
           </div>
         </div>
-        <p className="tiny muted mt-16">Sources: NATA / Korey Stringer Institute ATLAS study (the 65% is our calculation from its figures: about 35% of all U.S. schools with athletics had a full-time trainer); Register-Mihalik et al. 2013; NFHS 2024–25 participation survey.</p>
       </section>
 
-      <section className="container mt-40" aria-labelledby="how">
-        <div className="center">
-          <span className="eyebrow">How it works</span>
-          <h2 id="how" className="mt-8">From a noisy watch to a decision a doctor will sign</h2>
+      <section className="container fd-feature" aria-labelledby="diff">
+        <div className="fd-feature-media">
+          <ul className="fd-feature-list">
+            {SAFEGUARDS.map((g) => (
+              <li key={g.title}>
+                <strong>{g.title}</strong>
+                <span>{g.body}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ol className="steps">
-          {STEPS.map((st, i) => (
-            <li key={st.title}>
-              <span className="step-num">{i + 1}</span>
-              <div>
-                <h3>{st.title}</h3>
-                <p className="muted mt-8">{st.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-        <p className="center small mt-16"><Link href="/engine">Run the whole pipeline live →</Link></p>
+        <div className="fd-feature-card">
+          <h2 id="diff" className="fd-h2">Everyone else shows more data. We show less, and it&apos;s right.</h2>
+          <p className="mt-16">Wearable apps give people dashboards. Remote-monitoring tools give doctors alert queues that never reach zero. Ragnor filters first: a false alarm from a loose watch never reaches the doctor, and what does arrive comes with evidence and a trust score.</p>
+          <Link href="/engine" className="fd-pill mt-24">Watch the pipeline run live</Link>
+        </div>
       </section>
 
-      <section className="container mt-40" aria-labelledby="diff">
-        <div className="card tonal">
-          <div className="grid grid-2" style={{ alignItems: "center" }}>
-            <div>
-              <span className="eyebrow">Why Ragnor</span>
-              <h2 id="diff" className="mt-8">Everyone else shows more data. We show less, and it&apos;s right.</h2>
-              <p className="muted mt-16">Wearable apps give people dashboards. Remote-monitoring tools give doctors alert queues that never reach zero. Ragnor filters first: a false alarm from a loose watch never reaches the doctor, and what does arrive comes with evidence and a trust score.</p>
+      <section className="fd-band" aria-labelledby="problem">
+        <div className="container">
+          <h2 id="problem" className="fd-section-title"><IconAlert size={26} /> The problem in numbers</h2>
+          <div className="fd-cards-3">
+            <div className="fd-card">
+              <div className="fd-stat-num">65%</div>
+              <p>of U.S. high schools do not have a full-time athletic trainer.</p>
             </div>
-            <ul className="check-list">
-              <li>Trust score on every reading, with the reason</li>
-              <li>A skeptic agent challenges every finding before a person sees it</li>
-              <li>Code-level safety checks can only make output more cautious</li>
-              <li>FHIR output that drops into existing health records</li>
-              <li>Nothing filed or sent without a human signing</li>
-            </ul>
+            <div className="fd-card">
+              <div className="fd-stat-num">~4 in 10</div>
+              <p>possible concussions in high school athletes are never reported to a coach or medical professional.</p>
+            </div>
+            <div className="fd-card">
+              <div className="fd-stat-num">8.27M</div>
+              <p>students played high school sports in 2024–25, a record. Most of them already wear a fitness tracker or smartwatch.</p>
+            </div>
           </div>
+          <p className="tiny muted mt-16">Sources: NATA / Korey Stringer Institute ATLAS study (the 65% is our calculation from its figures: about 35% of all U.S. schools with athletics had a full-time trainer); Register-Mihalik et al. 2013; NFHS 2024–25 participation survey.</p>
         </div>
       </section>
 
-      <section className="container mt-40" aria-labelledby="google">
-        <div className="section-title">
-          <div>
-            <span className="eyebrow">Built on Google</span>
-            <h2 id="google" className="mt-8">Google Health API, Agent Development Kit and Gemini</h2>
-          </div>
-        </div>
-        <div className="row wrap" style={{ justifyContent: "center", gap: 16 }}>
+      <section className="container fd-section" aria-labelledby="how">
+        <h2 id="how" className="fd-section-title"><IconBolt size={26} /> How it works</h2>
+        <p className="fd-intro">From a noisy watch to a decision a doctor will sign, in five steps.</p>
+        <ol className="fd-articles">
+          {STEPS.map((st, i) => {
+            const Icon = STEP_ICON[i];
+            return (
+              <li key={st.title} className="fd-article">
+                <div className="fd-article-art" style={{ background: STEP_ART[i] }} aria-hidden="true">
+                  <span className="fd-article-num">{i + 1}</span>
+                  <Icon size={40} />
+                </div>
+                <div className="fd-article-body">
+                  <span className="fd-tag">{STEP_TAGS[i]}</span>
+                  <h3>{st.title}</h3>
+                  <p>{st.body}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      <section className="container fd-section" aria-labelledby="google">
+        <h2 id="google" className="fd-section-title"><IconWatch size={26} /> Built on Google</h2>
+        <div className="fd-cards-3">
           <Tech name="Google Health API" body="Fitbit and Pixel Watch HRV, resting heart rate and sleep, from the reconciled multi-device stream." />
           <Tech name="Agent Development Kit + Gemini" body="Parallel analyst agents, a skeptic and a lead agent with structured output; Gemini also reads voice check-ins and landing videos." />
           <Tech name="FHIR R4 + Firebase" body="Signed briefs filed as DiagnosticReports; check-ins, approvals and the audit log in Firestore." />
         </div>
       </section>
 
-      <section className="container mt-40" aria-labelledby="safety">
-        <div className="card flat">
-          <div className="row" style={{ alignItems: "flex-start", gap: 16 }}>
-            <div>
-              <h3 id="safety">Safety and honesty, by design</h3>
-              <p className="muted mt-8">Ragnor is decision support, not a medical device. It never diagnoses or says anyone is cleared, fine or safe to play, and a filter blocks that language from every AI output. Emergency signs in a check-in show &quot;get medical care now&quot; instantly. Where a metric hasn&apos;t been validated for someone like this person, Ragnor says so instead of guessing. The risk model is validated on simulated data today; pilots supply real outcomes.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="container mt-40" aria-labelledby="pricing">
-        <div className="section-title">
+      <section className="fd-split" aria-label="Safety and the athlete app">
+        <div className="fd-split-cell">
           <div>
-            <span className="eyebrow">Pricing (planned)</span>
-            <h2 id="pricing" className="mt-8">Free for athletes. Paid by the people who act on it.</h2>
+            <h2 id="safety" className="fd-h3">Safety and honesty, by design</h2>
+            <p className="small mt-8">Decision support, not a medical device. Ragnor never diagnoses or says anyone is cleared, fine or safe to play, and a filter blocks that language from every AI output. Emergency signs in a check-in show &quot;get medical care now&quot; instantly.</p>
+            <Link href="/clinician" className="fd-pill mt-16">See a signed brief</Link>
           </div>
+          <ArtShield />
         </div>
-        <div className="grid grid-3 plans">
-          <Plan featured name="Sports-medicine clinics" price="$12" sub="per patient sharing data, per month" items={["Trust-scored wearable data", "Pre-visit briefs with agent review", "Sign & file to your EHR (FHIR)", "Audit trail for every brief"]} />
-          <Plan name="Schools & clubs" price="$20" sub="per athlete, per season ($40 universities)" items={["Coach view and daily check-ins", "LandingCheck + FixPlan", "Approval queue and season report", "Connects athletes to their clinic"]} />
-          <Plan name="Wearable & EHR partners" price="API" sub="usage-based licensing" items={["Trust-score API for any device", "FHIR feed with trust extensions", "Validation-coverage reporting"]} />
+        <div className="fd-split-cell">
+          <div>
+            <h2 className="fd-h3">Try it as an athlete</h2>
+            <p className="small mt-8">A 20-second check-in, plain-language feedback on your watch data, and you choose what to share with your doctor.</p>
+            <Link href="/athlete" className="fd-pill mt-16">Open the athlete app</Link>
+          </div>
+          <ArtPhone />
         </div>
-        <p className="tiny muted mt-8">Why clinics pay: a brief that takes two minutes to review replaces piecing data together while the patient waits, and trust scores answer the accuracy and liability concerns physicians cite most. Schools are our way in: their athletes are the patients clinics already see.</p>
       </section>
 
-      <section className="container mt-40" aria-labelledby="pilot">
-        <div className="card" style={{ padding: 28 }}>
-          <div className="grid grid-2" style={{ gap: 32 }}>
+      <section className="fd-band" aria-labelledby="pricing">
+        <div className="container">
+          <h2 id="pricing" className="fd-section-title"><IconReport size={26} /> Pricing (planned)</h2>
+          <p className="fd-intro">Free for athletes. Paid by the people who act on it.</p>
+          <div className="fd-plans"><Pricing /></div>
+        </div>
+      </section>
+
+      <section className="container fd-section" aria-labelledby="pilot">
+        <h2 id="pilot" className="fd-section-title"><IconSchool size={26} /> Spring 2027 pilot</h2>
+        <div className="fd-pilot">
+          <div>
+            <h3 className="fd-h3">Pilot Ragnor with your team or clinic</h3>
+            <p className="mt-16">We&apos;re starting with high school and club programs and the sports-medicine clinics that see their athletes, beginning with girls&apos; soccer, basketball and volleyball, where injury risk is highest.</p>
+          </div>
+          <div className="fd-card"><SignupForm /></div>
+        </div>
+      </section>
+
+      <footer className="fd-footer">
+        <div className="container">
+          <div className="fd-footer-cols">
             <div>
-              <span className="eyebrow">Spring 2027 pilot</span>
-              <h2 id="pilot" className="mt-8">Pilot Ragnor with your team or clinic</h2>
-              <p className="muted mt-16">We&apos;re starting with high school and club programs and the sports-medicine clinics that see their athletes, beginning with girls&apos; soccer, basketball and volleyball, where injury risk is highest.</p>
+              <h4>Product</h4>
+              <Link href="/athlete">Athlete app</Link>
+              <Link href="/coach">Coach view</Link>
+              <Link href="/clinician">Clinician</Link>
+              <Link href="/report">Season report</Link>
             </div>
-            <SignupForm />
+            <div>
+              <h4>Learn</h4>
+              <Link href="/engine">Behind the scenes</Link>
+              <a href="#how">How it works</a>
+              <a href="#pricing">Pricing</a>
+              <a href="#pilot">Join the pilot</a>
+            </div>
+            <div>
+              <h4>Sources</h4>
+              <a href="https://www.axios.com/2026/07/08/doctors-cant-harness-wearables" target="_blank" rel="noreferrer">AMA physician survey</a>
+              <a href="https://mhealth.jmir.org/2026/1/e87324" target="_blank" rel="noreferrer">Wearable validation gaps</a>
+              <a href="https://developers.google.com/health/about" target="_blank" rel="noreferrer">Google Health API</a>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <footer className="footer mt-40">
-        <div className="container row wrap spread">
-          <div className="row"><LogoMark size={22} /> <span>Ragnor · Built at GDG UC Santa Cruz DevFest 2026 · Athletes and data shown are fictional samples.</span></div>
-          <div className="row wrap" style={{ gap: 16 }}>
-            <a href="https://www.axios.com/2026/07/08/doctors-cant-harness-wearables" target="_blank" rel="noreferrer">AMA physician survey</a>
-            <a href="https://mhealth.jmir.org/2026/1/e87324" target="_blank" rel="noreferrer">Wearable validation gaps</a>
-            <a href="https://developers.google.com/health/about" target="_blank" rel="noreferrer">Google Health API</a>
+          <div className="fd-footer-base">
+            <LogoMark size={22} />
+            <span>Ragnor · Built at GDG UC Santa Cruz DevFest 2026 · Athletes and data shown are fictional samples. Decision support, not a diagnosis.</span>
           </div>
         </div>
       </footer>
-    </>
+    </div>
+  );
+}
+
+function ArtShield() {
+  return (
+    <svg className="fd-art" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="30" cy="30" r="8" fill="#f6b8c8" /><circle cx="18" cy="48" r="5" fill="#f6b8c8" /><circle cx="96" cy="22" r="6" fill="#bcd3f2" />
+      <path d="M60 18 L94 30 V58 C94 80 79 95 60 102 C41 95 26 80 26 58 V30 Z" fill="#1d4ed8" />
+      <path d="M45 60 L56 71 L77 48" fill="none" stroke="#fff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ArtPhone() {
+  return (
+    <svg className="fd-art" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="98" cy="30" r="9" fill="#f6b8c8" /><circle cx="20" cy="86" r="6" fill="#bcd3f2" /><circle cx="104" cy="92" r="5" fill="#bcd3f2" />
+      <rect x="36" y="12" width="48" height="96" rx="10" fill="#0b1f4d" />
+      <rect x="41" y="20" width="38" height="78" rx="5" fill="#fff" />
+      <circle cx="60" cy="44" r="13" fill="none" stroke="#1d4ed8" strokeWidth="5" strokeDasharray="60 82" transform="rotate(-90 60 44)" />
+      <rect x="46" y="66" width="28" height="6" rx="3" fill="#dbe7f6" /><rect x="46" y="77" width="20" height="6" rx="3" fill="#f6b8c8" />
+    </svg>
   );
 }
 
 function Tech({ name, body }: { name: string; body: string }) {
   return (
-    <div className="card flat" style={{ flex: "1 1 240px", maxWidth: 320 }}>
-      <h4>{name}</h4>
-      <p className="small muted mt-8">{body}</p>
-    </div>
-  );
-}
-
-function Plan({ name, price, sub, items, featured }: { name: string; price: string; sub: string; items: string[]; featured?: boolean }) {
-  return (
-    <div tabIndex={0} className={`card plan ${featured ? "featured" : ""}`}>
-      <div className="row spread">
-        <h3>{name}</h3>
-        {featured && <span className="pill" style={{ background: "var(--primary)", color: "#fff" }}>Most popular</span>}
-      </div>
-      <div className="price mt-16">{price}</div>
-      <div className="small" style={{ opacity: 0.75 }}>{sub}</div>
-      <ul className="check-list">{items.map((i) => <li key={i}>{i}</li>)}</ul>
+    <div className="fd-card">
+      <div className="fd-card-title">{name}</div>
+      <p>{body}</p>
     </div>
   );
 }
