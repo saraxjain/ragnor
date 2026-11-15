@@ -333,12 +333,12 @@ input, select, textarea { background: var(--surface-1); color: var(--ink); borde
 .fixplan-card { background: var(--primary-container) !important; }
 .icon-soft { background: var(--primary-container) !important; color: var(--on-primary-container) !important; }
 
-/* ---- top bar stays dark so the white logo reads; page body is white ---- */
-.appbar { background: #000; border-bottom-color: #26282d; }
-.appbar .brand, .appbar .brand:hover { color: #ffffff; }
-.appbar .nav a { color: #d7d9dd; }
-.appbar .nav a:hover { background: #1f2125; }
-.appbar .nav a[aria-current="page"] { background: #2b1a52; color: #e7dcff; }
+/* ---- top bar: white like the pages, navy logo (matches home headings and footer), blue active tab ---- */
+.appbar { background: color-mix(in srgb, #ffffff 92%, transparent); border-bottom-color: var(--outline-soft); }
+.appbar .brand, .appbar .brand:hover { color: #0b1f4d; }
+.appbar .nav a { color: var(--ink-2); }
+.appbar .nav a:hover { background: var(--surface-2); color: var(--ink); }
+.appbar .nav a[aria-current="page"] { background: var(--primary-container); color: var(--on-primary-container); }
 
 /* ---- how it works: numbered, centered list ---- */
 .steps { list-style: none; margin: 28px auto 0; padding: 0; max-width: 720px; }
